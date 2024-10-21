@@ -19,6 +19,7 @@ import './_metronic/assets/keenicons/solid/style.css'
 import './_metronic/assets/sass/style.scss'
 import {AppRoutes} from './app/routing/AppRoutes'
 import {AuthProvider, setupAxios} from './app/modules/auth'
+// import {AppProvider} from "./layouts/core/QueryResponseProvider";
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.
@@ -38,12 +39,14 @@ const container = document.getElementById('root')
 if (container) {
   createRoot(container).render(
     <QueryClientProvider client={queryClient}>
-      <MetronicI18nProvider>
-        <AuthProvider>
-          <AppRoutes />
-        </AuthProvider>
-      </MetronicI18nProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
+        {/*<AppProvider>*/}
+          <MetronicI18nProvider>
+            <AuthProvider>
+              <AppRoutes />
+            </AuthProvider>
+          </MetronicI18nProvider>
+          {/*<ReactQueryDevtools initialIsOpen={false} />*/}
+        {/*</AppProvider>*/}
     </QueryClientProvider>
   )
 }
