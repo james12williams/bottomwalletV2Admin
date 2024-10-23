@@ -1,10 +1,10 @@
 import {Dispatch, SetStateAction} from 'react'
 
-export type ID = undefined | null | number
+export type ID = undefined | null | number | string
 
 export type PaginationState = {
   page: number
-  items_per_page: 10 | 30 | 50 | 100
+  per_page: 10 | 15 | 30 | 50 | 100
   links?: Array<{label: string; active: boolean; url: string | null; page: number | null}>
 }
 
@@ -41,13 +41,13 @@ export type QueryRequestContextProps = {
 
 export const initialQueryState: QueryState = {
   page: 1,
-  items_per_page: 10,
-}
+  per_page: 15,
+};
 
 export const initialQueryRequest: QueryRequestContextProps = {
   state: initialQueryState,
   updateState: () => {},
-}
+};
 
 export type QueryResponseContextProps<T> = {
   response?: Response<Array<T>> | undefined
@@ -63,12 +63,16 @@ export type ListViewContextProps = {
   onSelect: (selectedId: ID) => void
   onSelectAll: () => void
   clearSelected: () => void
+  setExportItem: (selectedId: boolean) => void
   // NULL => (CREATION MODE) | MODAL IS OPENED
   // NUMBER => (EDIT MODE) | MODAL IS OPENED
   // UNDEFINED => MODAL IS CLOSED
   itemIdForUpdate?: ID
   setItemIdForUpdate: Dispatch<SetStateAction<ID>>
+  importItems: boolean
+  setItemIdForImport: Dispatch<SetStateAction<boolean>>
   isAllSelected: boolean
+  exportItem: boolean
   disabled: boolean
 }
 
@@ -78,6 +82,10 @@ export const initialListView: ListViewContextProps = {
   onSelectAll: () => {},
   clearSelected: () => {},
   setItemIdForUpdate: () => {},
+  setItemIdForImport: () => {},
+  setExportItem: () => {},
   isAllSelected: false,
+  importItems: false,
+  exportItem: false,
   disabled: false,
-}
+};

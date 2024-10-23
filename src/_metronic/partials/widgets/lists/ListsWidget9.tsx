@@ -39,7 +39,7 @@ const ListsWidget9: React.FC<Props> = ({className}) => {
         <div className='d-flex mb-7'>
           {/*begin::Symbol*/}
           <div className='symbol symbol-60px symbol-2by3 flex-shrink-0 me-4'>
-            <img src={toAbsoluteUrl('media/stock/600x400/img-3.jpg')} className='mw-100' alt='' />
+            <img src={toAbsoluteUrl('assets/media/stock/600x400/img-3.jpg')} className='mw-100' alt='' />
           </div>
           {/*end::Symbol*/}
           {/*begin::Section*/}
@@ -72,7 +72,7 @@ const ListsWidget9: React.FC<Props> = ({className}) => {
         <div className='d-flex mb-7'>
           {/*begin::Symbol*/}
           <div className='symbol symbol-60px symbol-2by3 flex-shrink-0 me-4'>
-            <img src={toAbsoluteUrl('media/stock/600x400/img-4.jpg')} className='mw-100' alt='' />
+            <img src={toAbsoluteUrl('assets/media/stock/600x400/img-4.jpg')} className='mw-100' alt='' />
           </div>
           {/*end::Symbol*/}
           {/*begin::Section*/}
@@ -105,7 +105,7 @@ const ListsWidget9: React.FC<Props> = ({className}) => {
         <div className='d-flex mb-7'>
           {/*begin::Symbol*/}
           <div className='symbol symbol-60px symbol-2by3 flex-shrink-0 me-4'>
-            <img src={toAbsoluteUrl('media/stock/600x400/img-5.jpg')} className='mw-100' alt='' />
+            <img src={toAbsoluteUrl('assets/media/stock/600x400/img-5.jpg')} className='mw-100' alt='' />
           </div>
           {/*end::Symbol*/}
           {/*begin::Section*/}
@@ -138,7 +138,7 @@ const ListsWidget9: React.FC<Props> = ({className}) => {
         <div className='d-flex mb-7'>
           {/*begin::Symbol*/}
           <div className='symbol symbol-60px symbol-2by3 flex-shrink-0 me-4'>
-            <img src={toAbsoluteUrl('media/stock/600x400/img-6.jpg')} className='mw-100' alt='' />
+            <img src={toAbsoluteUrl('assets/media/stock/600x400/img-6.jpg')} className='mw-100' alt='' />
           </div>
           {/*end::Symbol*/}
           {/*begin::Section*/}
@@ -171,7 +171,7 @@ const ListsWidget9: React.FC<Props> = ({className}) => {
         <div className='d-flex'>
           {/*begin::Symbol*/}
           <div className='symbol symbol-60px symbol-2by3 flex-shrink-0 me-4'>
-            <img src={toAbsoluteUrl('media/stock/600x400/img-7.jpg')} className='mw-100' alt='' />
+            <img src={toAbsoluteUrl('assets/media/stock/600x400/img-7.jpg')} className='mw-100' alt='' />
           </div>
           {/*end::Symbol*/}
           {/*begin::Section*/}

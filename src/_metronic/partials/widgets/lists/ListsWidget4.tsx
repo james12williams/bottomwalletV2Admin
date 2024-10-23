@@ -41,7 +41,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='symbol symbol-50px me-5'>
             <span className='symbol-label'>
               <img
-                src={toAbsoluteUrl('media/svg/brand-logos/plurk.svg')}
+                src={toAbsoluteUrl('assets/media/svg/brand-logos/plurk.svg')}
                 className='h-50 align-self-center'
                 alt=''
               />
@@ -67,7 +67,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='symbol symbol-50px me-5'>
             <span className='symbol-label'>
               <img
-                src={toAbsoluteUrl('media/svg/brand-logos/telegram.svg')}
+                src={toAbsoluteUrl('assets/media/svg/brand-logos/telegram.svg')}
                 className='h-50 align-self-center'
                 alt=''
               />
@@ -93,7 +93,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='symbol symbol-50px me-5'>
             <span className='symbol-label'>
               <img
-                src={toAbsoluteUrl('media/svg/brand-logos/vimeo.svg')}
+                src={toAbsoluteUrl('assets/media/svg/brand-logos/vimeo.svg')}
                 className='h-50 align-self-center'
                 alt=''
               />
@@ -119,7 +119,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
           <div className='symbol symbol-50px me-5'>
             <span className='symbol-label'>
               <img
-                src={toAbsoluteUrl('media/svg/brand-logos/bebo.svg')}
+                src={toAbsoluteUrl('assets/media/svg/brand-logos/bebo.svg')}
                 className='h-50 align-self-center'
                 alt=''
               />
@@ -146,7 +146,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
             <div className='symbol symbol-50px me-5'>
               <span className='symbol-label'>
                 <img
-                  src={toAbsoluteUrl('media/svg/brand-logos/kickstarter.svg')}
+                  src={toAbsoluteUrl('assets/media/svg/brand-logos/kickstarter.svg')}
                   className='h-50 align-self-center'
                   alt=''
                 />
@@ -173,7 +173,7 @@ const ListsWidget4: FC<Props> = ({items = 6}) => {
             <div className='symbol symbol-50px me-5'>
               <span className='symbol-label'>
                 <img
-                  src={toAbsoluteUrl('media/svg/brand-logos/fox-hub.svg')}
+                  src={toAbsoluteUrl('assets/media/svg/brand-logos/fox-hub.svg')}
                   className='h-50 align-self-center'
                   alt=''
                 />

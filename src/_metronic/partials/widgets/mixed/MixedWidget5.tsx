@@ -47,7 +47,7 @@ const MixedWidget5: FC<Props> = ({className, time, image, title, description}) =
             data-bs-toggle='tooltip'
             title='Ana Stone'
           >
-            <img src={toAbsoluteUrl('media/avatars/300-6.jpg')} alt='' />
+            <img src={toAbsoluteUrl('assets/media/avatars/300-6.jpg')} alt='' />
           </a>
 
           <a
@@ -56,7 +56,7 @@ const MixedWidget5: FC<Props> = ({className, time, image, title, description}) =
             data-bs-toggle='tooltip'
             title='Mark Larson'
           >
-            <img src={toAbsoluteUrl('media/avatars/300-5.jpg')} alt='' />
+            <img src={toAbsoluteUrl('assets/media/avatars/300-5.jpg')} alt='' />
           </a>
 
           <a
@@ -65,7 +65,7 @@ const MixedWidget5: FC<Props> = ({className, time, image, title, description}) =
             data-bs-toggle='tooltip'
             title='Sam Harris'
           >
-            <img src={toAbsoluteUrl('media/avatars/300-9.jpg')} alt='' />
+            <img src={toAbsoluteUrl('assets/media/avatars/300-9.jpg')} alt='' />
           </a>
         </div>
         {/* end::Team */}

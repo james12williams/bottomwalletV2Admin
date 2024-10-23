@@ -72,7 +72,7 @@ const TablesWidget4: FC<Props> = ({className}) => {
                   <tr>
                     <td>
                       <div className='symbol symbol-50px'>
-                        <img src={toAbsoluteUrl('media/avatars/300-14.jpg')} alt='' />
+                        <img src={toAbsoluteUrl('assets/media/avatars/300-14.jpg')} alt='' />
                       </div>
                     </td>
                     <td>
@@ -113,7 +113,7 @@ const TablesWidget4: FC<Props> = ({className}) => {
                   <tr>
                     <td>
                       <div className='symbol symbol-50px'>
-                        <img src={toAbsoluteUrl('media/avatars/300-5.jpg')} alt='' />
+                        <img src={toAbsoluteUrl('assets/media/avatars/300-5.jpg')} alt='' />
                       </div>
                     </td>
                     <td>
@@ -154,7 +154,7 @@ const TablesWidget4: FC<Props> = ({className}) => {
                   <tr>
                     <td>
                       <div className='symbol symbol-50px'>
-                        <img src={toAbsoluteUrl('media/avatars/300-20.jpg')} alt='' />
+                        <img src={toAbsoluteUrl('assets/media/avatars/300-20.jpg')} alt='' />
                       </div>
                     </td>
                     <td>
@@ -195,7 +195,7 @@ const TablesWidget4: FC<Props> = ({className}) => {
                   <tr>
                     <td>
                       <div className='symbol symbol-50px'>
-                        <img src={toAbsoluteUrl('media/avatars/300-23.jpg')} alt='' />
+                        <img src={toAbsoluteUrl('assets/media/avatars/300-23.jpg')} alt='' />
                       </div>
                     </td>
                     <td>
@@ -236,7 +236,7 @@ const TablesWidget4: FC<Props> = ({className}) => {
                   <tr>
                     <td>
                       <div className='symbol symbol-50px'>
-                        <img src={toAbsoluteUrl('media/avatars/300-10.jpg')} alt='' />
+                        <img src={toAbsoluteUrl('assets/media/avatars/300-10.jpg')} alt='' />
                       </div>
                     </td>
                     <td>
@@ -302,7 +302,7 @@ const TablesWidget4: FC<Props> = ({className}) => {
                   <tr>
                     <td>
                       <div className='symbol symbol-50px'>
-                        <img src={toAbsoluteUrl('media/svg/avatars/043-boy-18.svg')} alt='' />
+                        <img src={toAbsoluteUrl('assets/media/svg/avatars/043-boy-18.svg')} alt='' />
                       </div>
                     </td>
                     <td>
@@ -343,7 +343,7 @@ const TablesWidget4: FC<Props> = ({className}) => {
                   <tr>
                     <td>
                       <div className='symbol symbol-50px'>
-                        <img src={toAbsoluteUrl('media/svg/avatars/014-girl-7.svg')} alt='' />
+                        <img src={toAbsoluteUrl('assets/media/svg/avatars/014-girl-7.svg')} alt='' />
                       </div>
                     </td>
                     <td>
@@ -384,7 +384,7 @@ const TablesWidget4: FC<Props> = ({className}) => {
                   <tr>
                     <td>
                       <div className='symbol symbol-50px'>
-                        <img src={toAbsoluteUrl('media/svg/avatars/018-girl-9.svg')} alt='' />
+                        <img src={toAbsoluteUrl('assets/media/svg/avatars/018-girl-9.svg')} alt='' />
                       </div>
                     </td>
                     <td>
@@ -425,7 +425,7 @@ const TablesWidget4: FC<Props> = ({className}) => {
                   <tr>
                     <td>
                       <div className='symbol symbol-50px'>
-                        <img src={toAbsoluteUrl('media/svg/avatars/001-boy.svg')} alt='' />
+                        <img src={toAbsoluteUrl('assets/media/svg/avatars/001-boy.svg')} alt='' />
                       </div>
                     </td>
                     <td>
@@ -491,7 +491,7 @@ const TablesWidget4: FC<Props> = ({className}) => {
                   <tr>
                     <td>
                       <div className='symbol symbol-50px'>
-                        <img src={toAbsoluteUrl('media/svg/avatars/018-girl-9.svg')} alt='' />
+                        <img src={toAbsoluteUrl('assets/media/svg/avatars/018-girl-9.svg')} alt='' />
                       </div>
                     </td>
                     <td>
@@ -532,7 +532,7 @@ const TablesWidget4: FC<Props> = ({className}) => {
                   <tr>
                     <td>
                       <div className='symbol symbol-50px'>
-                        <img src={toAbsoluteUrl('media/svg/avatars/047-girl-25.svg')} alt='' />
+                        <img src={toAbsoluteUrl('assets/media/svg/avatars/047-girl-25.svg')} alt='' />
                       </div>
                     </td>
                     <td>
@@ -573,7 +573,7 @@ const TablesWidget4: FC<Props> = ({className}) => {
                   <tr>
                     <td>
                       <div className='symbol symbol-50px'>
-                        <img src={toAbsoluteUrl('media/svg/avatars/014-girl-7.svg')} alt='' />
+                        <img src={toAbsoluteUrl('assets/media/svg/avatars/014-girl-7.svg')} alt='' />
                       </div>
                     </td>
                     <td>

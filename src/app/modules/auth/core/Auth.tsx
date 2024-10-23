@@ -1,25 +1,73 @@
 /* eslint-disable react-refresh/only-export-components */
 import {FC, useState, useEffect, createContext, useContext, Dispatch, SetStateAction} from 'react'
 import {LayoutSplashScreen} from '../../../../_metronic/layout/core'
-import {AuthModel, UserModel} from './_models'
-import * as authHelper from './AuthHelpers'
-import {getUserByToken} from './_requests'
 import {WithChildren} from '../../../../_metronic/helpers'
+import {AxiosService} from "../../../servicies/axios-service.tsx";
 
 type AuthContextProps = {
-  auth: AuthModel | undefined
-  saveAuth: (auth: AuthModel | undefined) => void
-  currentUser: UserModel | undefined
-  setCurrentUser: Dispatch<SetStateAction<UserModel | undefined>>
+  codeSend: boolean
+  setCodeSend: Dispatch<SetStateAction<boolean>>
+  resetToken: string
+  setResetToken: Dispatch<SetStateAction<string>>
+  resetField: string
+  setResetField: Dispatch<SetStateAction<string>>
+  codeSendTo: any
+  setCodeSendTo: Dispatch<SetStateAction<any>>
+
+  isAuth: boolean
+  setAuth: Dispatch<SetStateAction<boolean>>
+  currentUser: any
+  setCurrentUser: Dispatch<SetStateAction<any>>
+  requestUser: () => void
   logout: () => void
+  userCan: (action:string) => boolean
+  menus: any
+  setMenus: Dispatch<SetStateAction<any>>
+  permissions: any
+  setPermissions: Dispatch<SetStateAction<any>>
+  isSuperAdmin: boolean
+  setIsSuperAdmin: Dispatch<SetStateAction<boolean>>
+  isAdmin: boolean
+  setIsAdmin: Dispatch<SetStateAction<boolean>>
+  isLoading: boolean
+  setLoading: Dispatch<SetStateAction<boolean>>
+  showSplashScreen: boolean
+  setShowSplashScreen: Dispatch<SetStateAction<boolean>>
+  errorCode: any
+  setErrorCode: Dispatch<SetStateAction<any>>
 }
 
 const initAuthContextPropsState = {
-  auth: authHelper.getAuth(),
-  saveAuth: () => {},
-  currentUser: undefined,
+  resetToken: "",
+  setResetToken: () => {},
+  resetField: "",
+  setResetField: () => {},
+  codeSend: false,
+  setCodeSend: () => {},
+  codeSendTo: {},
+  setCodeSendTo: () => {},
+
+  isAuth: false,
+  setAuth: () => {},
+  currentUser: {},
+  requestUser: () => {},
   setCurrentUser: () => {},
+  menus: [],
+  setMenus: () => {},
+  permissions: [],
+  setPermissions: () => {},
   logout: () => {},
+  userCan: (action:string) => false,
+  isSuperAdmin: false,
+  setIsSuperAdmin: () => {},
+  isAdmin: false,
+  setIsAdmin: () => {},
+  isLoading: false,
+  setLoading: () => {},
+  errorCode: '',
+  setErrorCode: () => {},
+  showSplashScreen: false,
+  setShowSplashScreen: () => {},
 }
 
 const AuthContext = createContext<AuthContextProps>(initAuthContextPropsState)
@@ -29,57 +77,108 @@ const useAuth = () => {
 }
 
 const AuthProvider: FC<WithChildren> = ({children}) => {
-  const [auth, setAuth] = useState<AuthModel | undefined>(authHelper.getAuth())
-  const [currentUser, setCurrentUser] = useState<UserModel | undefined>()
-  const saveAuth = (auth: AuthModel | undefined) => {
-    setAuth(auth)
-    if (auth) {
-      authHelper.setAuth(auth)
-    } else {
-      authHelper.removeAuth()
-    }
-  }
+  const [showSplashScreen, setShowSplashScreen] = useState(true);
+  const [isAuth, setAuth] = useState(AxiosService.isAuth);
+  const [resetToken, setResetToken] = useState("");
+  const [resetField, setResetField] = useState("");
+  const [codeSend, setCodeSend] = useState(false);
+  const [codeSendTo, setCodeSendTo] = useState({}) as any;
+  const [currentUser, setCurrentUser] = useState({}) as any;
+  const [menus, setMenus] = useState([]);
+  const [errorCode, setErrorCode] = useState('');
+  const [permissions, setPermissions] = useState([]);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
+
+  const requestUser = () => {
+    setLoading(true);
+    AxiosService.getUserByToken().then((resp:any)=>{
+      setCurrentUser(resp.result);
+      localStorage.setItem(AxiosService.USER_DATA_NAME, JSON.stringify(resp.result));
+      let extra = resp?.extra as any
+      if (extra){
+        setIsSuperAdmin(extra.isSuperAdmin);
+        setIsAdmin(extra.isAdmin);
+        setMenus(extra.menus);
+        setPermissions(extra.permissions);
+      }
+      setLoading(false);
+      setAuth(true);
+      setShowSplashScreen(false);
+    },(resp:any)=>{
+      setLoading(false);
+      AxiosService.clearAuthUserData(true);
+    });
+  };
+
+  useEffect(() => {
+    setTimeout(()=>{
+      if (AxiosService.isAuth) {
+        requestUser()
+      }else{
+        AxiosService.clearAuthUserData();
+      }
+    }, 100)
+    // eslint-disable-next-line
+  }, []);
   const logout = () => {
-    saveAuth(undefined)
-    setCurrentUser(undefined)
-  }
+    AxiosService.logout();
+  };
+
+  const userCan = (action:string) => {
+    return true;
+  };
+
+  let value = {
+    resetToken,
+    setResetToken,
+    resetField,
+    setResetField,
+    codeSend,
+    codeSendTo,
+    setCodeSendTo,
+    setCodeSend,
+    requestUser,
+    isAuth,
+    currentUser,
+    setCurrentUser,
+    setAuth,
+    menus,
+    setMenus,
+    permissions,
+    setPermissions,
+    logout,
+    userCan,
+    isSuperAdmin,
+    setIsSuperAdmin,
+    isAdmin,
+    setIsAdmin,
+    isLoading,
+    setLoading,
+    errorCode,
+    setErrorCode,
+    showSplashScreen,
+    setShowSplashScreen,
+  };
 
   return (
-    <AuthContext.Provider value={{auth, saveAuth, currentUser, setCurrentUser, logout}}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   )
 }
 
 const AuthInit: FC<WithChildren> = ({children}) => {
-  const {auth, currentUser, logout, setCurrentUser} = useAuth()
-  const [showSplashScreen, setShowSplashScreen] = useState(true)
+  const {requestUser, showSplashScreen, setShowSplashScreen} = useAuth();
 
   // We should request user by authToken (IN OUR EXAMPLE IT'S API_TOKEN) before rendering the application
   useEffect(() => {
-    const requestUser = async (apiToken: string) => {
-      try {
-        if (!currentUser) {
-          const {data} = await getUserByToken(apiToken)
-          if (data) {
-            setCurrentUser(data)
-          }
-        }
-      } catch (error) {
-        console.error(error)
-        if (currentUser) {
-          logout()
-        }
-      } finally {
-        setShowSplashScreen(false)
-      }
-    }
-
-    if (auth && auth.api_token) {
-      requestUser(auth.api_token)
+    if (AxiosService.isAuth) {
+      requestUser()
     } else {
-      logout()
+      AxiosService.clearAuthUserData();
       setShowSplashScreen(false)
     }
     // eslint-disable-next-line

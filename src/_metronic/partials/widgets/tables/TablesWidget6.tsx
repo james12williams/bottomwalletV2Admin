@@ -74,7 +74,7 @@ const TablesWidget6: FC<Props> = ({className}) => {
                       <div className='symbol symbol-50px me-2'>
                         <span className='symbol-label'>
                           <img
-                            src={toAbsoluteUrl('media/svg/avatars/001-boy.svg')}
+                            src={toAbsoluteUrl('assets/media/svg/avatars/001-boy.svg')}
                             className='h-75 align-self-end'
                             alt=''
                           />
@@ -108,7 +108,7 @@ const TablesWidget6: FC<Props> = ({className}) => {
                       <div className='symbol symbol-50px me-2'>
                         <span className='symbol-label'>
                           <img
-                            src={toAbsoluteUrl('media/svg/avatars/018-girl-9.svg')}
+                            src={toAbsoluteUrl('assets/media/svg/avatars/018-girl-9.svg')}
                             className='h-75 align-self-end'
                             alt=''
                           />
@@ -142,7 +142,7 @@ const TablesWidget6: FC<Props> = ({className}) => {
                       <div className='symbol symbol-50px me-2'>
                         <span className='symbol-label'>
                           <img
-                            src={toAbsoluteUrl('media/svg/avatars/047-girl-25.svg')}
+                            src={toAbsoluteUrl('assets/media/svg/avatars/047-girl-25.svg')}
                             className='h-75 align-self-end'
                             alt=''
                           />
@@ -176,7 +176,7 @@ const TablesWidget6: FC<Props> = ({className}) => {
                       <div className='symbol symbol-50px me-2'>
                         <span className='symbol-label'>
                           <img
-                            src={toAbsoluteUrl('media/svg/avatars/014-girl-7.svg')}
+                            src={toAbsoluteUrl('assets/media/svg/avatars/014-girl-7.svg')}
                             className='h-75 align-self-end'
                             alt=''
                           />
@@ -210,7 +210,7 @@ const TablesWidget6: FC<Props> = ({className}) => {
                       <div className='symbol symbol-50px me-2'>
                         <span className='symbol-label'>
                           <img
-                            src={toAbsoluteUrl('media/svg/avatars/043-boy-18.svg')}
+                            src={toAbsoluteUrl('assets/media/svg/avatars/043-boy-18.svg')}
                             className='h-75 align-self-end'
                             alt=''
                           />
@@ -269,7 +269,7 @@ const TablesWidget6: FC<Props> = ({className}) => {
                       <div className='symbol symbol-50px me-2'>
                         <span className='symbol-label'>
                           <img
-                            src={toAbsoluteUrl('media/svg/avatars/018-girl-9.svg')}
+                            src={toAbsoluteUrl('assets/media/svg/avatars/018-girl-9.svg')}
                             className='h-75 align-self-end'
                             alt=''
                           />
@@ -303,7 +303,7 @@ const TablesWidget6: FC<Props> = ({className}) => {
                       <div className='symbol symbol-50px me-2'>
                         <span className='symbol-label'>
                           <img
-                            src={toAbsoluteUrl('media/svg/avatars/014-girl-7.svg')}
+                            src={toAbsoluteUrl('assets/media/svg/avatars/014-girl-7.svg')}
                             className='h-75 align-self-end'
                             alt=''
                           />
@@ -337,7 +337,7 @@ const TablesWidget6: FC<Props> = ({className}) => {
                       <div className='symbol symbol-50px me-2'>
                         <span className='symbol-label'>
                           <img
-                            src={toAbsoluteUrl('media/svg/avatars/001-boy.svg')}
+                            src={toAbsoluteUrl('assets/media/svg/avatars/001-boy.svg')}
                             className='h-75 align-self-end'
                             alt=''
                           />
@@ -396,7 +396,7 @@ const TablesWidget6: FC<Props> = ({className}) => {
                       <div className='symbol symbol-50px me-2'>
                         <span className='symbol-label'>
                           <img
-                            src={toAbsoluteUrl('media/svg/avatars/047-girl-25.svg')}
+                            src={toAbsoluteUrl('assets/media/svg/avatars/047-girl-25.svg')}
                             className='h-75 align-self-end'
                             alt=''
                           />
@@ -430,7 +430,7 @@ const TablesWidget6: FC<Props> = ({className}) => {
                       <div className='symbol symbol-50px me-2'>
                         <span className='symbol-label'>
                           <img
-                            src={toAbsoluteUrl('media/svg/avatars/014-girl-7.svg')}
+                            src={toAbsoluteUrl('assets/media/svg/avatars/014-girl-7.svg')}
                             className='h-75 align-self-end'
                             alt=''
                           />
@@ -464,7 +464,7 @@ const TablesWidget6: FC<Props> = ({className}) => {
                       <div className='symbol symbol-50px me-2'>
                         <span className='symbol-label'>
                           <img
-                            src={toAbsoluteUrl('media/svg/avatars/043-boy-18.svg')}
+                            src={toAbsoluteUrl('assets/media/svg/avatars/043-boy-18.svg')}
                             className='h-75 align-self-end'
                             alt=''
                           />
@@ -498,7 +498,7 @@ const TablesWidget6: FC<Props> = ({className}) => {
                       <div className='symbol symbol-50px me-2'>
                         <span className='symbol-label'>
                           <img
-                            src={toAbsoluteUrl('media/svg/avatars/001-boy.svg')}
+                            src={toAbsoluteUrl('assets/media/svg/avatars/001-boy.svg')}
                             className='h-75 align-self-end'
                             alt=''
                           />

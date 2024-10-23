@@ -56,7 +56,7 @@ const TablesWidget2: FC<Props> = ({className}) => {
                   <div className='symbol symbol-50px me-2'>
                     <span className='symbol-label'>
                       <img
-                        src={toAbsoluteUrl('media/svg/brand-logos/plurk.svg')}
+                        src={toAbsoluteUrl('assets/media/svg/brand-logos/plurk.svg')}
                         className='h-50 align-self-center'
                         alt=''
                       />
@@ -87,7 +87,7 @@ const TablesWidget2: FC<Props> = ({className}) => {
                   <div className='symbol symbol-50px me-2'>
                     <span className='symbol-label'>
                       <img
-                        src={toAbsoluteUrl('media/svg/brand-logos/telegram.svg')}
+                        src={toAbsoluteUrl('assets/media/svg/brand-logos/telegram.svg')}
                         className='h-50 align-self-center'
                         alt=''
                       />
@@ -118,7 +118,7 @@ const TablesWidget2: FC<Props> = ({className}) => {
                   <div className='symbol symbol-50px me-2'>
                     <span className='symbol-label'>
                       <img
-                        src={toAbsoluteUrl('media/svg/brand-logos/vimeo.svg')}
+                        src={toAbsoluteUrl('assets/media/svg/brand-logos/vimeo.svg')}
                         className='h-50 align-self-center'
                         alt=''
                       />
@@ -149,7 +149,7 @@ const TablesWidget2: FC<Props> = ({className}) => {
                   <div className='symbol symbol-50px me-2'>
                     <span className='symbol-label'>
                       <img
-                        src={toAbsoluteUrl('media/svg/brand-logos/bebo.svg')}
+                        src={toAbsoluteUrl('assets/media/svg/brand-logos/bebo.svg')}
                         className='h-50 align-self-center'
                         alt=''
                       />
@@ -180,7 +180,7 @@ const TablesWidget2: FC<Props> = ({className}) => {
                   <div className='symbol symbol-50px me-2'>
                     <span className='symbol-label'>
                       <img
-                        src={toAbsoluteUrl('media/svg/brand-logos/kickstarter.svg')}
+                        src={toAbsoluteUrl('assets/media/svg/brand-logos/kickstarter.svg')}
                         className='h-50 align-self-center'
                         alt=''
                       />

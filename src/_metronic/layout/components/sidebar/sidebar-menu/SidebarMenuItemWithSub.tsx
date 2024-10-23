@@ -1,8 +1,9 @@
 import React from 'react'
 import clsx from 'clsx'
 import {useLocation} from 'react-router'
-import {checkIsActive, KTIcon, WithChildren} from '../../../../helpers'
+import {checkIsActive, KTIcon, KTSVG, WithChildren} from '../../../../helpers'
 import {useLayout} from '../../../core'
+import {SidebarMenuItem} from "./SidebarMenuItem.tsx";
 
 type Props = {
   to: string
@@ -10,6 +11,7 @@ type Props = {
   icon?: string
   fontIcon?: string
   hasBullet?: boolean
+  subMenus?: any
 }
 
 const SidebarMenuItemWithSub: React.FC<Props & WithChildren> = ({
@@ -19,6 +21,7 @@ const SidebarMenuItemWithSub: React.FC<Props & WithChildren> = ({
   icon,
   fontIcon,
   hasBullet,
+  subMenus
 }) => {
   const {pathname} = useLocation()
   const isActive = checkIsActive(pathname, to)
@@ -38,7 +41,7 @@ const SidebarMenuItemWithSub: React.FC<Props & WithChildren> = ({
         )}
         {icon && app?.sidebar?.default?.menu?.iconType === 'svg' && (
           <span className='menu-icon'>
-            <KTIcon iconName={icon} className='fs-2' />
+            <KTSVG path={icon} className='svg-icon-2' />
           </span>
         )}
         {fontIcon && app?.sidebar?.default?.menu?.iconType === 'font' && (
@@ -48,6 +51,37 @@ const SidebarMenuItemWithSub: React.FC<Props & WithChildren> = ({
         <span className='menu-arrow'></span>
       </span>
       <div className={clsx('menu-sub menu-sub-accordion', {'menu-active-bg': isActive})}>
+        {subMenus && (
+            subMenus.map((menu: any, i:any) => {
+              if (!menu.slug && menu.children?.length > 0){
+                return <div className='menu-item' key={`row-${i}-${menu.id}`}>
+                  <div className='menu-content pt-8 pb-2'>
+                    <span className='menu-section text-muted text-uppercase fs-8 ls-1'>{menu.name}</span>
+                  </div>
+                </div>
+              }else if (menu.children?.length > 0){
+                return <SidebarMenuItemWithSub
+                    key={`row-${i}-${menu.id}`}
+                    to={menu.slug}
+                    title={menu.name}
+                    fontIcon={menu.icon_class}
+                    icon={menu.icon_class}
+                    subMenus={menu.children}
+                >
+                </SidebarMenuItemWithSub>
+              }else{
+                return <SidebarMenuItem
+                    key={`row-${i}-${menu.id}`}
+                    to={menu.slug}
+                    // icon='/assets/media/icons/duotune/art/art002.svg'
+                    title={menu.name}
+                    icon={menu.icon_class}
+                    fontIcon={menu.icon_class}
+                    // hasBullet={true}
+                />
+              }
+            })
+        )}
         {children}
       </div>
     </div>

@@ -143,7 +143,7 @@ const MegaMenu: FC = () => {
             <div className='fs-6 fw-bold text-gray-800'>Layout Builder</div>
             <div className='fs-7 fw-semibold text-muted'>Customize view</div>
           </div>
-          <Link to='/builder' className='btn btn-sm btn-primary fw-bold'>
+          <Link to='/apps/builder' className='btn btn-sm btn-primary fw-bold'>
             Try Builder
           </Link>
         </div>
@@ -152,7 +152,7 @@ const MegaMenu: FC = () => {
       {/* end:Col */}
       {/* begin:Col */}
       <div className='col-lg-6 mb-3 py-lg-3 pe-lg-8 d-flex align-items-center'>
-        <img src={toAbsoluteUrl('media/stock/900x600/45.jpg')} className='rounded mw-100' alt='' />
+        <img src={toAbsoluteUrl('assets/media/stock/900x600/45.jpg')} className='rounded mw-100' alt='' />
       </div>
       {/* end:Col */}
     </div>

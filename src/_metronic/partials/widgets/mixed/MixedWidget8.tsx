@@ -81,7 +81,7 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
               <div className='symbol symbol-50px me-3'>
                 <div className='symbol-label bg-light'>
                   <img
-                    src={toAbsoluteUrl('media/svg/brand-logos/plurk.svg')}
+                    src={toAbsoluteUrl('assets/media/svg/brand-logos/plurk.svg')}
                     alt=''
                     className='h-50'
                   />
@@ -114,7 +114,7 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
               <div className='symbol symbol-50px me-3'>
                 <div className='symbol-label bg-light'>
                   <img
-                    src={toAbsoluteUrl('media/svg/brand-logos/figma-1.svg')}
+                    src={toAbsoluteUrl('assets/media/svg/brand-logos/figma-1.svg')}
                     alt=''
                     className='h-50'
                   />
@@ -147,7 +147,7 @@ const MixedWidget8: FC<Props> = ({className, chartColor, chartHeight}) => {
               <div className='symbol symbol-50px me-3'>
                 <div className='symbol-label bg-light'>
                   <img
-                    src={toAbsoluteUrl('media/svg/brand-logos/vimeo.svg')}
+                    src={toAbsoluteUrl('assets/media/svg/brand-logos/vimeo.svg')}
                     alt=''
                     className='h-50'
                   />

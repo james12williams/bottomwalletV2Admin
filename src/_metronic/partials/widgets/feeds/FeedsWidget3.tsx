@@ -18,7 +18,7 @@ const FeedsWidget3: FC<Props> = ({className}) => {
           <div className='d-flex align-items-center flex-grow-1'>
             {/* begin::Avatar */}
             <div className='symbol symbol-45px me-5'>
-              <img src={toAbsoluteUrl('media/avatars/300-21.jpg')} alt='' />
+              <img src={toAbsoluteUrl('assets/media/avatars/300-21.jpg')} alt='' />
             </div>
             {/* end::Avatar */}
 
@@ -87,7 +87,7 @@ const FeedsWidget3: FC<Props> = ({className}) => {
           <div className='d-flex mb-5'>
             {/* begin::Avatar */}
             <div className='symbol symbol-45px me-5'>
-              <img src={toAbsoluteUrl('media/avatars/300-14.jpg')} alt='' />
+              <img src={toAbsoluteUrl('assets/media/avatars/300-14.jpg')} alt='' />
             </div>
             {/* end::Avatar */}
 
@@ -122,7 +122,7 @@ const FeedsWidget3: FC<Props> = ({className}) => {
           <div className='d-flex'>
             {/* begin::Avatar */}
             <div className='symbol symbol-45px me-5'>
-              <img src={toAbsoluteUrl('media/avatars/300-9.jpg')} alt='' />
+              <img src={toAbsoluteUrl('assets/media/avatars/300-9.jpg')} alt='' />
             </div>
             {/* end::Avatar */}
 

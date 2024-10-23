@@ -5,9 +5,11 @@ import {KTIcon, toAbsoluteUrl} from '../../../helpers'
 import {LayoutSetup, useLayout} from '../../core'
 import {Header} from './Header'
 import {Navbar} from './Navbar'
+import {useApp} from "../../../../layouts/core/QueryResponseProvider.tsx";
 
 export function HeaderWrapper() {
   const {config, classes} = useLayout()
+  const {app} = useApp();
   if (config.app?.header?.default?.container === 'fluid') {
     LayoutSetup.classes.headerContainer.push("container-fluid");
   } else {
@@ -49,10 +51,10 @@ export function HeaderWrapper() {
                   <KTIcon iconName='abstract-14' className=' fs-1' />
                 </div>
                 <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
-                  <Link to='/dashboard' className='d-lg-none'>
+                  <Link to='/apps/dashboard' className='d-lg-none'>
                       <img
                         alt='Logo'
-                        src={toAbsoluteUrl('media/logos/default-small.svg')}
+                        src={app.logo}
                         className='h-30px'
                       />
                   </Link>
@@ -64,23 +66,23 @@ export function HeaderWrapper() {
 
         {!(config.layoutType === 'dark-sidebar' || config.layoutType === 'light-sidebar') && (
           <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15'>
-            <Link to='/dashboard'>
+            <Link to='/apps/dashboard'>
               {config.layoutType === 'dark-header' ? (
                 <img
                   alt='Logo'
-                  src={toAbsoluteUrl('media/logos/default-dark.svg')}
+                  src={app.logo}
                   className='h-20px h-lg-30px app-sidebar-logo-default'
                 />
               ) : (
                 <>
                   <img
                     alt='Logo'
-                    src={toAbsoluteUrl('media/logos/default.svg')}
+                    src={app.logo}
                     className='h-20px h-lg-30px app-sidebar-logo-default theme-light-show'
                   />
                   <img
                     alt='Logo'
-                    src={toAbsoluteUrl('media/logos/default-dark.svg')}
+                    src={app.logo}
                     className='h-20px h-lg-30px app-sidebar-logo-default theme-dark-show'
                   />
                 </>

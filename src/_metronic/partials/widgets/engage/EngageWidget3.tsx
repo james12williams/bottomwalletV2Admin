@@ -23,7 +23,7 @@ const EngageWidget3: FC<Props> = ({
         <div
           className='bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto'
           style={{
-            backgroundImage: `url('${toAbsoluteUrl('media/products/12.png')}'`,
+            backgroundImage: `url('${toAbsoluteUrl('assets/media/products/12.png')}'`,
           }}
         ></div>
         {/*end::Image*/}

@@ -1,130 +1,167 @@
-import {FC} from 'react'
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, {FC, useEffect, useState} from 'react'
 import {useIntl} from 'react-intl'
-import {toAbsoluteUrl} from '../../../_metronic/helpers'
-import {PageTitle} from '../../../_metronic/layout/core'
-import {
-  ListsWidget2,
-  ListsWidget3,
-  ListsWidget4,
-  ListsWidget6,
-  TablesWidget5,
-  TablesWidget10,
-  MixedWidget8,
-  CardsWidget7,
-  CardsWidget17,
-  CardsWidget20,
-  ListsWidget26,
-  EngageWidget10,
-} from '../../../_metronic/partials/widgets'
-import { ToolbarWrapper } from '../../../_metronic/layout/components/toolbar'
-import { Content } from '../../../_metronic/layout/components/content'
+import {MorrisChart, ProductList, UserList, CardWidget} from './widgets'
+import {getItems} from "../../modules/dynamic-module/dynamic-list/core/QueryResponseProvider";
+import {ReservationList} from "./widgets/ReservationList";
+import {useApp} from "../../../layouts/core/QueryResponseProvider";
+import {PageTitle} from "../../../_metronic/layout/core";
 
-const DashboardPage: FC = () => (
-  <>
-    <ToolbarWrapper />
-    <Content>
-    {/* begin::Row */}
-    <div className='row g-5 g-xl-10 mb-5 mb-xl-10'>
-      {/* begin::Col */}
-      <div className='col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10'>
-        <CardsWidget20
-          className='h-md-50 mb-5 mb-xl-10'
-          description='Active Projects'
-          color='#F1416C'
-          img={toAbsoluteUrl('media/patterns/vector-1.png')}
-        />
-        <CardsWidget7
-          className='h-md-50 mb-5 mb-xl-10'
-          description='Professionals'
-          icon={false}
-          stats={357}
-          labelColor='dark'
-          textColor='gray-300'
-        />
-      </div>
-      {/* end::Col */}
+const DashboardPage: FC = () => {
+    const [isLoading, setLoading] = useState(false);
+    const [data, setData] = useState({}) as any;
+    const {app} = useApp();
 
-      {/* begin::Col */}
-      <div className='col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10'>
-        <CardsWidget17 className='h-md-50 mb-5 mb-xl-10' />
-        <ListsWidget26 className='h-lg-50' />
-      </div>
-      {/* end::Col */}
+    const getDashboardData = () =>{
+        setLoading(true);
+        getItems('dashboard').then((resp:any)=>{
+            setData(resp);
+            setLoading(false);
+        }, (resp:any)=>{
+            setLoading(false);
+        })
+    };
+    useEffect(() => {
+        getDashboardData();
+    }, []);
 
-      {/* begin::Col */}
-      <div className='col-xxl-6'>
-        <EngageWidget10 className='h-md-100' />
-      </div>
-      {/* end::Col */}
-    </div>
-    {/* end::Row */}
+    return <>
+        {/* begin::Row */}
+        <div className="row">
 
-    {/* begin::Row */}
-    <div className='row gx-5 gx-xl-10'>
-      {/* begin::Col */}
-      <div className='col-xxl-6 mb-5 mb-xl-10'>
-        {/* <app-new-charts-widget8 cssclassName="h-xl-100" chartHeight="275px" [chartHeightNumber]="275"></app-new-charts-widget8> */}
-      </div>
-      {/* end::Col */}
+            <CardWidget className={'col-xl-3 mb-5'} bgColor={'bg-body-white'}
+                        title={ (data.count_posts_txt ? data.count_posts_txt: '0 Item') }
+                        description={ (data.count_posts_info ? data.count_posts_info: '--') }
+                        path={'/apps/posts'}
+                        icon={'assets/media/svg/files/cart.svg'}
+                        textColor={"text-gray-900"}
+                        iconColor={"svg-icon-primary"}
+                        isLoading={isLoading} />
+            <CardWidget className={'col-xl-3 mb-5'} bgColor={'bg-primary'}
+                        title={ (data.count_businesses_txt ? data.count_businesses_txt: '0 Business') }
+                        description={ (data.count_businesses_info ? data.count_businesses_info: '--') }
+                        path={'/apps/businesses'}
+                        icon={"assets/media/icons/duotune/ecommerce/ecm004.svg"}
+                        textColor={"text-white"}
+                        iconColor={"svg-icon-white"}
+                        isLoading={isLoading} />
 
-      {/* begin::Col */}
-      <div className='col-xxl-6 mb-5 mb-xl-10'>
-        {/* <app-cards-widget18 cssclassName="h-xl-100" image="./assetsmedia/stock/600x600/img-65.jpg"></app-cards-widget18> */}
-      </div>
-      {/* end::Col */}
-    </div>
-    {/* end::Row */}
+            <CardWidget className={'col-xl-3 mb-5'} bgColor={'bg-dark'}
+                        title={ (data.count_merchants_txt ? data.count_merchants_txt: '0 Merchant') }
+                        description={ (data.count_merchants_info ? data.count_merchants_info: '--') }
+                        path={'/apps/merchants'}
+                        icon={"assets/media/icons/duotune/communication/com006.svg"}
+                        textColor={"text-white"}
+                        iconColor={"svg-icon-white"}
+                        isLoading={isLoading} />
+            <CardWidget className={'col-xl-3 mb-5'} bgColor={'bg-warning'}
+                        title={ (data.count_reservations_txt ? data.count_reservations_txt: '0 Business') }
+                        description={ (data.count_reservations_info ? data.count_reservations_info: '--') }
+                        path={'/apps/reservations'}
+                        icon={"assets/media/icons/duotune/arrows/arr070.svg"}
+                        textColor={"text-white"}
+                        iconColor={"svg-icon-white"}
+                        isLoading={isLoading} />
+        </div>
+        {/* end::Row */}
 
-    {/* begin::Row */}
-    <div className='row gy-5 gx-xl-8'>
-      <div className='col-xxl-4'>
-        <ListsWidget3 className='card-xxl-stretch mb-xl-3' />
-      </div>
-      <div className='col-xl-8'>
-        <TablesWidget10 className='card-xxl-stretch mb-5 mb-xl-8' />
-      </div>
-    </div>
-    {/* end::Row */}
+        {/* begin::Row */}
+        <div className="row gy-5 g-xl-10 mb-xl-10">
+            {/* begin::Col */}
+            <div className="col-xl-12">
+                <MorrisChart isLoading={isLoading} data={data.latestReservationChart}
+                             className='card-flush h-xl-100'
+                             chartColor='primary'
+                             chartHeight='450px'
+                />
+            </div>
+            {/* end::Col */}
+        </div>
+        {/* end::Row */}
 
-    {/* begin::Row */}
-    <div className='row gy-5 g-xl-8'>
-      <div className='col-xl-4'>
-        <ListsWidget2 className='card-xl-stretch mb-xl-8' />
-      </div>
-      <div className='col-xl-4'>
-        <ListsWidget6 className='card-xl-stretch mb-xl-8' />
-      </div>
-      <div className='col-xl-4'>
-        <ListsWidget4 className='card-xl-stretch mb-5 mb-xl-8' items={5} />
-        {/* partials/widgets/lists/_widget-4', 'class' => 'card-xl-stretch mb-5 mb-xl-8', 'items' => '5' */}
-      </div>
-    </div>
-    {/* end::Row */}
+        {/* begin::Row */}
+        <div className="row gy-5 g-xl-10">
+            {/* begin::Col */}
+            <div className="col-xl-4 mb-xl-10">
+                {/* begin::Engage widget 1 */}
+                <div className="card h-md-100">
+                    {/* begin::Body */}
+                    <div className="card-body d-flex flex-column flex-center">
+                        {/* begin::Heading */}
+                        <div className="mb-2">
+                            {/* begin::Title */}
+                            <h1 className="fw-bold text-gray-800 text-center lh-lg">Have you tried
+                                <br />new <span className="fw-boldest">{app.app_name} App ?</span></h1>
+                            {/* end::Title */}
+                            {/* begin::Illustration */}
+                            <div className="flex-grow-1 bgi-no-repeat bgi-size-contain bgi-position-x-center card-rounded-bottom h-200px mh-200px my-5 my-lg-12" style={{backgroundImage: 'url(/assets/media/svg/illustrations/easy/2.svg)'}}/>
+                            {/* end::Illustration */}
+                        </div>
+                        {/* end::Heading */}
+                    </div>
+                    {/* end::Body */}
+                </div>
+                {/* end::Engage widget 1 */}
+            </div>
+            {/* end::Col */}
 
-    <div className='row g-5 gx-xxl-8'>
-      <div className='col-xxl-4'>
-        <MixedWidget8
-          className='card-xxl-stretch mb-xl-3'
-          chartColor='success'
-          chartHeight='150px'
-        />
-      </div>
-      <div className='col-xxl-8'>
-        <TablesWidget5 className='card-xxl-stretch mb-5 mb-xxl-8' />
-      </div>
-    </div>
-    </Content>
-  </>
-)
+            {/* begin::Col */}
+            <div className="col-xl-8 mb-5 mb-xl-10">
+                {/* begin::Table Widget 4 */}
+                <ReservationList reservationCount={data.count_reservations}
+                                 data={data.latestReservations}
+                                 isLoading={isLoading}
+                                 className='card-flush h-xl-100'/>
+                {/* end::Table Widget 4 */}
+            </div>
+            {/* end::Col */}
+        </div>
+        {/* end::Row */}
+
+        {/* begin::Row */}
+        <div className="row gy-5 g-xl-10 mb-xl-10">
+            {/* begin::Col */}
+            <div className="col-xl-8">
+                <MorrisChart isLoading={isLoading} data={data.latestPostsChart}
+                             className='card-flush h-xl-100'
+                             chartColor='primary'
+                             chartHeight='450px'
+                />
+            </div>
+            {/* end::Col */}
+            {/* begin::Col */}
+            <div className="col-xl-4">
+                <ProductList postCount={data.count_posts} data={data.latestPosts} isLoading={isLoading} className='card-flush h-xl-100'/>
+            </div>
+            {/* end::Col */}
+        </div>
+        {/* end::Row */}
+
+        {/*/!* begin::Row *!/*/}
+        <div className='row gy-5 gx-xl-8'>
+            <div className='col-xl-8'>
+                <MorrisChart isLoading={isLoading} data={data.latestUsersChart}
+                             className='card-xxl-stretch'
+                             chartColor='primary'
+                             chartHeight='450px'
+                />
+            </div>
+            <div className='col-xxl-4'>
+                <UserList data={data.latestUsers} isLoading={isLoading} className='card-xxl-stretch'/>
+            </div>
+        </div>
+        {/*/!* end::Row *!/*/}
+    </>
+};
 
 const DashboardWrapper: FC = () => {
-  const intl = useIntl()
+  const intl = useIntl();
   return (
     <>
       <PageTitle breadcrumbs={[]}>{intl.formatMessage({id: 'MENU.DASHBOARD'})}</PageTitle>
       <DashboardPage />
     </>
   )
-}
+};
 
 export {DashboardWrapper}

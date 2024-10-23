@@ -9,7 +9,7 @@ type Props = {
 }
 const TilesWidget1 = ({
   className,
-  bgImage = toAbsoluteUrl('media/stock/600x400/img-75.jpg'),
+  bgImage = toAbsoluteUrl('assets/media/stock/600x400/img-75.jpg'),
   title = 'Properties',
 }: Props) => {
   return (

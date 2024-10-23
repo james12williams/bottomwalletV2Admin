@@ -16,7 +16,7 @@ const StatisticsWidget1: React.FC<Props> = ({className, image, title, time, desc
       style={{
         backgroundPosition: 'right top',
         backgroundSize: '30% auto',
-        backgroundImage: `url(${toAbsoluteUrl('media/svg/shapes/' + image)})`,
+        backgroundImage: `url(${toAbsoluteUrl('assets/media/svg/shapes/' + image)})`,
       }}
     >
       {/* begin::Body */}

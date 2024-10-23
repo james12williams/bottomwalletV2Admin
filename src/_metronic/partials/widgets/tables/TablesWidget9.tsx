@@ -72,7 +72,7 @@ const TablesWidget9: React.FC<Props> = ({className}) => {
                 <td>
                   <div className='d-flex align-items-center'>
                     <div className='symbol symbol-45px me-5'>
-                      <img src={toAbsoluteUrl('media/avatars/300-14.jpg')} alt='' />
+                      <img src={toAbsoluteUrl('assets/media/avatars/300-14.jpg')} alt='' />
                     </div>
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-6'>
@@ -138,7 +138,7 @@ const TablesWidget9: React.FC<Props> = ({className}) => {
                 <td>
                   <div className='d-flex align-items-center'>
                     <div className='symbol symbol-45px me-5'>
-                      <img src={toAbsoluteUrl('media/avatars/300-2.jpg')} alt='' />
+                      <img src={toAbsoluteUrl('assets/media/avatars/300-2.jpg')} alt='' />
                     </div>
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-6'>
@@ -204,7 +204,7 @@ const TablesWidget9: React.FC<Props> = ({className}) => {
                 <td>
                   <div className='d-flex align-items-center'>
                     <div className='symbol symbol-45px me-5'>
-                      <img src={toAbsoluteUrl('media/avatars/300-5.jpg')} alt='' />
+                      <img src={toAbsoluteUrl('assets/media/avatars/300-5.jpg')} alt='' />
                     </div>
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-6'>
@@ -270,7 +270,7 @@ const TablesWidget9: React.FC<Props> = ({className}) => {
                 <td>
                   <div className='d-flex align-items-center'>
                     <div className='symbol symbol-45px me-5'>
-                      <img src={toAbsoluteUrl('media/avatars/300-20.jpg')} alt='' />
+                      <img src={toAbsoluteUrl('assets/media/avatars/300-20.jpg')} alt='' />
                     </div>
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-6'>
@@ -334,7 +334,7 @@ const TablesWidget9: React.FC<Props> = ({className}) => {
                 <td>
                   <div className='d-flex align-items-center'>
                     <div className='symbol symbol-45px me-5'>
-                      <img src={toAbsoluteUrl('media/avatars/300-23.jpg')} alt='' />
+                      <img src={toAbsoluteUrl('assets/media/avatars/300-23.jpg')} alt='' />
                     </div>
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-gray-900 fw-bold text-hover-primary fs-6'>

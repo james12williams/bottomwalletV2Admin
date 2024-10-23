@@ -1,8 +1,14 @@
 import { useLayout } from "../layout/core";
 import { ThemeModeComponent } from "../assets/ts/layout";
+import {AxiosService} from "../../app/servicies/axios-service";
 
-export const toAbsoluteUrl = (pathname: string) =>
-  import.meta.env.BASE_URL + pathname;
+export const toAbsoluteUrl = (pathname: string) => {
+  return AxiosService.isValidUrl(pathname)? pathname : (import.meta.env.VITE_APP_PUBLIC_URL + pathname);
+};
+
+export const forceDownload = (fileURL:string, fileName?:string) => {
+  window.open(fileURL, '_blank', 'noreferrer');
+};
 
 export const useIllustrationsPath = (illustrationName: string): string => {
   const { config } = useLayout();

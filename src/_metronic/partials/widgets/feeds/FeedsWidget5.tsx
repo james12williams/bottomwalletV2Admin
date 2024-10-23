@@ -18,7 +18,7 @@ const FeedsWidget5: FC<Props> = ({className}) => {
           <div className='d-flex align-items-center flex-grow-1'>
             {/* begin::Avatar */}
             <div className='symbol symbol-45px me-5'>
-              <img src={toAbsoluteUrl('media/avatars/300-25.jpg')} alt='' />
+              <img src={toAbsoluteUrl('assets/media/avatars/300-25.jpg')} alt='' />
             </div>
             {/* end::Avatar */}
 
@@ -57,7 +57,7 @@ const FeedsWidget5: FC<Props> = ({className}) => {
           <div
             className='bgi-no-repeat bgi-size-cover rounded min-h-250px mb-5'
             style={{
-              backgroundImage: `url('${toAbsoluteUrl('media/stock/900x600/20.jpg')}')`,
+              backgroundImage: `url('${toAbsoluteUrl('assets/media/stock/900x600/20.jpg')}')`,
             }}
           ></div>
           {/* end::Image */}

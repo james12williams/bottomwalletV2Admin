@@ -10,7 +10,7 @@ import {
   getScrollTop,
   getUniqueIdWithPrefix,
   stringSnakeToCamel,
-} from "../_utils/index";
+} from "../_utils";
 
 export interface StickyOptions {
   offset: number;
@@ -58,7 +58,6 @@ class StickyComponent {
   }
 
   private scroll = () => {
-    console.log("trigger scoll");
     const offset = this.getOption("offset");
     const reverse = this.getOption("reverse");
 

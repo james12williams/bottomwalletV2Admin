@@ -1,0 +1,23 @@
+import React from "react";
+
+type Props = {
+    filter:any,
+    onChange:any,
+    defaultValue?:any,
+}
+
+const TextFilter = ({filter, onChange, defaultValue}:Props) => {
+    return <>
+        {/* begin::Input group */}
+        <div className='mb-10'>
+            <label className='form-label fs-6 fw-bold'>{filter.label}:</label>
+            <input type="text" name={filter.name}
+                   required={filter.is_required} placeholder={filter.label}
+                   onChange={onChange} defaultValue={defaultValue}
+                   className="form-control form-control-solid mb-3 mb-lg-0" />
+        </div>
+        {/* end::Input group */}
+    </>
+};
+
+export {TextFilter};

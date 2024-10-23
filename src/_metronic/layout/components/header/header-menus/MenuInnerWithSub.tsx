@@ -13,6 +13,7 @@ type Props = {
   hasArrow?: boolean
   hasBullet?: boolean
   isMega?: boolean
+  subMenus?: any
 }
 
 const MenuInnerWithSub: FC<Props & WithChildren> = ({
@@ -26,6 +27,7 @@ const MenuInnerWithSub: FC<Props & WithChildren> = ({
   hasArrow = false,
   hasBullet = false,
   isMega = false,
+  subMenus=[]
 }) => {
   const menuItemRef = useRef<HTMLDivElement>(null)
   const {pathname} = useLocation()
@@ -73,6 +75,30 @@ const MenuInnerWithSub: FC<Props & WithChildren> = ({
         )}
         data-kt-menu-dismiss='true'
       >
+        {subMenus.length > 0 && (
+            subMenus.map((menu: any, i:any) => {
+              if (menu.children?.length > 0){
+                return <MenuInnerWithSub
+                    key={`row-${i}-${menu.id}`}
+                    to={menu.slug}
+                    title={menu.name}
+                    fontIcon={menu.icon_class}
+                    icon={menu.icon_class}
+                    menuPlacement='bottom-start'
+                    subMenus={menu.children}>
+                </MenuInnerWithSub>
+              }
+              else if (menu.slug){
+                return <MenuItem key={`row-${i}-${menu.id}`}
+                                 title={menu.name}
+                                 icon={menu.icon_class}
+                                 fontIcon={menu.icon_class}
+                                 hasBullet={!isNotEmpty(menu.icon_class)}
+                                 to={menu.slug} />
+              }
+              return "";
+            })
+        )}
         {children}
       </div>
     </div>

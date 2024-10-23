@@ -48,7 +48,7 @@ const TablesWidget11: React.FC<Props> = ({className}) => {
                   <div className='d-flex align-items-center'>
                     <div className='symbol symbol-50px me-5'>
                       <img
-                        src={toAbsoluteUrl('media/stock/600x400/img-26.jpg')}
+                        src={toAbsoluteUrl('assets/media/stock/600x400/img-26.jpg')}
                         className=''
                         alt=''
                       />
@@ -107,7 +107,7 @@ const TablesWidget11: React.FC<Props> = ({className}) => {
                   <div className='d-flex align-items-center'>
                     <div className='symbol symbol-50px me-5'>
                       <img
-                        src={toAbsoluteUrl('media/stock/600x400/img-3.jpg')}
+                        src={toAbsoluteUrl('assets/media/stock/600x400/img-3.jpg')}
                         className=''
                         alt=''
                       />
@@ -166,7 +166,7 @@ const TablesWidget11: React.FC<Props> = ({className}) => {
                   <div className='d-flex align-items-center'>
                     <div className='symbol symbol-50px me-5'>
                       <img
-                        src={toAbsoluteUrl('media/stock/600x400/img-9.jpg')}
+                        src={toAbsoluteUrl('assets/media/stock/600x400/img-9.jpg')}
                         className=''
                         alt=''
                       />
@@ -227,7 +227,7 @@ const TablesWidget11: React.FC<Props> = ({className}) => {
                   <div className='d-flex align-items-center'>
                     <div className='symbol symbol-50px me-5'>
                       <img
-                        src={toAbsoluteUrl('media/stock/600x400/img-18.jpg')}
+                        src={toAbsoluteUrl('assets/media/stock/600x400/img-18.jpg')}
                         className=''
                         alt=''
                       />
@@ -286,7 +286,7 @@ const TablesWidget11: React.FC<Props> = ({className}) => {
                   <div className='d-flex align-items-center'>
                     <div className='symbol symbol-50px me-5'>
                       <img
-                        src={toAbsoluteUrl('media/stock/600x400/img-8.jpg')}
+                        src={toAbsoluteUrl('assets/media/stock/600x400/img-8.jpg')}
                         className=''
                         alt=''
                       />

@@ -84,9 +84,11 @@ class PasswordMeterComponent {
 
   private visitbility() {
     if (this.visibilityElement && this.inputElement) {
-      const visibleIcon = this.visibilityElement.querySelector('i:not(.d-none), .:not(.d-none)')
+      const visibleIcon = this.visibilityElement.querySelector(
+          'i:not(.d-none), .svg-icon:not(.d-none)'
+      );
 
-      const hiddenIcon = this.visibilityElement.querySelector('i.d-none, ..d-none')
+      const hiddenIcon = this.visibilityElement.querySelector('i.d-none, .svg-icon.d-none')
 
       const typeAttr = this.inputElement.getAttribute('type') || ''
 

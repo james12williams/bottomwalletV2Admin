@@ -122,12 +122,12 @@ class LayoutSetup {
 
         const content = updatedConfig.app?.content;
         if (content) {
-          content.container = "fixed";
+          content.container = "fluid";
         }
 
         const footer = updatedConfig.app?.footer;
         if (footer) {
-          footer.container = "fixed";
+          footer.container = "fluid";
         }
 
         const updatedApp = {
