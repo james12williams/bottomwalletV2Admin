@@ -22,7 +22,7 @@ const PrivateRoutes = () => {
     return (
         <Routes>
             <Route element={<MasterLayout />}>
-                {/* Redirect to Dashboard after success login/registartion */}
+                {/* Redirect to Dashboard after success login/registration */}
                 <Route path='auth/*' element={<Navigate to='/dashboard' />} />
                 {/* Pages */}
                 <Route path='dashboard' element={<DashboardWrapper />} />
@@ -75,7 +75,7 @@ const PrivateRoutes = () => {
                 />
 
                 {
-                    routes.map((route:any)=>{
+                    routes && routes.map((route:any)=>{
                         return <Route path={route.path+'/*'} element={<SuspensedView>
                             <DynamicPage {...route}/>
                         </SuspensedView>} key={'route_'+route.queryName}/>

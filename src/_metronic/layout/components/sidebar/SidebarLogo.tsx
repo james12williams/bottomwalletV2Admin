@@ -62,12 +62,12 @@ const SidebarLogo = (props: PropsType) => {
           <>
             <img
               alt='Logo'
-              src={app.logo}
+              src={app.light_logo}
               className='w-100 app-sidebar-logo-default theme-light-show'
             />
             <img
               alt='Logo'
-              src={app.logo}
+              src={app.dark_logo}
               className='w-100 app-sidebar-logo-default theme-dark-show'
             />
           </>

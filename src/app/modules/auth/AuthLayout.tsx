@@ -38,7 +38,7 @@ const AuthLayout = () => {
         <div className='d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20'>
           {/* begin::Logo */}
           <Link to='/' className='mb-12'>
-            <img alt='Logo' src={app.logo} className='h-100px' />
+            <img alt='Logo' src={app.logo} className='w-100' />
           </Link>
           {/* end::Logo */}
           {/* begin::Wrapper */}
