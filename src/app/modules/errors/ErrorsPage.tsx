@@ -139,7 +139,35 @@ const ErrorsHandler = ({errorCode='404', showButton=true}:Props2) => {
                 </div>
             </ErrorsLayout2>
         case 500:
-            return <ErrorsLayout2><Error500 /></ErrorsLayout2>;
+            return <ErrorsLayout2>
+                <div className="card card-flush py-5">
+                    <div className="card-body py-15 py-lg-20">
+
+                        {/*begin::Illustration*/}
+                        <div className="mb-3">
+                            <img src={toAbsoluteUrl("assets/media/auth/500-error.png")} className="mw-100 mh-300px theme-light-show" alt=""/>
+                        </div>
+                        {/*end::Illustration*/}
+
+                        {/*begin::Title*/}
+                        <h1 className='fw-bolder fs-4x text-gray-700 mb-10'>System Error</h1>
+                        {/*end::Title*/}
+
+                        {/*begin::Text*/}
+                        <div className='fw-bold fs-3 text-gray-400 mb-15'>
+                            Something went wrong! <br /> Please try again later.
+                        </div>
+                        {/*end::Text*/}
+
+                        {/*begin::Link*/}
+                        {showButton && <div className="mb-0">
+                            <Link to='/' className="btn btn-sm btn-primary">Home</Link>
+                        </div>}
+                        {/*end::Link*/}
+
+                    </div>
+                </div>
+            </ErrorsLayout2>;
         case 404:
         default:
             return <ErrorsLayout2>

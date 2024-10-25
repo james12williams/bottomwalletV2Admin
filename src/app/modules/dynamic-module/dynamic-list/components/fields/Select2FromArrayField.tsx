@@ -13,10 +13,10 @@ const Select2FromArrayField = ({field, onChange, value, touched, error }:Props) 
 
     const getValue:any  = (key:any, value:any) =>{
         let val = field.options[key][value];
-        if (field.options[key][value][value]){
+        if (field.options[key][value] && field.options[key][value][value]){
             val = field.options[key][value][value];
         }
-        return val.toString();
+        return val?.toString();
     };
 
     return <div {...field.wrapperAttributes}>

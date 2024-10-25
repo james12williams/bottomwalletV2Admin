@@ -108,8 +108,8 @@ export const DefaultConfig: ILayout = {
       container: 'fluid',
       containerClass: 'd-flex flex-column flex-md-row flex-center flex-md-stack py-3',
       fixed: {
-        desktop: false,
-        mobile: false,
+        desktop: true,
+        mobile: true,
       },
     },
     pageLoader: {

@@ -42,11 +42,13 @@ const CardWidget: React.FC<Props> = ({
       {path && <Link to={path} className={"card card-flush "+ bgColor +" hoverable card-xl-stretch mb-xl-8"}>
         {/* begin::Body */}
         <div className="card-body">
-          {icon && <span className={"svg-icon "+ iconColor +" svg-icon-3x ms-n1"}>
-            <SVG src={toAbsoluteUrl(icon)} />
-          </span>}
-          {/* end::Svg Icon */}
-          <div className={textColor+" fw-bolder fs-2 mb-2 mt-5"}>{title}</div>
+          <div className='d-flex'>
+            {icon && <span className={"svg-icon "+ iconColor +" svg-icon-3x ms-n1"}>
+              <SVG src={toAbsoluteUrl(icon)} />
+            </span>}
+            {/* end::Svg Icon */}
+            <h2 style={{display:'contents', fontSize:'35px'}} className={textColor+" fw-bolder mb-2 mt-5"}>{title}</h2>
+          </div>
           {description && <div className={"fw-bold "+textColor} dangerouslySetInnerHTML={{__html: description}} />}
         </div>
         {/* end::Body */}

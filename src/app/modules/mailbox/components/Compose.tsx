@@ -130,23 +130,6 @@ export function Compose() {
                                                            onChange={onChange}
                                                            touched={tempTouched.country} />
 
-                                    {tempVal.type=='business' && <>
-                                        <Select2FromArrayField field={{
-                                            name: 'business_role',
-                                            label: 'Business Role',
-                                            options: Object.keys(business_roles).map((key:any)=>{
-                                                return {key:key, value: business_roles[key]};
-                                            }),
-                                            wrapperAttributes:{
-                                                className:'form-group col-md-12 mt-4'
-                                            }
-                                        }}
-                                                               error={tempErrors.business_role?tempErrors.business_role[0]:""}
-                                                               value={tempVal.business_role}
-                                                               onChange={onChange}
-                                                               touched={tempTouched.business_role}  />
-                                    </>}
-
                                     {tempVal.type=='user' && <>
                                         <Select2FromArrayField field={{
                                             name: 'role',

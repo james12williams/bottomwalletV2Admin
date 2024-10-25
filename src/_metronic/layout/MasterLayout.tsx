@@ -18,6 +18,7 @@ const MasterLayout = () => {
 
   useEffect(() => {
     reInitMenu()
+    setHasError(false)
   }, [location.key])
 
     useEffect(() => {

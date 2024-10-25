@@ -1,8 +1,11 @@
 import {useEffect} from 'react'
 import {ILayout, useLayout} from '../../core'
+import { useApp } from '../../../../layouts/core/QueryResponseProvider'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   const {config} = useLayout()
+  const {app} = useApp()
   useEffect(() => {
     updateDOM(config)
   }, [config])
@@ -12,35 +15,21 @@ const Footer = () => {
         <span className='text-muted fw-semibold me-1'>
           {new Date().getFullYear().toString()}&copy;
         </span>
-        <a
-          href='https://keenthemes.com/'
-          target='_blank'
-          className='text-gray-800 text-hover-primary'
-        >
-          Keenthemes
-        </a>
+        <Link to='/' className='text-gray-800 text-hover-primary'>
+          {app.app_name}
+        </Link>
       </div>
 
       <ul className='menu menu-gray-600 menu-hover-primary fw-semibold order-1'>
         <li className='menu-item'>
-          <a href='https://keenthemes.com/' target='_blank' className='menu-link px-2'>
+          <a href='#' className='menu-link px-2'>
             About
           </a>
         </li>
 
         <li className='menu-item'>
-          <a href='https://devs.keenthemes.com/' target='_blank' className='menu-link px-2'>
+          <a href='#' className='menu-link px-2'>
             Support
-          </a>
-        </li>
-
-        <li className='menu-item'>
-          <a
-            href='https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469'
-            target='_blank'
-            className='menu-link px-2'
-          >
-            Purchase
           </a>
         </li>
       </ul>
