@@ -32,6 +32,14 @@ import {AppProvider} from "./layouts/core/QueryResponseProvider";
  */
 Chart.register(...registerables)
 
+declare global {
+    interface Window {
+        KTWidgets:any;
+        KTComponents:any;
+        ApexCharts:any;
+    }
+}
+
 const queryClient = new QueryClient()
 const container = document.getElementById('root')
 if (container) {

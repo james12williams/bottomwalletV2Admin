@@ -2,13 +2,14 @@ import React, {FC, useState, createContext, useContext} from 'react'
 import {
   QueryState,
   QueryRequestContextProps,
-  initialQueryRequest,
+  initialQueryRequest, WithChildren,
 } from '../../_metronic/helpers'
 
 const QueryRequestContext = createContext<QueryRequestContextProps>(initialQueryRequest);
 
-const QueryRequestProvider: FC = ({children}) => {
+const QueryRequestProvider: FC<WithChildren> = ({children}) => {
   const [state, setState] = useState<QueryState>(initialQueryRequest.state);
+  const [isFirst, setIsFirst] = useState<boolean>(initialQueryRequest.isFirst);
 
   const updateState = (updates: Partial<QueryState>) => {
     const updatedState = {...state, ...updates} as QueryState;
@@ -16,7 +17,7 @@ const QueryRequestProvider: FC = ({children}) => {
   };
 
   return (
-    <QueryRequestContext.Provider value={{state, updateState}}>
+    <QueryRequestContext.Provider value={{state, updateState, isFirst}}>
       {children}
     </QueryRequestContext.Provider>
   )

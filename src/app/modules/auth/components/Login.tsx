@@ -9,7 +9,6 @@ import {AxiosService} from "../../../servicies/axios-service";
 import {useNavigate} from "react-router";
 import {PasswordMeterComponent} from "../../../../_metronic/assets/ts/components";
 import {useApp} from "../../../../layouts/core/QueryResponseProvider";
-import {toAbsoluteUrl} from "../../../../_metronic/helpers";
 
 const loginSchema = Yup.object().shape({
   login: Yup.string()
@@ -62,7 +61,9 @@ export function Login() {
   });
 
   useEffect(() => {
-    PasswordMeterComponent.bootstrap()
+    // PasswordMeterComponent.bootstrap()
+    window.KTComponents.init()
+    window.KTWidgets.init()
   }, []);
 
   return (
@@ -74,7 +75,7 @@ export function Login() {
       >
         {/* begin::Heading */}
         <div className='text-center mb-10'>
-          <h1 className='text-dark mb-3 text-capitalize'>Sign In to {app.app_name?.toLowerCase()}</h1>
+          <h1 className='mb-3 text-capitalize'>Sign In to {app.app_name?.toLowerCase()}</h1>
           {/*<div className='text-gray-400 fw-bold fs-4'>*/}
           {/*  New Here?{' '}*/}
           {/*  <Link to='/auth/registration' className='link-primary fw-bolder'>*/}
@@ -84,59 +85,6 @@ export function Login() {
         </div>
         {/* begin::Heading */}
 
-
-
-        {/* begin::Login options */}
-        <div className='row g-3 mb-9'>
-          {/* begin::Col */}
-          <div className='col-md-6'>
-            {/* begin::Google link */}
-            <a
-                href='#'
-                className='btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100'
-            >
-              <img
-                  alt='Logo'
-                  src={toAbsoluteUrl('assets/media/svg/brand-logos/google-icon.svg')}
-                  className='h-15px me-3'
-              />
-              Sign in with Google
-            </a>
-            {/* end::Google link */}
-          </div>
-          {/* end::Col */}
-
-          {/* begin::Col */}
-          <div className='col-md-6'>
-            {/* begin::Google link */}
-            <a
-                href='#'
-                className='btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100'
-            >
-              <img
-                  alt='Logo'
-                  src={toAbsoluteUrl('assets/media/svg/brand-logos/apple-black.svg')}
-                  className='theme-light-show h-15px me-3'
-              />
-              <img
-                  alt='Logo'
-                  src={toAbsoluteUrl('assets/media/svg/brand-logos/apple-black-dark.svg')}
-                  className='theme-dark-show h-15px me-3'
-              />
-              Sign in with Apple
-            </a>
-            {/* end::Google link */}
-          </div>
-          {/* end::Col */}
-        </div>
-        {/* end::Login options */}
-
-        {/* begin::Separator */}
-        <div className='separator separator-content my-14'>
-          <span className='w-125px text-gray-500 fw-semibold fs-7'>Or with email</span>
-        </div>
-        {/* end::Separator */}
-
         {formik.status && (
             <div className='mb-lg-15 alert alert-danger'>
               <div className='alert-text font-weight-bold'>{formik.status}</div>
@@ -145,7 +93,7 @@ export function Login() {
 
         {/* begin::Form group */}
         <div className='fv-row mb-10'>
-          <label className='form-label fs-6 fw-bolder text-dark'>Username/Email</label>
+          <label className='form-label fs-6 fw-bolder'>Username/Email</label>
           <input
               placeholder='Username/Email'
               {...formik.getFieldProps('login')}
@@ -173,7 +121,7 @@ export function Login() {
           <div className='d-flex justify-content-between mt-n5'>
             <div className='d-flex flex-stack mb-2'>
               {/* begin::Label */}
-              <label className='form-label fw-bolder text-dark fs-6 mb-0'>Password</label>
+              <label className='form-label fw-bolder fs-6 mb-0'>Password</label>
               {/* end::Label */}
               {/* begin::Link */}
               <Link to='/auth/forgot-password'
@@ -185,8 +133,7 @@ export function Login() {
             </div>
           </div>
           <div className='position-relative mb-3'>
-            <input type='password'
-                   placeholder='Password'
+            <input type='password' placeholder='Password'
                    autoComplete='off'
                    {...formik.getFieldProps('password')}
                    className={clsx(
@@ -201,9 +148,9 @@ export function Login() {
             />
             <span className="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
                   data-kt-password-meter-control="visibility">
-            <i className="ki-outline ki-eye-slash fs-2" />
-            <i className="ki-outline ki-eye fs-2 d-none" />
-        </span>
+                <i className="ki-outline ki-eye-slash fs-2" />
+                <i className="ki-outline ki-eye fs-2 d-none" />
+            </span>
             {formik.touched.password && formik.errors.password && (
                 <div className='fv-plugins-message-container'>
                   <div className='fv-help-block'>
@@ -245,7 +192,7 @@ export function Login() {
         <div className='text-center'>
           <button type='submit'
                   id='kt_sign_in_submit'
-                  className='btn btn-lg btn-danger w-100 mb-5'
+                  className='btn btn-lg btn-primary w-100 mb-5'
                   disabled={formik.isSubmitting || !formik.isValid}>
             {!loading && <span className='indicator-label'>Continue</span>}
             {loading && (

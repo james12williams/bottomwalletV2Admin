@@ -48,7 +48,7 @@ const editItem = (apiPath:string): Promise<any | undefined> => {
 };
 
 const reorderItems = (apiPath:string): Promise<any | undefined> => {
-  return AxiosService.getRequest(`${apiPath}/reorder`)
+  return AxiosService.getRequest(`${apiPath}`)
       .then((d: any) => {return d.result;}, (d: any) => {return d})
 };
 
@@ -82,44 +82,10 @@ const deleteItem = (apiPath:string, id: ID): Promise<any | undefined> => {
       .then((d: any) => {return d.result;}, (d: any) => {return d})
 };
 
-const deleteSelectedItems = (apiPath:string, userIds: any[]) => {
-  AxiosService.fireSwal({
-    text:"Are you sure you would like to delete this item?",
-    icon:"error",
-    showCancelButton:true,
-    buttonsStyling:false,
-    confirmButtonText:"Yes, Delete it!",
-    cancelButtonText:"No, return",
-    customClass:{
-        confirmButton: "btn btn-primary",
-        cancelButton: "btn btn-active-light"
-      }}
-  ).then((result:any) => {
-    if (result.isConfirmed) {
-      const requests = userIds.map((id) => AxiosService.deleteRequest(`${apiPath}/${id}`));
-      return AxiosService.allRequest(requests).then((response:any)=>{
-            AxiosService.notify('success', response.message?response.message:"Items removed successfully");
-          },
-          (response:any)=>{
-            if (response.data.message) {
-              AxiosService.notify('error', response.data.message);
-            }
-          });
-    }else{
-      AxiosService.fireSwal({
-        text:"Your form has not been cancelled!.",
-        icon:"error",
-        showCancelButton:false,
-        buttonsStyling:false,
-        confirmButtonText:"Ok, got it!",
-      });
-    }
-  });
-};
-
 type Props = {
   apiPath: string,
   queryName: string,
+  children: React.ReactNode;
 };
 const QueryResponseProvider: FC<Props> = ({children, apiPath, queryName}) => {
   const {state} = useQueryRequest();
@@ -149,8 +115,8 @@ const QueryResponseProvider: FC<Props> = ({children, apiPath, queryName}) => {
 
   useEffect(()=>{
     if (oldQueryName !== queryName){
-      setQuery('');
       setOldQueryName(queryName);
+      setQuery('');
     }
     refetch().then(r => {});
   }, [apiPath, queryName]);
@@ -238,7 +204,7 @@ const useQueryResponseColumn = (xPanel:any, queryName:any) => {
                 item = {
                   Header: (props: any) => (<CustomHeader tableProps={props} column={column} title={column.label} key={column.name}/>),
                   id: column.name,
-                  Cell: ({...props}) => <TableCell value={props.data[props.row.index]?.table[column.name]?.value} key={column.name}/>
+                  Cell: ({...props}) => <TableCell value={props.data[props.row.index]?.table[column.name]} key={column.name}/>
                 };
                 break;
             }
@@ -265,7 +231,7 @@ const useQueryResponseColumn = (xPanel:any, queryName:any) => {
   if (xPanel.has_line_buttons){
     columnList.push({
       Header: (props:any) => (
-          <CustomHeader tableProps={props} title='Actions' className='text-end min-w-100px' />
+          <CustomHeader tableProps={props} title='Actions' className='text-end min-w-100px' noWhiteSpace={true} />
       ),
       id: 'actions',
       Cell: ({...props}) => <ActionsCell buttons={props.data[props.row.index].buttons} id={props.data[props.row.index].id} queryName={queryName} key={'actions'}/>,
@@ -276,7 +242,15 @@ const useQueryResponseColumn = (xPanel:any, queryName:any) => {
 
 
 const useQueryResponsePagination = () => {
-  const defaultPaginationState: PaginationState = {links: [], ...initialQueryState};
+  const defaultPaginationState: {
+    filter?: unknown;
+    per_page: 10 | 15 | 30 | 50 | 100;
+    search?: string;
+    links: any[] | Array<{ label: string; active: boolean; url: string | null; page: number | null }>;
+    page: number;
+    sort?: string;
+    order?: "asc" | "desc"
+  } = {links: [], ...initialQueryState};
 
   const {response} = useQueryResponse();
 
@@ -446,6 +420,12 @@ const routerReplace = (base: any, params: any) => {
     if (params["couponId"]) {
       base = base.replace(':couponId', params["couponId"]);
     }
+    if (params["groupId"]) {
+      base = base.replace(':groupId', params["groupId"]);
+    }
+    if (params["contactId"]) {
+      base = base.replace(':contactId', params["contactId"]);
+    }
   }
   return base;
 };
@@ -458,7 +438,6 @@ export {
   useQueryResponseLoading,
   useQueryResponseXPanel,
   useQueryResponseColumn,
-  deleteSelectedItems,
   getItems,
   getItem,
   createItem,

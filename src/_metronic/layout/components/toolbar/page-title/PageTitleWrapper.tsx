@@ -6,7 +6,6 @@ const PageTitleWrapper = () => {
   if (!config.app?.pageTitle?.display) {
     return null
   }
-
   return <PageTitle />
 }
 

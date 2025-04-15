@@ -7,6 +7,7 @@ import {ListLoading} from "../../../app/modules/dynamic-module/dynamic-list/comp
 import clsx from "clsx";
 import {CustomFields} from "../../../app/modules/dynamic-module/dynamic-list/components/fields/CustomFields";
 import {usePageData} from "../../../_metronic/layout/core";
+import {AxiosService} from "../../../app/servicies/axios-service.tsx";
 
 const steps = [
     [
@@ -42,12 +43,14 @@ const AddAccount: FC = () => {
     let tempVal = value as any;
 
     const onChange = (e:any) =>{
-        const { name, value } = e.target;
-        setInputValue((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-        setVerified(false);
+        if (e.target){
+            const {name, value} = e.target;
+            setInputValue((prev) => ({
+                ...prev,
+                [name]: value,
+            }));
+            setVerified(false);
+        }
     };
 
     const onCheckboxChange = (e:any) => {
@@ -89,9 +92,9 @@ const AddAccount: FC = () => {
         }
     };
 
-    const verifyAccount = () => {
+    const verifyAccount = (inputValue2:any) => {
         setLoader(true);
-        sendData('verify-account', tempVal).then((resp: any) => {
+        sendData('verify-account', inputValue2).then((resp: any) => {
             setLoader(false);
             notify('success', resp.message);
             let result = Object.keys(resp.result).map((key: any) => {
@@ -121,9 +124,9 @@ const AddAccount: FC = () => {
         })
     };
 
-    const storeAccount = () => {
+    const storeAccount = (inputValue2:any) => {
         setLoader(true);
-        sendData('save-account', tempVal).then((resp: any) => {
+        sendData('save-account', inputValue2).then((resp: any) => {
             setLoader(false);
             stepper.current?.goNext();
             notify('success', resp.message)
@@ -151,7 +154,7 @@ const AddAccount: FC = () => {
         if (!stepper.current) {
             return
         }
-        stepper.current.goPrev();
+        stepper.current?.goPrev();
     };
 
     const submitStep = (e:any) => {
@@ -159,21 +162,22 @@ const AddAccount: FC = () => {
         if (!stepper.current) {
             return
         }
-        if (stepper.current.currentStepIndex !== stepper.current.totatStepsNumber) {
-            if (stepper.current.currentStepIndex===1){
+        const inputValue2 = AxiosService.serialize(e.target, tempVal);
+        if (stepper.current?.currentStepIndex !== stepper.current?.totalStepsNumber) {
+            if (stepper.current?.currentStepIndex===1){
                 getActiveParents();
             }
-            else if (stepper.current.currentStepIndex===2 && !verified){
-                verifyAccount();
+            else if (stepper.current?.currentStepIndex===2 && !verified){
+                verifyAccount(inputValue2);
             }
-            else if (stepper.current.currentStepIndex===2 && verified){
-                storeAccount();
+            else if (stepper.current?.currentStepIndex===2 && verified){
+                storeAccount(inputValue2);
             }
             else{
-                stepper.current.goNext()
+                stepper.current?.goNext()
             }
         } else {
-            stepper.current.goto(1);
+            stepper.current?.goto(1);
             setManageWallet()
         }
     };
@@ -282,9 +286,7 @@ const AddAccount: FC = () => {
                                                 {formFields.map((formField: any, i:any) => {
                                                     return <CustomFields field={formField}
                                                                          key={formField.name + '_' + i}
-                                                                         errors = {errors[formField.name]}
-                                                                         onChange={onChange}
-                                                                         onCheckboxChange={onCheckboxChange}/>
+                                                                         errors = {errors[formField.name]}/>
                                                 })}
                                                 </div>
                                             </div>
@@ -324,9 +326,9 @@ const AddAccount: FC = () => {
                                             <div>
                                                 <button type='submit' className='btn btn-lg btn-primary me-3'>
                                                   <span className='indicator-label'>
-                                                    {stepper.current?.currentStepIndex !== stepper.current?.totatStepsNumber! - 1 && stepper.current?.currentStepIndex !== stepper.current?.totatStepsNumber && 'Continue'}
-                                                      {stepper.current?.currentStepIndex === stepper.current?.totatStepsNumber! - 1 && 'Next'}
-                                                      {stepper.current?.currentStepIndex === stepper.current?.totatStepsNumber! && 'Close'}
+                                                    {stepper.current?.currentStepIndex !== stepper.current?.totalStepsNumber! - 1 && stepper.current?.currentStepIndex !== stepper.current?.totalStepsNumber && 'Continue'}
+                                                      {stepper.current?.currentStepIndex === stepper.current?.totalStepsNumber! - 1 && 'Next'}
+                                                      {stepper.current?.currentStepIndex === stepper.current?.totalStepsNumber! && 'Close'}
                                                       <KTSVG
                                                           path='assets/media/icons/duotune/arrows/arr064.svg'
                                                           className='svg-icon-3 ms-2 me-0'

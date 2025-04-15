@@ -104,7 +104,7 @@ const ExportModal = ({queryName}:Props) => {
                                             onChange={handleFormChange}
                                             data-placeholder="Select a format"
                                             data-hide-search="true"
-                                            className="form-select form-select-solid fw-bold">
+                                            className="form-select fw-bold">
                                         <option value="excel">Excel</option>
                                         {/*<option value="pdf">PDF</option>*/}
                                         {/*<option value="cvs">CVS</option>*/}

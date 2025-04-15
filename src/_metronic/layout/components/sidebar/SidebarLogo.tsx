@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom'
 import clsx from 'clsx'
-import {KTIcon, toAbsoluteUrl} from '../../../helpers'
+import {KTIcon} from '../../../helpers'
 import {useLayout} from '../../core'
 import {MutableRefObject, useEffect, useRef} from 'react'
 import {ToggleComponent} from '../../../assets/ts/components'
@@ -13,7 +13,7 @@ type PropsType = {
 const SidebarLogo = (props: PropsType) => {
   const {app} = useApp();
   const {config} = useLayout()
-  const toggleRef = useRef<HTMLDivElement>(null)
+  const toggleRef = useRef<HTMLDivElement|null>(null)
 
   const appSidebarDefaultMinimizeDesktopEnabled =
     config?.app?.sidebar?.default?.minimize?.desktop?.enabled
@@ -55,7 +55,7 @@ const SidebarLogo = (props: PropsType) => {
         {config.layoutType === 'dark-sidebar' ? (
           <img
             alt='Logo'
-            src={app.logo}
+            src={app.dark_logo}
             className='w-100 app-sidebar-logo-default'
           />
         ) : (
@@ -73,11 +73,9 @@ const SidebarLogo = (props: PropsType) => {
           </>
         )}
 
-        <img
-          alt='Logo'
+        <img alt='Logo'
           src={app.favicon}
-          className='w-100 app-sidebar-logo-minimize'
-        />
+          className='w-100 app-sidebar-logo-minimize' />
       </Link>
 
       {(appSidebarDefaultMinimizeDesktopEnabled || appSidebarDefaultCollapseDesktopEnabled) && (

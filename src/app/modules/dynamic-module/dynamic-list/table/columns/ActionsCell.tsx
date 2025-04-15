@@ -21,7 +21,7 @@ const ActionsCell: FC<Props> = ({buttons, queryName, id}) => {
     MenuComponent.reinitialization()
   }, []);
   return (
-    <>
+    <div style={{whiteSpace:'nowrap'}}>
       {buttons.map((button: any, i:any) => {
         let value = "";
         switch (button.type) {
@@ -79,7 +79,7 @@ const ActionsCell: FC<Props> = ({buttons, queryName, id}) => {
         }
         return value;
       })}
-    </>
+    </div>
   )
 };
 

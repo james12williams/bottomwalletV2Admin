@@ -27,6 +27,7 @@ type Props2 = {
 };
 
 const Drag = ({entry, index, getChangedPos}:Props2) =>{
+    console.log(entry);
     return (
         <div className="m-0">
             <input type="hidden" id={'item_'+index} name={'item_'+index} value={entry.key} />
@@ -161,14 +162,7 @@ const ItemReorder = ({queryName, apiPath}:Props) => {
 
                 <div className="container-fluid mt-10 mb-10">
                     <form id='kt_modal_add_user_form' className='form' onSubmit={handleSubmit} noValidate>
-                        <div className='d-flex flex-column scroll-y me-n7 pe-7'
-                             id='kt_modal_add_user_scroll'
-                             data-kt-scroll='true'
-                             data-kt-scroll-activate='{default: false, lg: true}'
-                             data-kt-scroll-max-height='auto'
-                             data-kt-scroll-dependencies='#kt_modal_add_user_header'
-                             data-kt-scroll-wrappers='#kt_modal_add_user_scroll'
-                             data-kt-scroll-offset='300px'>
+                        <div className='d-flex flex-column me-n7 pe-7'>
                             {formFields.length > 0 && <Draggable onPosChange={getChangedPos}>
                                 {formFields.map((entry:any, index:number) => {
                                     return <Drag key={entry.uid} index={index} entry={entry} />;

@@ -4,14 +4,17 @@ import {getItems, useQueryResponseXPanel} from "../core/QueryResponseProvider";
 import {useListView} from "../core/ListViewProvider";
 import {MenuComponent} from "../../../../../_metronic/assets/ts/components";
 import {sendData} from "../../../../../layouts/core/QueryResponseProvider";
-import {forceDownload, KTSVG, toAbsoluteUrl} from "../../../../../_metronic/helpers";
+import {forceDownload, getBase64, KTSVG, toAbsoluteUrl} from "../../../../../_metronic/helpers";
+import {AxiosService} from "../../../../servicies/axios-service.tsx";
+import * as Yup from "yup";
 
 type Props = {
     queryName:any
 }
-
 const ImportModal = ({queryName}:Props) => {
     const blankImg = toAbsoluteUrl('assets/media/svg/files/doc.svg');
+    let [valImg, setValImg] = useState(blankImg) as any;
+    const [errors, setErrors] = useState({}) as any;
     const xPanel = useQueryResponseXPanel();
     const [error, setError] = useState(null);
     const [isLoading, setLoading] = useState(false);
@@ -26,6 +29,11 @@ const ImportModal = ({queryName}:Props) => {
 
     const handleFormChange = (e:any) =>{
         const { name, value } = e.target;
+        if (e.target?.files){
+            getBase64(e.target?.files[0], (result:string) => {
+                setValImg(result);
+            });
+        }
         setInputValue((prev) => ({
             ...prev,
             [name]: value,
@@ -49,15 +57,29 @@ const ImportModal = ({queryName}:Props) => {
         })
     };
 
-    const importData = () => {
+    const importData = (e:any) => {
+        e.preventDefault();
+        const inputValue2 = AxiosService.serialize(e.target, inputValue);
         setLoading(true);
-        sendData(xPanel.route+'/import', inputValue)
+        sendData(xPanel.route+'/import', inputValue2)
         .then((resp:any)=>{
             setLoading(false);
             setItemIdForImport(false);
         }, (resp:any)=>{
+            if (resp?.data?.errors){
+                setErrors(resp?.data?.errors)
+            }
+            AxiosService.notify('error', resp?.data?.message);
             setLoading(false);
         })
+    };
+
+    const removeImg = () =>{
+        setValImg(blankImg)
+        let element = document.getElementById('import_file') as any;
+        if (element){
+            element.value = null
+        }
     };
 
     return (<>
@@ -88,7 +110,7 @@ const ImportModal = ({queryName}:Props) => {
                         <div className='modal-body scroll-y mx-5 mx-xl-15 my-7'>
                             {/*begin::Form*/}
                             <form id="kt_modal_export_users_form" className="form"
-                                  action="#">
+                                  onSubmit={importData} action="#">
 
                                 {/*begin::Input group*/}
                                 <div className="fv-row mb-5">
@@ -103,13 +125,20 @@ const ImportModal = ({queryName}:Props) => {
                                             onChange={handleFormChange}
                                             data-placeholder="Select a format"
                                             data-hide-search="true"
-                                            className="form-select form-select-solid fw-bold">
+                                            className="form-select fw-bold">
                                         <option value="excel">Excel</option>
                                         {/*<option value="pdf">PDF</option>*/}
                                         {/*<option value="cvs">CVS</option>*/}
                                         {/*<option value="zip">ZIP</option>*/}
                                     </select>
                                     {/*end::Input*/}
+                                    {errors.format && (
+                                        <div className='fv-plugins-message-container'>
+                                            <div className='fv-help-block'>
+                                                <span role='alert'>{errors.format}</span>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                                 {/*end::Input group*/}
 
@@ -124,9 +153,9 @@ const ImportModal = ({queryName}:Props) => {
 
                                     <div className='image-input image-input-outline'
                                          data-kt-image-input='false'
-                                         style={{ width:"100%!important", height:"200px!important", backgroundImage: 'url('+blankImg+')', backgroundPosition:'center'}}>
+                                         style={{ width:"100%!important", height:"200px!important", backgroundImage: 'url('+blankImg+')', backgroundPosition:'center', padding:'1rem'}}>
                                         {/* begin::Preview existing avatar */}
-                                        <div className='image-input-wrapper bgi-position-center' style={{ backgroundImage: `url(${blankImg})`, width:'100%!important', height:'100%!important' }}/>
+                                        <div className='image-input-wrapper bgi-position-center' style={{ backgroundImage: `url(${valImg})`, width:'100%!important', height:'100%!important' }}/>
                                         {/* end::Preview existing avatar */}
 
                                         {/* begin::Label */}
@@ -134,7 +163,7 @@ const ImportModal = ({queryName}:Props) => {
                                                data-kt-image-input-action='change'
                                                data-bs-toggle='tooltip' title='Change avatar'>
                                             <i className='bi bi-pencil-fill fs-7' />
-                                            <input type='file' name="file" onChange={handleFormChange}/>
+                                            <input type='file' name="file" id="import_file" required={true} onChange={handleFormChange}/>
                                         </label>
                                         {/* end::Label */}
 
@@ -148,17 +177,46 @@ const ImportModal = ({queryName}:Props) => {
                                         {/* begin::Remove */}
                                         <span className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
                                               data-kt-image-input-action='remove'
+                                              onClick={removeImg}
                                               data-bs-toggle='tooltip'
-                                              title='Remove avatar'><i className='bi bi-x fs-2'/></span>
+                                              title='Remove avatar'>
+                                          <i className='bi bi-x fs-2'/>
+                                        </span>
                                         {/* end::Remove */}
                                     </div>
-
-                                    {error && (<div className='fv-plugins-message-container'>
+                                    {errors.file && (
+                                        <div className='fv-plugins-message-container'>
                                             <div className='fv-help-block'>
-                                                <span role='alert'>{error}</span>
+                                                <span role='alert'>{errors.file}</span>
                                             </div>
-                                        </div>)}
+                                        </div>
+                                    )}
                                 </div>
+
+                                {/* begin::Form group */}
+                                <div className='fv-row mb-10'>
+                                    <div className='form-check form-check-custom form-check-solid'>
+                                        <input
+                                            className='form-check-input'
+                                            type='checkbox'
+                                            id='accept_sample_download'
+                                            name='accept_sample_download'
+                                            required={true}
+                                        />
+                                        <label className='form-check-label fw-bold text-gray-700 fs-6'
+                                            htmlFor='accept_sample_download'>
+                                            Accept sample download
+                                        </label>
+                                        {errors.accept_sample_download && (
+                                            <div className='fv-plugins-message-container'>
+                                                <div className='fv-help-block'>
+                                                    <span role='alert'>{errors.accept_sample_download}</span>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                {/* end::Form group */}
 
                                 {/*begin::Actions*/}
                                 <div className="text-center">
@@ -168,8 +226,8 @@ const ImportModal = ({queryName}:Props) => {
                                         Discard
                                     </button>
 
-                                    <button type="button"
-                                            onClick={importData} className="btn btn-primary"
+                                    <button type="submit" className="btn btn-primary"
+                                            disabled={valImg==blankImg}
                                             data-kt-users-modal-action="submit">
                                         <span className="indicator-label">
                                             Submit

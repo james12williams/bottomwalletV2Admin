@@ -6,9 +6,11 @@ import {LayoutSetup, useLayout} from '../../core'
 import {Header} from './Header'
 import {Navbar} from './Navbar'
 import {useApp} from "../../../../layouts/core/QueryResponseProvider.tsx";
+import {useThemeMode} from "../../../partials";
 
 export function HeaderWrapper() {
   const {config, classes} = useLayout()
+  const {mode} = useThemeMode()
   const {app} = useApp();
   if (config.app?.header?.default?.container === 'fluid') {
     LayoutSetup.classes.headerContainer.push("container-fluid");
@@ -54,7 +56,7 @@ export function HeaderWrapper() {
                   <Link to='/apps/dashboard' className='d-lg-none'>
                       <img
                         alt='Logo'
-                        src={app.logo}
+                        src={mode=='dark'? app.dark_logo: app.light_logo }
                         className='h-30px'
                       />
                   </Link>
@@ -70,19 +72,19 @@ export function HeaderWrapper() {
               {config.layoutType === 'dark-header' ? (
                 <img
                   alt='Logo'
-                  src={app.logo}
+                  src={ app.dark_logo }
                   className='h-20px h-lg-30px app-sidebar-logo-default'
                 />
               ) : (
                 <>
                   <img
                     alt='Logo'
-                    src={app.logo}
+                    src={ app.light_logo }
                     className='h-20px h-lg-30px app-sidebar-logo-default theme-light-show'
                   />
                   <img
                     alt='Logo'
-                    src={app.logo}
+                    src={ app.dark_logo }
                     className='h-20px h-lg-30px app-sidebar-logo-default theme-dark-show'
                   />
                 </>

@@ -20,8 +20,8 @@ const SidebarMenuMain = () => {
                             key={`row-${i}-${menu.id}`}
                             to={menu.slug}
                             title={menu.name}
-                            fontIcon={menu.icon_class}
                             icon={menu.icon_class}
+                            fontIcon={menu.icon_class}
                             subMenus={menu.children}>
                         </SidebarMenuItemWithSub>
                     }

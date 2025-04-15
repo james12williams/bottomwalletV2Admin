@@ -2,7 +2,6 @@
 import { FC } from 'react'
 import {Modal} from 'react-bootstrap'
 import {KTIcon, toAbsoluteUrl} from '../../helpers'
-// import {ListsWidget4, ListsWidget5} from '../widgets'
 
 type Props = {
   show: boolean

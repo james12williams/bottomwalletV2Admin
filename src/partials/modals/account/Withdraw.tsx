@@ -111,7 +111,7 @@ const Withdraw: FC<Props> = ({currentUserId}) => {
         if (!stepper.current) {
             return
         }
-        stepper.current.goPrev();
+        stepper.current?.goPrev();
     };
 
     const submitStep = (e:any) => {
@@ -119,21 +119,21 @@ const Withdraw: FC<Props> = ({currentUserId}) => {
         if (!stepper.current) {
             return
         }
-        if (stepper.current.currentStepIndex !== stepper.current.totatStepsNumber) {
-            if (stepper.current.currentStepIndex===1){
+        if (stepper.current?.currentStepIndex !== stepper.current?.totalStepsNumber) {
+            if (stepper.current?.currentStepIndex===1){
                 getActiveParents();
             }
             else{
-                stepper.current.goNext()
+                stepper.current?.goNext()
             }
-            if (stepper.current.currentStepIndex){
+            if (stepper.current?.currentStepIndex){
                 setTimeout(()=>{
                     setCurrentStepIndex(stepper?.current?.currentStepIndex? stepper.current.currentStepIndex:0);
                 })
             }
         }
         else {
-            stepper.current.goto(1);
+            stepper.current?.goto(1);
             setManageWithdrawal()
         }
     };
@@ -224,7 +224,6 @@ const Withdraw: FC<Props> = ({currentUserId}) => {
                                                     <select className={clsx('form-control form-control-solid mb-3 mb-lg-0',)}
                                                         name='withdrawal_account_id'
                                                         required={true}
-                                                        placeholder='Select Destination'
                                                         onChange={onChange}>
                                                         <option value="">Select Destination</option>
                                                         {withdrawal_methods.map((option: any) => {

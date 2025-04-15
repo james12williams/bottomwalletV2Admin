@@ -10,13 +10,15 @@ type Props = {
     endpoint: string
     title: string
     className: string
+    method?: string
+    as?: string
     label?: string
     iconPath?: string
     queryName?: string
     onSuccess?: (item:any)=>void
 }
 
-const ActionButton: FC<Props> = ({ className,  endpoint, title, label, iconPath, onSuccess, queryName }) => {
+const ActionButton: FC<Props> = ({ className,  endpoint, title, label, iconPath, onSuccess, queryName, as='button', method='get' }) => {
     const [loading, setLoading] = useState(false);
     const {query} = useQueryResponse();
     const queryClient = useQueryClient();
@@ -37,37 +39,122 @@ const ActionButton: FC<Props> = ({ className,  endpoint, title, label, iconPath,
             }).then((result) => {
                 if (result.isConfirmed) {
                     setLoading(true);
-                    AxiosService.getRequest(endpoint).then(
-                        (response: any) => {
-                            AxiosService.notify('success', response.message ? response.message : "Action successful");
-                            if (onSuccess){
-                                onSuccess(response);
-                            }else{
-                                queryClient.invalidateQueries([`${queryName}-${query}`]);
-                            }
-                            setTimeout(() => {
-                                setLoading(false);
-                            }, 200);
-                        },
-                        (response: any) => {
-                            if (response.data.message) {
-                                AxiosService.notify('error', response.data.message);
-                            }
-                            setTimeout(() => {
-                                setLoading(false);
-                            }, 200);
-                        });
+                    switch (method){
+                        case 'post':
+                            AxiosService.postRequest(endpoint).then(
+                                (response: any) => {
+                                    AxiosService.notify('success', response.message ? response.message : "Action successful");
+                                    if (onSuccess){
+                                        onSuccess(response);
+                                    }else{
+                                        queryClient.invalidateQueries([`${queryName}-${query}`]);
+                                    }
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 200);
+                                },
+                                (response: any) => {
+                                    if (response.data.message) {
+                                        AxiosService.notify('error', response.data.message);
+                                    }
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 200);
+                                });
+                            break;
+                        case 'delete':
+                            AxiosService.deleteRequest(endpoint).then(
+                                (response: any) => {
+                                    AxiosService.notify('success', response.message ? response.message : "Action successful");
+                                    if (onSuccess){
+                                        onSuccess(response);
+                                    }else{
+                                        queryClient.invalidateQueries([`${queryName}-${query}`]);
+                                    }
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 200);
+                                },
+                                (response: any) => {
+                                    if (response.data.message) {
+                                        AxiosService.notify('error', response.data.message);
+                                    }
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 200);
+                                });
+                            break;
+                        case 'put':
+                            AxiosService.updateRequest(endpoint, {}).then(
+                                (response: any) => {
+                                    AxiosService.notify('success', response.message ? response.message : "Action successful");
+                                    if (onSuccess){
+                                        onSuccess(response);
+                                    }else{
+                                        queryClient.invalidateQueries([`${queryName}-${query}`]);
+                                    }
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 200);
+                                },
+                                (response: any) => {
+                                    if (response.message) {
+                                        AxiosService.notify('error', response.message);
+                                    }
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 200);
+                                });
+                            break;
+                        default:
+                            AxiosService.getRequest(endpoint).then(
+                                (response: any) => {
+                                    AxiosService.notify('success', response.message ? response.message : "Action successful");
+                                    if (onSuccess){
+                                        onSuccess(response);
+                                    }else{
+                                        queryClient.invalidateQueries([`${queryName}-${query}`]);
+                                    }
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 200);
+                                },
+                                (response: any) => {
+                                    if (response.data.message) {
+                                        AxiosService.notify('error', response.data.message);
+                                    }
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 200);
+                                });
+                            break;
+                    }
                 }
             });
         }
     };
+
+    if (as == 'a'){
+        return (
+            <MyTooltip content={title} placement={'top'}>
+                <a type='button' onClick={performAction}
+                        className={className?className:"btn btn-icon btn-bg-light btn-active-color-danger btn-sm me-1"}>
+                    {label&&<span className='btn-label' dangerouslySetInnerHTML={{__html:label}}></span>}
+                    {!loading && iconPath && <span className='svg-icon btn-icon svg-icon-2'>
+                <KTSVG path={iconPath? iconPath: '/assets/media/icons/duotune/general/gen005.svg'} />
+              </span>}
+                    {loading && <AppSpinner as="span" size="sm" role="status" ariaHidden={true} />}
+                </a>
+            </MyTooltip>
+        )
+    }
 
     // @ts-ignore
     return (
         <MyTooltip content={title} placement={'top'}>
         <button type='button' onClick={performAction}
            className={className?className:"btn btn-icon btn-bg-light btn-active-color-danger btn-sm me-1"}>
-            {label&&<span className='btn-label'>{label}</span>}
+            {label&&<span className='btn-label' dangerouslySetInnerHTML={{__html:label}}></span>}
             {!loading && iconPath && <span className='svg-icon btn-icon svg-icon-2'>
                 <KTSVG path={iconPath? iconPath: '/assets/media/icons/duotune/general/gen005.svg'} />
               </span>}

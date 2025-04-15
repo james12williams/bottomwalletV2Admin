@@ -2,16 +2,18 @@ import React, {FC, useState, createContext, useContext, useEffect} from 'react'
 import {
   QueryState,
   QueryRequestContextProps,
-  initialQueryRequest,
+  initialQueryRequest, WithChildren,
 } from '../../../../../_metronic/helpers'
 import {useSearchParams} from "react-router-dom";
+import {useLocation} from "react-router";
 
 const QueryRequestContext = createContext<QueryRequestContextProps>(initialQueryRequest);
 
-const QueryRequestProvider: FC = ({children}) => {
+const QueryRequestProvider: FC<WithChildren> = ({children}) => {
   const [params, setParams] = useSearchParams();
   const [state, setState] = useState<QueryState>(initialQueryRequest.state);
   const [isFirst, setIsFirst] = useState(false);
+  const location = useLocation();
 
   const updateState = (updates: Partial<QueryState>) => {
     const updatedState = {...state, ...updates} as QueryState;
@@ -58,10 +60,15 @@ const QueryRequestProvider: FC = ({children}) => {
 
     setParams(params);
     setIsFirst(true);
-  }, [state]);
+  }, [state, isFirst]);
+
+  useEffect(() => {
+    setIsFirst(false);
+    setState(initialQueryRequest.state);
+  }, [location.pathname]);
 
   return (
-    <QueryRequestContext.Provider value={{state, updateState}}>
+    <QueryRequestContext.Provider value={{state, updateState, isFirst}}>
       {children}
     </QueryRequestContext.Provider>
   )

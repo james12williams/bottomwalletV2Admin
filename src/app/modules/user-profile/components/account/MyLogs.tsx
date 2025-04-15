@@ -4,6 +4,7 @@ import {ListLoading} from "../../../dynamic-module/dynamic-list/components/loadi
 import {getItems} from "../../../../../layouts/core/QueryResponseProvider";
 import {useUserView} from "../../UserViewProvider";
 import {KTSVG} from "../../../../../_metronic/helpers";
+import {LogLoader, TableRowLoader} from "../../../../../partials/loaders";
 
 type Props = {
     className?: string
@@ -18,7 +19,7 @@ const MyLogs: React.FC<Props> = ({className='mb-lg-10'}) => {
 
     useEffect(()=>{
         setLoader(true);
-        getItems('activity-log/'+currentUserId).then((resp:any)=>{
+        getItems('activity-log'+(currentUserId?'/'+currentUserId:'')).then((resp:any)=>{
             if (data && resp.data.length>0){
                 resp.data.forEach((item:any)=>{
                     tempList.push(item);
@@ -86,9 +87,7 @@ const MyLogs: React.FC<Props> = ({className='mb-lg-10'}) => {
                 {/*begin::Table wrapper*/}
                 <div className="table-responsive">
                     {/*begin::Table*/}
-                    <table
-                        className="table align-middle table-row-dashed fw-semibold text-gray-600 fs-6 gy-5"
-                        id="kt_table_customers_logs">
+                    <table className="table align-middle table-row-dashed fw-semibold text-gray-600 fs-6 gy-5" id="kt_table_customers_logs">
                         {/*begin::Table body*/}
                         <tbody>
                         {/*begin::Table row*/}
@@ -110,18 +109,34 @@ const MyLogs: React.FC<Props> = ({className='mb-lg-10'}) => {
                                 {/*end::Timestamp*/}
                             </tr>
                         })}
+                        {isLoading?<TableRowLoader count={5}/>:''}
+                        {(!isLoading && list.length<1) && <tr>
+                            <td>
+                                <div className="text-center">
+                                    <div className="pt-10 pb-10">
+                                        <i className="ki-duotone ki-information-2 fs-4x opacity-50">
+                                            <span className="path1"></span>
+                                            <span className="path2"></span>
+                                            <span className="path3"></span>
+                                        </i>
+                                    </div>
+                                    <div className="pb-15 fw-bold">
+                                        <h3 className="text-gray-600 fs-5 mb-2">No data available</h3>
+                                        <div className="text-muted fs-7">Populate the record and check back later...</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>}
                         </tbody>
                         {/*end::Table body*/}
                     </table>
                     {/*end::Table*/}
-
                 </div>
 
                 {(data && data.next_page_url) && <div onClick={handleLoadMore} className='card-footer py-5 text-center' id='kt_activities_footer'>
                     <button type="button" className='btn btn-bg-white text-primary'>
                         View More
-                        <KTSVG path='assets/media/icons/duotune/arrows/arr064.svg'
-                               className='svg-icon-3 svg-icon-primary'/>
+                        <KTSVG path='assets/media/icons/duotune/arrows/arr064.svg' className='svg-icon-3 svg-icon-primary'/>
                     </button>
                 </div>}
 

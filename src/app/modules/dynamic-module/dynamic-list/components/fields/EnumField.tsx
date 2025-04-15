@@ -26,24 +26,23 @@ const EnumField = ({field, onChange, value, touched, error }:Props) => {
         {field.label && <label className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>{field.label}:</label>}
         {options.length>0 && (<select {...field.attributes}
             className={clsx(
-                'form-control form-control-solid mb-3 mb-lg-0',
+                'form-control mb-3 mb-lg-0',
                 {'is-invalid': touched && error},
                 {'is-valid': touched && !error}
             )}
             data-kt-select2='true'
             data-placeholder={'Select '+field.label}
-            data-allow-clear='true'
+            data-allow-clear='false'
             data-kt-user-table-filter={field.name}
-            data-hide-search='true'
+            data-hide-search='false'
             name={field.name}
             required={field.is_required}
-            placeholder={field.label}
             defaultValue={field.value}
             onChange={onChange}>
             {
-                options.map((option: any) => {
+                options.map((option: any, key:any) => {
                     return (<option value={option.key}
-                                   key={field.name+'_'+option.key}>
+                                   key={field.name+'_'+option.key+'_'+key}>
                                 {option.value}
                             </option>);
                 })

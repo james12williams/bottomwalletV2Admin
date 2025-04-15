@@ -12,14 +12,14 @@ const Select2MultipleAjaxFilter = ({filter, onChange, defaultValue}:Props) => {
         <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>{filter.label}:</label>
             <select
-                className='form-select form-select-solid fw-bolder'
+                className={'form-select '+(filter?.attributes?.className?filter.attributes.className:'mb-3 mb-lg-0')}
                 data-kt-select2='true'
                 data-placeholder='Select option'
                 data-allow-clear='true'
                 data-kt-user-table-filter='role'
                 data-hide-search='true'
                 name={filter.name}
-                required={filter.is_required} placeholder={filter.label}
+                required={filter.is_required}
                 defaultValue={defaultValue}
                 onChange={onChange}
             >

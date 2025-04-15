@@ -2,20 +2,20 @@ import React from "react";
 import clsx from "clsx";
 
 type Props = {
-    field:any,
-    onChange:any,
-    value:any,
-    touched:any,
-    error:any,
+    field?:any,
+    onChange?:any,
+    value?:any,
+    touched?:any,
+    error?:any,
 }
 
 const Base64ImageField = ({field, onChange, value, touched, error }:Props) => {
-    return <div {...field.wrapperAttributes}>
+    return <div {...field.wrapperAttributes} id={field.name+'_container'}>
         {field.label && <label className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>{field.label}:</label>}
-        <input type="email"
+        <input type="file"
                {...field.attributes}
                className={clsx(
-                   'form-control form-control-solid mb-3 mb-lg-0',
+                   'form-control mb-3 mb-lg-0',
                    {'is-invalid': touched && error},
                    {'is-valid': touched && !error}
                )}

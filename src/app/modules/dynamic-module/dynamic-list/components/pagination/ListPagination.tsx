@@ -37,14 +37,17 @@ const ListPagination = () => {
 
   return (
       <div className='row'>
-        <div className='col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start' />
+        <div className='col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'>
+          {pagination.total ?<div className="fs-6 fw-semibold text-gray-700" id="tableid_info" role="status"
+                aria-live="polite">Showing {pagination.from} to {pagination.to} of {pagination.total} entries</div>:''}
+        </div>
         <div className='col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'>
           <div id='kt_table_users_paginate'>
             <ul className='pagination'>
               {pagination.links?.map((link: any, index:any) => (
                   <li key={link.label+'_'+index}
                       className={clsx('page-item', {
-                        active: pagination.current_page === link.label,
+                        active: pagination.current_page == link.label,
                         disabled: isLoading,
                         previous: link.label === '&laquo; Previous',
                         next: link.label == 'Next &raquo;',

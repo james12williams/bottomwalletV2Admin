@@ -14,7 +14,7 @@ const TextFilter = ({filter, onChange, defaultValue}:Props) => {
             <input type="text" name={filter.name}
                    required={filter.is_required} placeholder={filter.label}
                    onChange={onChange} defaultValue={defaultValue}
-                   className="form-control form-control-solid mb-3 mb-lg-0" />
+                   className="form-control mb-3 mb-lg-0" />
         </div>
         {/* end::Input group */}
     </>

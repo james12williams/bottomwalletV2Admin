@@ -20,7 +20,7 @@ const Sidebar = () => {
 
   return (
     <>
-      {(config.layoutType === 'dark-sidebar' || config.layoutType === 'light-sidebar') && (
+      {(config.layoutType === 'dark-sidebar' || config.layoutType === 'light-sidebar' || true) && (
         <div
           ref={sidebarRef}
           id='kt_app_sidebar'

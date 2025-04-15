@@ -13,7 +13,7 @@ const HiddenField = ({field, onChange, value, touched, error }:Props) => {
     return <input type="hidden"
                {...field.attributes}
                className={clsx(
-                   'form-control form-control-solid mb-3 mb-lg-0',
+                   'form-control mb-3 mb-lg-0',
                    {'is-invalid': touched && error},
                    {'is-valid': touched && !error}
                )}

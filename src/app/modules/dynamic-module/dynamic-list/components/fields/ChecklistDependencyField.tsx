@@ -11,10 +11,14 @@ type Props = {
 
 const ChecklistDependencyField = ({field, onChange, value, touched, error }:Props) => {
     let defaultVals:any = [];
+    if (field.subfields){
+        field.subfields = Object.keys(field.subfields).map((key:any)=>{
+            return field.subfields[key];
+        });
+    }else{
+        field.subfields = [];
+    }
 
-    field.subfields = Object.keys(field.subfields).map((key:any)=>{
-        return field.subfields[key];
-    });
 
     field.subfields.forEach((subfield:any, index:any)=>{
         if (field.values){
@@ -23,9 +27,13 @@ const ChecklistDependencyField = ({field, onChange, value, touched, error }:Prop
             defaultVals[subfield.name] = [];
         }
 
-        subfield.options = Object.keys(subfield.options).map((key:any)=>{
-            return subfield.options[key];
-        });
+        if (subfield.options) {
+            subfield.options = Object.keys(subfield.options).map((key: any) => {
+                return subfield.options[key];
+            });
+        }else{
+            subfield.options = [];
+        }
     });
 
     const [valueMain, setValue] = useState(defaultVals);
@@ -53,7 +61,14 @@ const ChecklistDependencyField = ({field, onChange, value, touched, error }:Prop
 
 
     return <div {...field.wrapperAttributes}>
-        {field.label && <label className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>{field.label}:</label>}
+        {field.label && <label htmlFor={field.name} className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>
+            {field.tooltip && <span className="ms-1" data-bs-toggle="tooltip" title={field.tooltip}>
+                  <i className="ki-duotone ki-information-5 text-gray-500 fs-6">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                      <span className="path3"></span>
+                  </i>
+        </span>} {field.label}:</label>}
 
         {touched && error && (
             <div className='fv-plugins-message-container'>
@@ -70,7 +85,13 @@ const ChecklistDependencyField = ({field, onChange, value, touched, error }:Prop
         {field.subfields.map((subfield: any) => {
             return (<div key={subfield.name}>
                 {/* begin::Label */}
-                {subfield.label && <label className={clsx('fw-semibold fs-6 mb-5', {'required': subfield.is_required})}>{subfield.label}:</label>}
+                {subfield.label && <label className={clsx('fw-semibold fs-6 mb-5', {'required': subfield.is_required})}>{subfield.tooltip && <span className="ms-1" data-bs-toggle="tooltip" title={subfield.tooltip}>
+                  <i className="ki-duotone ki-information-5 text-gray-500 fs-6">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                      <span className="path3"></span>
+                  </i>
+        </span>} {subfield.label}:</label>}
                 {/* end::Label */}
 
                 {/* begin::Item */}

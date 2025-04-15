@@ -1,4 +1,5 @@
 import {Dispatch, SetStateAction} from 'react'
+import {boolean} from "yup";
 
 export type ID = undefined | null | number | string
 
@@ -35,6 +36,7 @@ export type Response<T> = {
 export type QueryState = PaginationState & SortState & FilterState & SearchState
 
 export type QueryRequestContextProps = {
+  isFirst: boolean
   state: QueryState
   updateState: (updates: Partial<QueryState>) => void
 }
@@ -45,6 +47,7 @@ export const initialQueryState: QueryState = {
 };
 
 export const initialQueryRequest: QueryRequestContextProps = {
+  isFirst: false,
   state: initialQueryState,
   updateState: () => {},
 };
@@ -67,8 +70,11 @@ export type ListViewContextProps = {
   // NULL => (CREATION MODE) | MODAL IS OPENED
   // NUMBER => (EDIT MODE) | MODAL IS OPENED
   // UNDEFINED => MODAL IS CLOSED
+  query?: string
   itemIdForUpdate?: ID
+  bookingIdToCancel?: any
   setItemIdForUpdate: Dispatch<SetStateAction<ID>>
+  setBookingIdToCancel: Dispatch<SetStateAction<ID>>
   importItems: boolean
   setItemIdForImport: Dispatch<SetStateAction<boolean>>
   isAllSelected: boolean
@@ -82,8 +88,10 @@ export const initialListView: ListViewContextProps = {
   onSelectAll: () => {},
   clearSelected: () => {},
   setItemIdForUpdate: () => {},
+  setBookingIdToCancel: () => {},
   setItemIdForImport: () => {},
   setExportItem: () => {},
+  query: '',
   isAllSelected: false,
   importItems: false,
   exportItem: false,

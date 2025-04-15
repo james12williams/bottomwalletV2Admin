@@ -1,55 +1,61 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import clsx from "clsx";
-import Select from 'react-select';
 
 type Props = {
     field:any,
-    onChange:any,
-    value:any,
+    onChange?:any,
+    value?:any,
     touched?:any,
     error?:any,
 }
 
 const Select2Field = ({field, onChange, value, touched, error }:Props) => {
-    const [options, setOptions] = useState([]);
-    const [defaultIndex, setDefaultIndex] = useState(0);
-    const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        setIsLoading(true)
-        const option = Object.keys(field.options).map((key:any)=>{
-            if (field.options[key].key){
-                return {value:field.options[key].key, label: field.options[key].value};
-            }else{
-                return {value:key, label: field.options[key]};
+    field.options = Object.keys(field.options).map((key:any)=>{
+        if (field.options[key].key){
+            return field.options[key];
+        }else{
+            return {key:key, value: field.options[key]};
+        }
+    });
+
+    return <div {...field.wrapperAttributes} id={field.name+'_container'}>
+        {field.label && <label htmlFor={field.name} className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>
+            {field.tooltip && <span className="ms-1" data-bs-toggle="tooltip" title={field.tooltip}>
+                  <i className="ki-duotone ki-information-5 text-gray-500 fs-6">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                      <span className="path3"></span>
+                  </i>
+              </span>} {field.label}:</label>}
+        <select {...field.attributes}
+                className={clsx(
+                    'form-select '+(field?.attributes?.className?field.attributes.className:'mb-3 mb-lg-0'),
+                    {'is-invalid': touched && error},
+                    {'is-valid': touched && !error}
+                )}
+                data-control="select2"
+                data-kt-select2='true'
+                data-placeholder='Select option'
+                data-allow-clear='false'
+                data-hide-search='false'
+                data-kt-indicator={field.indicator?"true":"false"}
+                data-indicator={field.indicator}
+                data-to-hide={JSON.stringify(field.toHide)}
+                data-to-show={JSON.stringify(field.toShow)}
+                name={field.name}
+                id={field.name}
+                defaultValue={field.value}
+                required={field.is_required}
+                onChange={onChange} hidden={true}>
+            {
+                field.options.map((option: any, key:any, index:any) => {
+                    return <option value={option.key} key={field.name+'_'+option.key+'_'+key}>
+                        {option.value}
+                    </option>;
+                })
             }
-        });
-        setOptions(option)
-    }, [field.options]);
-
-    useEffect(() => {
-        let defaultInd = options.findIndex((x:any)=>x.value == field.value);
-        setDefaultIndex(defaultInd)
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 10)
-    }, [options]);
-
-    return <div {...field.wrapperAttributes}>
-        {field.label && <label className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>{field.label}:</label>}
-
-        {!isLoading && <Select
-            {...field.attributes}
-            options={options}
-            name={field.name}
-            required={field.is_required}
-            placeholder={field.label}
-            onChange={onChange}
-            isSearchable={true}
-            defaultValue={options[defaultIndex]}
-            aria-label={'Select'}
-            isLoading={isLoading}
-        />}
+        </select>
 
         {touched && error && (
             <div className='fv-plugins-message-container'>

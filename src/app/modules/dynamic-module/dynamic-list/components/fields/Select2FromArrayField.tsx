@@ -19,23 +19,28 @@ const Select2FromArrayField = ({field, onChange, value, touched, error }:Props) 
         return val?.toString();
     };
 
-    return <div {...field.wrapperAttributes}>
-        {field.label && <label className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>{field.label}:</label>}
+    return <div {...field.wrapperAttributes} id={field.name+'_container'}>
+        {field.label && <label htmlFor={field.name} className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>
+            {field.tooltip && <span className="ms-1" data-bs-toggle="tooltip" title={field.tooltip}>
+                  <i className="ki-duotone ki-information-5 text-gray-500 fs-6">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                      <span className="path3"></span>
+                  </i>
+              </span>} {field.label}:</label>}
         <select
             {...field.attributes}
             className={clsx(
-                'form-control form-control-solid mb-3 mb-lg-0',
+                'form-select '+(field?.attributes?.className?field.attributes.className:'mb-3 mb-lg-0'),
                 {'is-invalid': touched && error},
                 {'is-valid': touched && !error}
             )}
             data-kt-select2='true'
             data-placeholder='Select option'
-            data-allow-clear='true'
-            data-kt-user-table-filter={field.name}
-            data-hide-search='true'
+            data-allow-clear='false'
+            data-hide-search='false'
             name={field.name}
             required={field.is_required}
-            placeholder={field.label}
             onChange={onChange}
             defaultValue={field.value}
         >

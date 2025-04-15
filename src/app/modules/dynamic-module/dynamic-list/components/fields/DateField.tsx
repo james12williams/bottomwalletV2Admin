@@ -10,12 +10,19 @@ type Props = {
 }
 
 const DateField = ({field, onChange, value, touched, error }:Props) => {
-    return <div {...field.wrapperAttributes}>
-        {field.label && <label className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>{field.label}:</label>}
+    return <div {...field.wrapperAttributes} id={field.name+'_container'}>
+        {field.label && <label htmlFor={field.name} className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>
+            {field.tooltip && <span className="ms-1" data-bs-toggle="tooltip" title={field.tooltip}>
+                  <i className="ki-duotone ki-information-5 text-gray-500 fs-6">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                      <span className="path3"></span>
+                  </i>
+              </span>} {field.label}:</label>}
         <input type="date"
                {...field.attributes}
                className={clsx(
-                   'form-control form-control-solid mb-3 mb-lg-0',
+                   'form-control mb-3 mb-lg-0',
                    {'is-invalid': touched && error},
                    {'is-valid': touched && !error}
                )}

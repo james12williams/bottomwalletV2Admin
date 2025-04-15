@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import {toAbsoluteUrl} from '../../../../_metronic/helpers'
+import {toAbsoluteUrl, WithChildren} from '../../../../_metronic/helpers'
 import {ListLoading} from "../../../modules/dynamic-module/dynamic-list/components/loading/ListLoading";
 import SVG from "react-inlinesvg";
 import {Link} from "react-router-dom";
@@ -18,7 +18,7 @@ type Props = {
   onClick?: ()=>void
 }
 
-const CardWidget: React.FC<Props> = ({
+const CardWidget: React.FC<Props & WithChildren> = ({
   className,
   bgColor,
   textColor="text-white",

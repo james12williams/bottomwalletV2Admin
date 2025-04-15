@@ -1,5 +1,6 @@
 import {FC, useState, createContext, useContext, Dispatch, SetStateAction, useEffect} from 'react'
 import {AxiosService} from "../../servicies/axios-service";
+import {WithChildren} from "../../../_metronic/helpers";
 
 type AuthContextProps = {
     currentUserId: any
@@ -37,7 +38,7 @@ type Props = {
     path: string,
     userId?: number|string,
 }
-const UserViewProvider: FC<Props> = ({children, path, userId}) => {
+const UserViewProvider: FC<Props & WithChildren> = ({children, path, userId}) => {
     const [currentPath, setCurrentPath] = useState(path);
     const [currentUserId, setCurrentUserId] = useState(userId);
     const [currentUser, setCurrentUser] = useState({}) as any;

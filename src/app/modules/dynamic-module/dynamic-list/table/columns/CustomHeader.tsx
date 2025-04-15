@@ -8,9 +8,10 @@ type Props = {
   column?: any
   className?: string
   title?: string
+  noWhiteSpace?: boolean
   tableProps: PropsWithChildren<HeaderProps<any>>
 }
-const CustomHeader: FC<Props> = ({column, className, title, tableProps}) => {
+const CustomHeader: FC<Props> = ({column, className, title, tableProps, noWhiteSpace}) => {
   const id = tableProps.column.id;
   const orderable = column?.orderable;
   const {state, updateState} = useQueryRequest();
@@ -44,15 +45,16 @@ const CustomHeader: FC<Props> = ({column, className, title, tableProps}) => {
     }
   };
 
+  // <th {...tableProps.column.getHeaderProps()}></th>
+
   if (orderable){
     return (
         <th
-            {...tableProps.column.getHeaderProps()}
             className={clsx(
                 className,
                 isSelectedForSorting && order !== undefined && `table-sort-${order}`
             )}
-            style={{cursor: 'pointer'}}
+            style={{cursor: 'pointer', whiteSpace:(noWhiteSpace?'nowrap':'')}}
             onClick={sortColumn}
         >
           {title}
@@ -61,12 +63,11 @@ const CustomHeader: FC<Props> = ({column, className, title, tableProps}) => {
   }else{
     return (
         <th
-            {...tableProps.column.getHeaderProps()}
             className={clsx(
                 className,
                 isSelectedForSorting && order !== undefined && `table-sort-${order}`
             )}
-            style={{cursor: 'pointer'}}>
+            style={{cursor: 'pointer', whiteSpace:(noWhiteSpace?'nowrap':'')}}>
           {title}
         </th>
     )

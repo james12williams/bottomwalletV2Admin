@@ -9,6 +9,8 @@ import {useParams} from "react-router";
 import {routerReplace} from "../dynamic-module/dynamic-list/core/QueryResponseProvider";
 import {ErrorsPage} from "../errors/ErrorsPage";
 import {UserViewProvider, useUserView} from "./UserViewProvider";
+import {BlogComments} from "./components/BlogComments";
+import {BlogPosts} from "./components/BlogPosts";
 import {WithdrawalAccount} from "./components/WithdrawalAccount";
 import {Wallets} from "./components/Wallets";
 import {Transactions} from "./components/Transactions";
@@ -100,6 +102,20 @@ const UserProfilePage = ({path, base, baseTitle, entityName, entityNamePlural, q
                 <>
                     <PageTitle breadcrumbs={profileBreadCrumbs}>Transactions</PageTitle>
                     <Transactions  currentUserId={params.userId}/>
+                </>
+            }
+            />
+            <Route path='/blog-posts/*' element={
+                <>
+                    <PageTitle breadcrumbs={profileBreadCrumbs}>Blog Posts</PageTitle>
+                    <BlogPosts  currentUserId={params.userId}/>
+                </>
+            }
+            />
+            <Route path='/blog-comments/*' element={
+                <>
+                    <PageTitle breadcrumbs={profileBreadCrumbs}>Blog Comments</PageTitle>
+                    <BlogComments  currentUserId={params.userId}/>
                 </>
             }
             />

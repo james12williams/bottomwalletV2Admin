@@ -3,6 +3,7 @@ import React, {FC, ReactChildren, ReactComponentElement} from 'react'
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
 import {Placement} from "react-bootstrap/types";
 import {OverlayTriggerType} from "react-bootstrap/OverlayTrigger";
+import {WithChildren} from "../../../../../../_metronic/helpers";
 
 type Props = {
     children:ReactComponentElement<any>,
@@ -11,7 +12,7 @@ type Props = {
     placement?: Placement,
     trigger?: OverlayTriggerType,
 }
-const MyTooltip: FC<Props> = ({children, placement='auto', trigger='hover', content, className}) => {
+const MyTooltip: FC<Props & WithChildren> = ({children, placement='auto' as Placement, trigger='hover', content, className}) => {
     return <OverlayTrigger trigger={[trigger, 'focus']} placement={placement} overlay={<Tooltip className="text-capitalize">{content}</Tooltip>}>
         {children}
     </OverlayTrigger>

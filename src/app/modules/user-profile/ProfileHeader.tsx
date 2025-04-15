@@ -17,7 +17,7 @@ const ProfileHeader: React.FC = () => {
           <div className='d-flex flex-wrap flex-sm-nowrap mb-3'>
             <div className='me-7 mb-4'>
               <div className='symbol symbol-100px symbol-lg-160px symbol-fixed position-relative'>
-                <img src={currentUser.photo_url} alt={ currentUser.username + ' avatar'} />
+                <img src={currentUser.photo?currentUser.photo:'/user.svg'} alt={ currentUser.username + ' avatar'} />
                 {currentUser.is_online && <div
                     className='position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px'/>}
               </div>
@@ -127,13 +127,13 @@ const ProfileHeader: React.FC = () => {
                       <div className="d-flex align-items-center">
                         <div className="fs-2 fw-bolder counted"
                              data-kt-countup="true"
-                             data-kt-countup-value={ currentUser.total_reservations }>
-                          { currentUser.total_reservations }
+                             data-kt-countup-value={ currentUser.blog_comments }>
+                          { currentUser.blog_comments }
                         </div>
                       </div>
                       {/*end::Number*/}
                       {/*begin::Label*/}
-                      <div className="fw-bold fs-6 text-gray-400">No. of Bookings</div>
+                      <div className="fw-bold fs-6 text-gray-400">Blog Comments</div>
                       {/*end::Label*/}
                     </div>
                     {/*end::Stat*/}
@@ -144,13 +144,13 @@ const ProfileHeader: React.FC = () => {
                       <div className="d-flex align-items-center">
                         <div className="fs-2 fw-bolder counted"
                              data-kt-countup="true"
-                             data-kt-countup-value={ currentUser.pending_reservations }>
-                          { currentUser.pending_reservations }
+                             data-kt-countup-value={ currentUser.blog_posts }>
+                          { currentUser.blog_posts }
                         </div>
                       </div>
                       {/*end::Number*/}
                       {/*begin::Label*/}
-                      <div className="fw-bold fs-6 text-gray-400">Pending Booking</div>
+                      <div className="fw-bold fs-6 text-gray-400">Blog Posts</div>
                       {/*end::Label*/}
                     </div>
                     {/*end::Stat*/}
@@ -212,6 +212,22 @@ const ProfileHeader: React.FC = () => {
                       (location.pathname === '/apps/account/transactions' && 'active')}
                         to='/apps/account/transactions'>
                     Transactions
+                  </Link>
+                </li>
+                <li className='nav-item'>
+                  <Link className={
+                      `nav-link text-active-primary me-6 ` +
+                      (location.pathname === '/apps/account/blog-posts' && 'active')}
+                        to='/apps/account/blog-posts'>
+                    Blog Posts
+                  </Link>
+                </li>
+                <li className='nav-item'>
+                  <Link className={
+                      `nav-link text-active-primary me-6 ` +
+                      (location.pathname === '/apps/account/blog-comments' && 'active')}
+                        to='/apps/account/blog-comments'>
+                    Blog Comments
                   </Link>
                 </li>
                 <li className='nav-item'>
@@ -280,6 +296,30 @@ const ProfileHeader: React.FC = () => {
                           (location.pathname === currentPath+'/logs' && 'active')
                       }
                             to={currentPath+'/logs'}>
+                        Logs
+                      </Link>
+                    </li>
+                    <li className='nav-item'>
+                      <Link className={
+                          `nav-link text-active-primary me-6 ` +
+                          (location.pathname === currentPath+'/blog-posts' && 'active')}
+                            to={currentPath+'/blog-posts'}>
+                        Blog Posts
+                      </Link>
+                    </li>
+                    <li className='nav-item'>
+                      <Link className={
+                          `nav-link text-active-primary me-6 ` +
+                          (location.pathname === currentPath+'/blog-comments' && 'active')}
+                            to={currentPath+'/blog-comments'}>
+                        Blog Comments
+                      </Link>
+                    </li>
+                    <li className='nav-item'>
+                      <Link className={
+                          `nav-link text-active-primary me-6 ` +
+                          (location.pathname === currentPath+'/logs' && 'active')
+                      } to={currentPath+'/logs'}>
                         Logs
                       </Link>
                     </li>

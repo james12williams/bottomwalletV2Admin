@@ -15,7 +15,7 @@ const DateFilter = ({filter, onChange, defaultValue}:Props) => {
             <input type="date" name={filter.name} defaultValue={defaultValue}
                    required={filter.is_required} placeholder={filter.label}
                    onChange={onChange}
-                   className="form-control form-control-solid mb-3 mb-lg-0" />
+                   className="form-control mb-3 mb-lg-0" />
         </div>
         {/* end::Input group */}
     </>

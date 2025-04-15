@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: "/",
   build: {
+    outDir: './build',
     chunkSizeWarningLimit: 3000,
   },
 })

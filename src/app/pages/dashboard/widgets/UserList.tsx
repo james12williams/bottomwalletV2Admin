@@ -5,16 +5,16 @@ import {ListLoading} from "../../../modules/dynamic-module/dynamic-list/componen
 import {Link} from "react-router-dom";
 
 type Props = {
-  className: string,
-  isLoading: boolean,
+  className?: string,
+  isLoading?: boolean,
   data:any
 }
 
-const UserList: React.FC<Props> = ({className, isLoading, data}) => {
+const UserList: React.FC<Props> = ({className='card-xxl-stretch', isLoading, data}) => {
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
-      <div className='card-header border-0 pt-5'>
+      <div className='card-header'>
         <h3 className='card-title align-items-start flex-column'>
           <span className='card-label fw-bolder fs-3 mb-1'>Latest Users</span>
         </h3>
@@ -31,7 +31,6 @@ const UserList: React.FC<Props> = ({className, isLoading, data}) => {
               <tr className='fw-bolder text-muted'>
                 <th className='min-w-150px'>User</th>
                 <th className='min-w-140px'>Country</th>
-                <th className='min-w-140px'>Date</th>
               </tr>
             </thead>
             {/* end::Table head */}
@@ -43,10 +42,10 @@ const UserList: React.FC<Props> = ({className, isLoading, data}) => {
                   <td>
                     <div className='d-flex align-items-center'>
                       <div className='symbol symbol-45px me-5'>
-                        <img src={toAbsoluteUrl('assets/media/svg/avatars/blank.svg')} alt='' />
+                        <img src={item.photo?item.photo:'/user.svg'} alt='' />
                       </div>
                       <div className='d-flex justify-content-start flex-column'>
-                        <Link to={ '/apps/users/' + item.id + '/settings'} className='text-dark fw-bolder text-hover-primary fs-6'>
+                        <Link to={ '/apps/users/' + item.id} className='text-dark fw-bolder text-hover-primary fs-6'>
                           {item.name}
                         </Link>
                         <span className='text-muted fw-bold text-muted d-block fs-7'>
@@ -59,11 +58,6 @@ const UserList: React.FC<Props> = ({className, isLoading, data}) => {
                     <a href='#' className='text-dark fw-bolder text-hover-primary d-block fs-6'>
                       {item.country_code}
                     </a>
-                  </td>
-                  <td>
-                    <span className='text-muted fw-bold text-muted d-block fs-7'>
-                      {item.created_at_formatted}
-                    </span>
                   </td>
                 </tr>
               })}

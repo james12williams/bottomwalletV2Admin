@@ -19,7 +19,6 @@ import {ImportModal} from "./modal/ImportModal";
 import {ActionModal} from "./modal/ActionModal";
 import {useAuth} from "../../auth";
 
-
 type Props = {
     apiPath: string,
     queryName: string,
@@ -52,7 +51,7 @@ const ItemList = ({queryName, apiPath, entityName, entityNamePlural, headerClass
             <KTCard>
                 <ListHeader queryName={queryName} apiPath={apiPath} headerClassName={headerClassName}/>
                 {columnList.length>0 && <DynamicTable columnList={columnList} />}
-                {isLoading && <div style={{minHeight:'60vh'}}>
+                {isLoading && <div style={{minHeight:'70vh'}}>
                     <ListLoading/>
                 </div>}
             </KTCard>

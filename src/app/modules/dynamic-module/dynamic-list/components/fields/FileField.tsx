@@ -13,12 +13,12 @@ type Props = {
 const FileField = ({field, onChange, value, touched, error }:Props) => {
     const blankImg = toAbsoluteUrl('assets/media/svg/files/doc.svg');
     const valImg = field.value_url? field.value_url: '';
-    return <div className={'px-6'} {...field.wrapperAttributes}>
+    return <div className={'px-6'} {...field.wrapperAttributes} style={{display:'block'}}>
         {field.label && <label className={clsx('d-block fw-bold fs-6 mb-5', {'required': field.is_required})}>{field.label}:</label>}
 
         <div className='image-input image-input-outline'
-            data-kt-image-input='false'
-            style={{backgroundImage: `url('${blankImg}')`, backgroundPosition:'center',}}>
+            data-kt-image-input='true'
+            style={{backgroundImage: `url('${blankImg}')`, backgroundPosition:'center', padding:'1rem',}}>
             {/* begin::Preview existing avatar */}
             <div className='image-input-wrapper w-125px h-125px bgi-position-center' style={{ backgroundImage: `url('${blankImg}')` }}/>
             {/* end::Preview existing avatar */}

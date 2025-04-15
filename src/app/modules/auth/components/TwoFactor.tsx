@@ -141,7 +141,7 @@ export function TwoFactor() {
         {/*begin::Heading*/}
         <div className="text-center mb-10">
           {/*begin::Title*/}
-          <h1 className="text-dark mb-3">
+          <h1 className="mb-3">
             Two-Factor Verification
           </h1>
           {/*end::Title*/}
@@ -152,7 +152,7 @@ export function TwoFactor() {
           {/*end::Sub-title*/}
 
           {/*begin::Mobile no*/}
-          <div className="fw-bold text-dark fs-3">******7859</div>
+          <div className="fw-bold fs-3">******7859</div>
           {/*end::Mobile no*/}
         </div>
         {/*end::Heading*/}
@@ -160,7 +160,7 @@ export function TwoFactor() {
         {/*begin::Section*/}
         <div className="mb-10">
           {/*begin::Label*/}
-          <div className="fw-bold text-start text-dark fs-6 mb-1 ms-1">Type your 6 digit security code
+          <div className="fw-bold text-start fs-6 mb-1 ms-1">Type your 6 digit security code
           </div>
           {/*end::Label*/}
 
@@ -193,7 +193,7 @@ export function TwoFactor() {
         <div className="d-flex flex-center">
           <button type='submit'
               id='kt_sign_in_submit'
-              className='btn btn-lg btn-danger w-100 mb-5'
+              className='btn btn-lg btn-primary w-100 mb-5'
               disabled={formik.isSubmitting || !formik.isValid}>
             {!loading && <span className='indicator-label'>Continue</span>}
             {loading && (

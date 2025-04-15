@@ -1,45 +1,43 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import clsx from "clsx";
 import { Editor } from "@tinymce/tinymce-react";
 
 type Props = {
     field:any,
-    onChange:any,
-    value:any,
-    touched:any,
+    onChange?:any,
+    value?:any,
+    touched?:any,
     error:any,
 }
 
-const SummernoteField = ({field, onChange, value, touched, error }:Props) => {
-    const [textValue2, setTextValue2] = useState(field.value);
-    const onChange2 = (e:any)=> {
-        // onChange(e);
-        setTextValue2(e.target.getContent());
+const SummernoteField = ({field, error }:Props) => {
+    const [textValue2, setTextValue2] = useState(field.value) as any;
+    const editorRef = useRef(null);
+    const onChange2 = (e:any, editor:any)=> {
+        if (editor.targetElm.nodeName=='INPUT'){
+            editor.targetElm.value = e;
+        }
+        else if (editor.targetElm.nodeName=='TEXTAREA'){
+            editor.targetElm.innerHTML = e;
+        }
     };
-    const onActivate = (e:any)=> {
-        console.info(e)
+    const onInit = (e:any, editor:any)=> {
+        editorRef.current = editor
     };
 
-    useEffect(() => {
-        document.getElementsByName(field.name).
-        forEach(function (item) {
-            if (item.nodeName=='INPUT'){
-                (item as HTMLInputElement).value = textValue2;
-            }
-            else if (item.nodeName=='TEXTAREA'){
-                (item as HTMLTextAreaElement).innerText = textValue2;
-            }
-        })
-    }, [textValue2]);
-
-    return <div {...field.wrapperAttributes}>
-        {field.label && <label className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>{field.label}:</label>}
-        {/*<textarea name={field.name}*/}
-        {/*          defaultValue={textValue2}*/}
-        {/*          hidden={true}*/}
-        {/*          autoComplete='off'/>*/}
+    return <div {...field.wrapperAttributes} id={field.name+'_container'}>
+        {field.label && <label htmlFor={field.name} className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>
+            {field.tooltip && <span className="ms-1" data-bs-toggle="tooltip" title={field.tooltip}>
+                  <i className="ki-duotone ki-information-5 text-gray-500 fs-6">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                      <span className="path3"></span>
+                  </i>
+              </span>} {field.label}:</label>}
         <Editor apiKey={import.meta.env.VITE_APP_TINYMCEKEY}
+            onInit={onInit as any}
             initialValue={textValue2}
+            id={field.name}
             init={{
                 branding: false,
                 height: 400,
@@ -50,12 +48,11 @@ const SummernoteField = ({field, onChange, value, touched, error }:Props) => {
                 advcode_inline: true,
                 image_uploadtab: true
             }}
-                textareaName={field.name}
-            onChange={onChange2}
-            onActivate={onActivate}
+            textareaName={field.name}
+            onEditorChange={onChange2 as any}
         />
 
-        {touched && error && (
+        {error && (
             <div className='fv-plugins-message-container'>
                 <div className='fv-help-block'>
                     <span role='alert'>{error}</span>

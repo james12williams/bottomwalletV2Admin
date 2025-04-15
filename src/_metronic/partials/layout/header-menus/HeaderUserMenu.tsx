@@ -15,7 +15,7 @@ const HeaderUserMenu: FC = () => {
       <div className='menu-item px-3'>
         <div className='menu-content d-flex align-items-center px-3'>
           <div className='symbol symbol-50px me-5'>
-            <img src={currentUser.photo_url} alt={ currentUser.username + ' avatar'} />
+            <img src={currentUser.photo?currentUser.photo :'/user.svg'} alt={ currentUser.username + ' avatar'} />
           </div>
 
           <div className='d-flex flex-column'>
@@ -56,7 +56,7 @@ const HeaderUserMenu: FC = () => {
       <Languages />
 
       <div className='menu-item px-5 my-1'>
-        <Link to='/crafted/account/settings' className='menu-link px-5'>
+        <Link to='/apps/account/settings' className='menu-link px-5'>
           Account Settings
         </Link>
       </div>

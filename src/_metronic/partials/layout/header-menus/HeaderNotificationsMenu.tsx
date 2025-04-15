@@ -9,6 +9,8 @@ import {
   toAbsoluteUrl,
   useIllustrationsPath,
 } from '../../../helpers'
+import {LogLoader} from "../../../../partials/loaders";
+import {Logs} from "./Notification/Logs.tsx";
 
 const HeaderNotificationsMenu: FC = () => (
   <div
@@ -119,33 +121,7 @@ const HeaderNotificationsMenu: FC = () => (
         </div>
       </div>
 
-      <div className='tab-pane fade' id='kt_topbar_notifications_3' role='tabpanel'>
-        <div className='scroll-y mh-325px my-5 px-8'>
-          {defaultLogs.map((log, index) => (
-            <div key={`log${index}`} className='d-flex flex-stack py-4'>
-              <div className='d-flex align-items-center me-2'>
-                <span className={clsx('w-70px badge', `badge-light-${log.state}`, 'me-4')}>
-                  {log.code}
-                </span>
-
-                <a href='#' className='text-gray-800 text-hover-primary fw-bold'>
-                  {log.message}
-                </a>
-
-                <span className='badge badge-light fs-8'>{log.time}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className='py-3 text-center border-top'>
-          <Link
-            to='/crafted/pages/profile'
-            className='btn btn-color-gray-600 btn-active-color-primary'
-          >
-            View All <KTIcon iconName='arrow-right' className='fs-5' />
-          </Link>
-        </div>
-      </div>
+        <Logs />
     </div>
   </div>
 )

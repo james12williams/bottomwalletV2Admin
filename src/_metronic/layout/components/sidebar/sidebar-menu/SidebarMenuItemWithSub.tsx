@@ -11,7 +11,7 @@ type Props = {
   icon?: string
   fontIcon?: string
   hasBullet?: boolean
-  subMenus?: any
+  subMenus: any
 }
 
 const SidebarMenuItemWithSub: React.FC<Props & WithChildren> = ({
@@ -20,11 +20,11 @@ const SidebarMenuItemWithSub: React.FC<Props & WithChildren> = ({
   title,
   icon,
   fontIcon,
-  hasBullet,
+  hasBullet = false,
   subMenus
 }) => {
   const {pathname} = useLocation()
-  const isActive = checkIsActive(pathname, to)
+  const isActive = checkIsActive(pathname, to, subMenus)
   const {config} = useLayout()
   const {app} = config
 
@@ -39,13 +39,14 @@ const SidebarMenuItemWithSub: React.FC<Props & WithChildren> = ({
             <span className='bullet bullet-dot'></span>
           </span>
         )}
-        {icon && app?.sidebar?.default?.menu?.iconType === 'svg' && (
+        {icon && (
           <span className='menu-icon'>
-            <KTSVG path={icon} className='svg-icon-2' />
+            {' '}
+            <KTIcon iconName={icon} className='fs-2' />
           </span>
         )}
-        {fontIcon && app?.sidebar?.default?.menu?.iconType === 'font' && (
-          <i className={clsx('bi fs-3', fontIcon)}></i>
+        {fontIcon && (
+            <i className={clsx('bi fs-3', fontIcon)}></i>
         )}
         <span className='menu-title'>{title}</span>
         <span className='menu-arrow'></span>
@@ -66,6 +67,7 @@ const SidebarMenuItemWithSub: React.FC<Props & WithChildren> = ({
                     title={menu.name}
                     fontIcon={menu.icon_class}
                     icon={menu.icon_class}
+                    hasBullet={!menu.icon_class}
                     subMenus={menu.children}
                 >
                 </SidebarMenuItemWithSub>
@@ -77,6 +79,7 @@ const SidebarMenuItemWithSub: React.FC<Props & WithChildren> = ({
                     title={menu.name}
                     icon={menu.icon_class}
                     fontIcon={menu.icon_class}
+                    hasBullet={!menu.icon_class}
                     // hasBullet={true}
                 />
               }

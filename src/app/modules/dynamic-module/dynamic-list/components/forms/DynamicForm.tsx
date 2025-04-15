@@ -9,11 +9,13 @@ import {ButtonGroup, SplitButton, Dropdown} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {AppSpinner} from "../../../../../../partials/content/AppSpinner";
 import {ScrollTopComponent} from "../../../../../../_metronic/assets/ts/components";
+import {FieldGroup} from "../fields/FieldGroup.tsx";
 
 type Props = {
   externalForm?: boolean
   isUserLoading: boolean
   saveOnly?: boolean
+  isModal?: boolean
   submitting?: boolean
   actionTitle?: string
   data: any,
@@ -23,9 +25,10 @@ type Props = {
   handleClose?:()=>void,
 }
 
-const DynamicForm: FC<Props> = ({externalForm=false, data, isUserLoading,submitting=false, saveOnly=false, isDone, actionTitle="Save", errorList={}, handleSubmit, handleClose}:Props) => {
+const DynamicForm: FC<Props> = ({externalForm=false, data, isUserLoading,submitting=false, saveOnly=false, isDone, actionTitle="Save", errorList={}, handleSubmit, handleClose, isModal=false}:Props) => {
   const {setItemIdForUpdate} = useListView();
   const [formFields, setFormFields] = useState([]);
+  const [formFieldGroups, setFormFieldGroups] = useState([]);
   const [isSubmitting, setSubmitting] = useState(submitting);
   const [errors, setErrors] = useState(errorList) as any;
   const [saveAction, setSaveAction] = useState({}) as any;
@@ -53,13 +56,19 @@ const DynamicForm: FC<Props> = ({externalForm=false, data, isUserLoading,submitt
       formField = Object.keys(data.fields).map((key:any) => (data.fields[key]));
     }
     setFormFields(formField);
+    let formFieldGroup = [] as any;
+    if (data.field_groups){
+      formFieldGroup = Object.keys(data.field_groups).map((key:any) => (data.field_groups[key]));
+    }
+    setFormFieldGroups(formFieldGroup);
   };
 
   useEffect(()=>{
     processSaveActionOptions();
     processFormFields()
-  }, [data]);
+  }, [data.fields]);
 
+  let appRoute = import.meta.env.VITE_APP_PUBLIC_URL+(data.xPanel ? data.xPanel.appRoute.replaceAll(import.meta.env.VITE_APP_APP_URL, ''):"").replace(/^\//, '');
   const cancel = (withRefresh?: boolean) => {
     if (handleClose){
       handleClose()
@@ -71,7 +80,6 @@ const DynamicForm: FC<Props> = ({externalForm=false, data, isUserLoading,submitt
       setItemIdForUpdate(undefined)
     }
   };
-
   if (!handleSubmit){
     handleSubmit = (e:any)=>{
       e.preventDefault();
@@ -90,12 +98,14 @@ const DynamicForm: FC<Props> = ({externalForm=false, data, isUserLoading,submitt
             setSubmitting(false);
             if (!saveOnly) {
               if (saveAction.value === 'save_and_edit') {
-                navigate(data.xPanel.appRoute + '/' + resp.result.entry.id + '/edit');
+                navigate(appRoute + '/' + resp.result.entry.id + '/edit');
               } else if (saveAction.value === 'save_and_new') {
                 e.target.reset();
-                navigate(data.xPanel.appRoute + '/create');
+                navigate(appRoute + '/create');
               } else {
-                navigate(data.xPanel.appRoute + '');
+                if (!isModal) {
+                  navigate(-1);
+                }
                 cancel(true);
               }
             }else if (isDone) {
@@ -137,6 +147,7 @@ const DynamicForm: FC<Props> = ({externalForm=false, data, isUserLoading,submitt
   const handleSetErrors = (errorList:any) =>{
     setErrors(errorList)
   };
+
   const handleSetSubmitting = (submitting:any) =>{
     setSubmitting(submitting)
   };
@@ -144,14 +155,9 @@ const DynamicForm: FC<Props> = ({externalForm=false, data, isUserLoading,submitt
   useEffect(()=>{
     if (externalForm){
       handleSetErrors(errorList);
-    }
-  }, [externalForm,errorList]);
-
-  useEffect(()=>{
-    if (externalForm){
       handleSetSubmitting(submitting)
     }
-  }, [externalForm, submitting]);
+  }, [externalForm,errorList,submitting]);
 
   if (isNotEmpty(errors)){
     const temErrors = Object.keys(errors);
@@ -167,24 +173,28 @@ const DynamicForm: FC<Props> = ({externalForm=false, data, isUserLoading,submitt
           {/* begin::Scroll */}
           <div className='d-flex flex-column scroll-y me-n7 pe-7'
                id='kt_modal_add_user_scroll'
-               data-kt-scroll='true'
-               data-kt-scroll-activate='{default: false, lg: true}'
+               data-kt-scroll={isModal?'true':'false'}
                data-kt-scroll-max-height='auto'
                data-kt-scroll-dependencies='#kt_modal_add_user_header'
                data-kt-scroll-wrappers='#kt_modal_add_user_scroll'
                data-kt-scroll-offset='300px'>
-            <div className="row">
-              {formFields.map((formField: any, i:any) => {
-                return <CustomFields field={formField}
-                                     errors = {errors[formField.name]}
-                                     key={formField.name + '_' + i} />
+            {formFieldGroups.length? <div className={!isModal?"d-flex flex-column flex-lg-row":'d-flex flex-column gap-7 gap-lg-10'}>
+              {formFieldGroups.map((formGroup: any, i: any) => {
+                return <FieldGroup group={formGroup} isModal={isModal} key={formGroup.name + '_' + i}/>
               })}
-            </div>
+            </div>: ""}
+            {formFields.length ? <div className="row">
+              {formFields.map((formField: any, i: any) => {
+                return <CustomFields field={formField}
+                                     errors={errors[formField.name]}
+                                     key={formField.name + '_' + i}/>
+              })}
+            </div>: ''}
           </div>
           {/* end::Scroll */}
 
           {/* begin::Actions */}
-          <div className='text-center pt-15'>
+          <div className={'text-center pt-15 '+(!isModal?'pb-15':'')}>
             {(!isSubmitting && !isUserLoading && saveAction.label && !saveOnly) && <SplitButton
                 as={ButtonGroup}
                 type='submit'
@@ -193,10 +203,10 @@ const DynamicForm: FC<Props> = ({externalForm=false, data, isUserLoading,submitt
                 data-kt-users-modal-action='submit'>
               {saveActionOptions.map((option:any)=>{
                 return <Dropdown.Item  as="button"
-                                       type='button'
-                                       onClick={()=>handleAction(option)}
-                                       eventKey={option.value}
-                                       key={option.value}>
+                           type='button'
+                           onClick={()=>handleAction(option)}
+                           eventKey={option.value}
+                           key={option.value}>
                   {option.label}
                 </Dropdown.Item>
               })}

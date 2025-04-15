@@ -5,7 +5,6 @@ import {StepperComponent} from '../../../_metronic/assets/ts/components'
 import {getItems, notify, sendData} from "../../../layouts/core/QueryResponseProvider";
 import {ListLoading} from "../../../app/modules/dynamic-module/dynamic-list/components/loading/ListLoading";
 import clsx from "clsx";
-import SwitchAppCheckout from "@switchappgo/switchapp-inline";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import {usePaystackPayment} from "react-paystack";
 import {usePageData} from "../../../_metronic/layout/core";
@@ -83,9 +82,6 @@ const Deposit: FC<Props> = ({currentUserId}) => {
             sendData('wallet/prepare-credit', tempVal).then((resp: any) => {
                 setLoader(false);
                 switch (resp.result.payment_method.key) {
-                    case "switch_app":
-                        openSwitchAppPayout(resp.result);
-                        break;
                     // case "monnify":
                     //     openMonnifyPayout(resp.result);
                     //     break;
@@ -104,64 +100,6 @@ const Deposit: FC<Props> = ({currentUserId}) => {
             });
         }else{
             notify('warning', 'Please select a payment method')
-        }
-    };
-
-    const openSwitchAppPayout = (data: any) => {
-        const switchappClient = new SwitchAppCheckout({
-            publicApiKey: data.payment_method.value.public_key,
-        });
-        setInvoice(data.invoice);
-        try {
-            switchappClient
-                .showCheckoutModal( {
-                    // public_key: data.payment_method.value.public_key,
-                    tx_ref: data.payment_ref,
-                    amount: data.price,
-                    country: "NG",
-                    // bearer: resp.data.result.bearer,
-                    currency: "NGN",
-                    title: data.title,
-                    logo_url: "",
-                    description: data.description,
-                    payment_channels: ["card", "ussd"],
-                    metadata: {"metaname": "invoice_id", "metavalue": data.invoice.id},
-                    customer: {
-                        email: data.email,
-                        phone_number: data.phone,
-                        full_name: data.name,
-                    },
-                    onSuccess: (callback_resp:any) => {
-                        var payment_ref = data.payment_ref;
-                        var payload = {
-                            ref: payment_ref,
-                            payment_method_id: data.payment_method.id,
-                            payment_id: data.payment.id,
-                            invoice_id: data.invoice.id,
-                            callback_resp: callback_resp,
-                        };
-
-                        setTimeout(function () {
-                            // swappPay.close(false);
-                        }, 2000);
-
-                        verifyPayment(payload);
-
-                    },
-                    onClose: function (tx_incomplete:any) {
-                        var payment_ref = data.payment_ref;
-                        var payload = {
-                            ref: payment_ref,
-                            payment_method_id: data.payment_method.id,
-                            payment_id: data.payment.id,
-                            invoice_id: data.invoice.id,
-                        };
-                        verifyPayment(payload);
-                    },
-                } as any)
-                .then((p: any) => {});
-        } catch (e) {
-
         }
     };
 
@@ -404,7 +342,7 @@ const Deposit: FC<Props> = ({currentUserId}) => {
         if (!stepper.current) {
             return
         }
-        stepper.current.goPrev();
+        stepper.current?.goPrev();
     };
 
     const submitStep = (e:any) => {
@@ -412,21 +350,21 @@ const Deposit: FC<Props> = ({currentUserId}) => {
         if (!stepper.current) {
             return
         }
-        if (stepper.current.currentStepIndex !== stepper.current.totatStepsNumber) {
-            if (stepper.current.currentStepIndex===1){
+        if (stepper.current?.currentStepIndex !== stepper.current?.totalStepsNumber) {
+            if (stepper.current?.currentStepIndex===1){
                 getActiveParents();
             }
             else{
-                stepper.current.goNext()
+                stepper.current?.goNext()
             }
-            if (stepper.current.currentStepIndex){
+            if (stepper.current?.currentStepIndex){
                 setTimeout(()=>{
                     setCurrentStepIndex(stepper?.current?.currentStepIndex? stepper.current.currentStepIndex:0);
                 })
             }
         }
         else {
-            stepper.current.goto(1);
+            stepper.current?.goto(1);
             setManageDeposit()
         }
     };
@@ -503,7 +441,6 @@ const Deposit: FC<Props> = ({currentUserId}) => {
                                                     <select className={clsx('form-control form-control-solid mb-3 mb-lg-0',)}
                                                             name='payment_method_id'
                                                             required={true}
-                                                            placeholder='Select Payment Method'
                                                             onChange={onChange}>
                                                         <option value="">Select Payment Method</option>
                                                         {withdrawal_methods.map((option: any) => {

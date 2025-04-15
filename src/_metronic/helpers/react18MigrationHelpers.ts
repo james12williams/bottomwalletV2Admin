@@ -14,6 +14,8 @@ type WithChildren = {
 
 const reInitMenu = () => {
   setTimeout(() => {
+    window.KTComponents.init()
+    window.KTWidgets.init()
     ToggleComponent.reinitialization();
     ScrollTopComponent.reinitialization();
     DrawerComponent.reinitialization();

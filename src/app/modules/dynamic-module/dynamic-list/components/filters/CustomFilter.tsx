@@ -10,6 +10,7 @@ import {Select2MultipleAjaxFilter} from "./Select2MultipleAjaxFilter";
 import {Select2MultipleFilter} from "./Select2MultipleFilter";
 import {TextFilter} from "./TextFilter";
 import {useSearchParams} from "react-router-dom";
+import {CustomHtmlField} from "../fields/CustomHtmlField.tsx";
 
 type Props = {
     filter:any,
@@ -104,6 +105,8 @@ const CustomFilter = ({filter, onChange}:Props) => {
             return <Select2MultipleFilter filter={filter} onChange={onChange} defaultValue={params.get(filter.name)} />;
         case "text":
             return <TextFilter filter={filter} onChange={onChange} defaultValue={params.get(filter.name)}/>;
+        case "custom_html":
+            return <CustomHtmlField field={filter} />;
     }
     return <></>
 };

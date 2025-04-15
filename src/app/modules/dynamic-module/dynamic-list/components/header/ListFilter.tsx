@@ -103,7 +103,7 @@ const ListFilter = () => {
 
           {/* begin::Content */}
           <form className='px-7 py-5' data-kt-user-table-filter='form' id="kt_table_filter_form" onReset={resetData} onSubmit={filterData}>
-            <div style={{maxHeight: '50vh', overflow: 'auto'}}>
+            <div className='mb-10' style={{maxHeight: '50vh', overflow: 'auto'}}>
             {
               filters.map((filter: any, i:any) => {
                 return <CustomFilter filter={filter}

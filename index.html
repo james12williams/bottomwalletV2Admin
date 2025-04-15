@@ -5,14 +5,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Metronic React Demo 1" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
-  <title>DAPP</title>
+  <meta name="description" content="Admin App" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin App</title>
   <link rel="icon shortcut" id="favicon" href="/favicon.ico" />
-  <link rel="shortcut icon" href="/assets/media/logos/favicon.ico" />
+  <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="stylesheet" id="layout-styles-anchor" href="/splash-screen.css" />
+  <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
   <style>
-    .rdp-months{max-width:100%!important;justify-content:space-between;}.ql-editor{min-height:250px}
+    .rdp-months{max-width:100%!important;justify-content:space-between;}
+    /*.ql-editor{min-height:250px}*/
     .grabbable {
       flex: 1 1;
       width: 100%;
@@ -23,42 +28,54 @@
       border-bottom: 0;
       justify-content: center!important;
     }
+    /*.form-check.form-check-solid .form-check-input:not(:checked) {*/
+    /*  background: light-dark(rgb(232, 240, 254), rgba(70, 90, 126, 0.4)) !important;*/
+    /*}*/
   </style>
 </head>
 
 <body id="kt_body" class="page-loading">
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <!--begin::Theme mode setup on page load-->
-  <script>
-    let themeMode = 'system'
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<!--begin::Theme mode setup on page load-->
+<script>
+  let themeMode = 'system'
 
-    if (localStorage.getItem('kt_theme_mode_value')) {
-      themeMode = localStorage.getItem('kt_theme_mode_value')
-    }
+  if (localStorage.getItem('kt_theme_mode_value')) {
+    themeMode = localStorage.getItem('kt_theme_mode_value')
+  }
 
-    if (themeMode === 'system') {
-      themeMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-    }
+  if (themeMode === 'system') {
+    themeMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  }
 
-    document.documentElement.setAttribute('data-bs-theme', themeMode)
-  </script>
-  <!--end::Theme mode setup on page load-->
+  document.documentElement.setAttribute('data-bs-theme', themeMode)
+</script>
+<!--end::Theme mode setup on page load-->
 
-  <div id="root"></div>
+<div id="root"></div>
 
-  <!--begin::Loading markup-->
-  <div id="splash-screen" class="splash-screen">
-    <img src="/assets/media/logos/keenthemes-dark.svg" class="dark-logo" alt="Keenthemes dark logo" />
-    <img src="/assets/media/logos/keenthemes.svg" class="light-logo" alt="Keenthemes light logo" />
-    <div class="loader-wrapper">
-      <span class="loader"></span>
-      <span class="loading-text">Loading...</span>
-    </div>
+<!--begin::Loading markup-->
+<div id="splash-screen" class="splash-screen">
+  <img src="/icon-dark.svg" height="100" class="dark-logo" alt="dark logo" />
+  <img src="/icon.svg" height="100" class="light-logo" alt="light logo" />
+  <div class="loader-wrapper">
+    <span class="loader"></span>
+    <span class="loading-text">Loading...</span>
   </div>
-  <!--end::Loading markup-->
+</div>
+<!--end::Loading markup-->
 
-  <div id="root-modals"></div>
-  <script type="module" src="/src/main.tsx"></script>
+<div id="root-modals"></div>
+<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+<script src="/assets/plugins/global/plugins.bundle.js"></script>
+<script src="/assets/js/scripts.bundle.js"></script>
+<!--end::Global Javascript Bundle-->
+<!--begin::Vendors Javascript(used for this page only)-->
+<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="/assets/plugins/custom/formrepeater/formrepeater.bundle.js"></script>
+<script src="/assets/js/widgets.bundle.js"></script>
+<script src="/assets/js/custom/widgets.js"></script>
+<script type="module" src="/src/main.tsx"></script>
 </body>
 
 </html>

@@ -2,7 +2,7 @@
 import React, {FC, useContext, useState, useEffect, Dispatch, SetStateAction, createContext} from 'react'
 import {useQuery} from 'react-query'
 import {
-  ID,isNotEmpty,
+  ID, isNotEmpty, WithChildren,
 } from '../../_metronic/helpers'
 import {AxiosService} from "../../app/servicies/axios-service";
 import {LayoutSplashScreen} from "../../_metronic/layout/core";
@@ -17,6 +17,18 @@ const getItems = (apiPath:string, query?: any) => {
   }
   return AxiosService.getRequest(`${url}`, queryParams)
       .then((d: any) => {return d.result;})
+};
+
+const getPaginatedItems = (apiPath:string, query?: any) => {
+  let url = apiPath;
+  let queryParams = {};
+  if (typeof query == 'string'){
+    url += '?'+query;
+  }else if(isNotEmpty(query)){
+    queryParams = query;
+  }
+  return AxiosService.getRequest(`${url}`, queryParams)
+      .then((d: any) => {return {result:d.result, extra:d.extra};})
 };
 
 const sendData = (apiPath:string, data:any={}, options:any= {}) => {
@@ -108,7 +120,7 @@ const getSettings = () => {
       .then((d: any) => {return d.result;})
 };
 
-const AppProvider: FC = ({children}) => {
+const AppProvider: FC<WithChildren> = ({children}) => {
   const [showSplashScreen, setShowSplashScreen] = useState(true);
   const [app, setApp] = useState({}) as any;
   const [app_style, setStyle] = useState({}) as any;
@@ -171,7 +183,6 @@ const AppProvider: FC = ({children}) => {
 
   let value = {
     refetch,
-
     app, setApp,
     app_style, setStyle,
     app_mail, setMail,
@@ -201,24 +212,12 @@ const AppProvider: FC = ({children}) => {
   )
 };
 
-const AppInit: FC = ({children}) => {
-  const {refetch, showSplashScreen} = useApp();
-  // We should request user by authToken (IN OUR EXAMPLE IT'S API_TOKEN) before rendering the application
-  useEffect(() => {
-    setTimeout(()=>{
-      refetch()
-    }, 500)
-  }, []);
-
-  return showSplashScreen ? <LayoutSplashScreen /> : <>{children}</>
-};
-
 export {
   AppProvider,
-  AppInit,
   useApp,
 
   getItems,
+  getPaginatedItems,
   sendData,
   getItem,
   notify,

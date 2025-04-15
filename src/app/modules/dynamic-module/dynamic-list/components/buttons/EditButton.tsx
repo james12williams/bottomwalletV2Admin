@@ -14,7 +14,7 @@ const EditButton: FC<Props> = ({button}) => {
 
     return <>
         {xPanel &&
-            <MyTooltip content={"Edit "+ xPanel.entityName} placement={'top'}><Link to={xPanel.appRoute+'/'+button.primaryKey+'/edit'}
+            <MyTooltip content={"Edit "+ xPanel.entityName} placement={'top'}><Link to={button.primaryKey+'/edit'}
               className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
             <i className="ki-duotone ki-pencil fs-2">
                 <span className="path1" />

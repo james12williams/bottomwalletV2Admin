@@ -12,6 +12,7 @@ import {ListLoading} from "./components/loading/ListLoading";
 import {DynamicForm} from "./components/forms/DynamicForm";
 import { useParams } from 'react-router';
 import {useAuth} from "../../auth";
+import {FormLoader} from "../../../../partials/loaders";
 
 type Props = {
     apiPath: string,
@@ -46,21 +47,10 @@ const ItemConfigure = ({queryName, apiPath}:Props) => {
 
     return (
         <>
-            <KTCard>
-
-                <div className='card-header'>
-                    {/* begin::Modal title */}
-                    <h2 className='fw-bolder text-capitalize'
-                        style={{lineHeight: '70px', width:"-webkit-fill-available"}} dangerouslySetInnerHTML={{__html:data?.title}} />
-                    {/* end::Modal title */}
-                </div>
-
-                <div className="container mt-10 mb-10">
-                    {isNotEmpty(data) && <DynamicForm isUserLoading={isLoading}  data={data}/>}
-                    {isLoading && <ListLoading />}
-                </div>
-
-            </KTCard>
+            <div className="container mt-10 mb-10">
+                {isNotEmpty(data) && <DynamicForm isUserLoading={isLoading}  data={data}/>}
+                {isLoading && <FormLoader />}
+            </div>
         </>
     )
 };

@@ -40,11 +40,18 @@ const ChecklistField = ({field, onChange, value, touched, error }:Props) => {
         }
     });
 
-    return <div {...field.wrapperAttributes} className='form-group mt-4'>
-        {field.label && <label className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>{field.label}:</label>}
+    return <div {...field.wrapperAttributes} className='form-group mt-4' id={field.name+'_container'}>
+        {field.label && <label htmlFor={field.name} className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>
+            {field.tooltip && <span className="ms-1" data-bs-toggle="tooltip" title={field.tooltip}>
+                  <i className="ki-duotone ki-information-5 text-gray-500 fs-6">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                      <span className="path3"></span>
+                  </i>
+              </span>} {field.label}:</label>}
         <div className="row">
-            {field.options.map((option: any) => {
-                return <div key={field.name+'_'+option.key} className={field.optionClass}>
+            {field.options.map((option: any, key:any) => {
+                return <div key={field.name+'_'+field.key+'_'+key} className={field.optionClass}>
                     {/* begin::Input row */}
                     <div className="d-flex fv-row">
                         {/* begin::Radio */}
@@ -53,7 +60,7 @@ const ChecklistField = ({field, onChange, value, touched, error }:Props) => {
                             <input className="form-check-input me-3"
                                    name={field.name} type="checkbox"
                                    value={option.key}
-                                   id={option.name+'_'+option.key}
+                                   id={field.name+'_'+field.key+'_'+key}
                                    multiple={true}
                                    onClick={()=>handleClick(option.key)}
                                    defaultChecked={isChecked(option.key)}
@@ -61,7 +68,7 @@ const ChecklistField = ({field, onChange, value, touched, error }:Props) => {
                             {/* end::Input */}
 
                             {/* begin::Label */}
-                            <label className="form-check-label" htmlFor={option.name+'_'+option.key} >
+                            <label className="form-check-label" htmlFor={field.name+'_'+field.key+'_'+key} >
                                 <div className="fw-bold text-gray-800">{option.value}</div>
                             </label>
                             {/* end::Label */}

@@ -127,6 +127,14 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
     AxiosService.logout();
   };
 
+  useEffect(() => {
+    document.body.classList.add('page-loading')
+    if (!showSplashScreen) {
+      document.body.classList.remove('page-loading')
+      return
+    }
+  }, [showSplashScreen]);
+
   const userCan = (action:string) => {
     return true;
   };

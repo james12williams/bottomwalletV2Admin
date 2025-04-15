@@ -6,7 +6,6 @@ import {Base64ImageField} from "./Base64ImageField";
 import {ChecklistDependencyField} from "./ChecklistDependencyField";
 import {CheckboxField} from "./CheckboxField";
 import {ChecklistField} from "./ChecklistField";
-import {CkeditorField} from "./CkeditorField";
 import {ColorField} from "./ColorField";
 import {CustomHtmlField} from "./CustomHtmlField";
 import {DateField} from "./DateField";
@@ -28,16 +27,13 @@ import {Select2FromAjaxMultipleField} from "./Select2FromAjaxMultipleField";
 import {Select2FromAjaxField} from "./Select2FromAjaxField";
 import {SelectField} from "./SelectField";
 import {SelectFromArrayField} from "./SelectFromArrayField";
-import {SimditorField} from "./SimditorField";
 import {Select2Field} from "./Select2Field";
-import {ReadImagesField} from "./ReadImagesField";
 import {Select2MultipleField} from "./Select2MultipleField";
 import {SelectMultipleField} from "./SelectMultipleField";
 import {NumberField} from "./NumberField";
 import {VideoField} from "./VideoField";
 import {UploadMultipleField} from "./UploadMultipleField";
 import {SummernoteField} from "./SummernoteField";
-import {TinymceField} from "./TinymceField";
 import {UploadField} from "./UploadField";
 import {TextareaField} from "./TextareaField";
 import {UrlField} from "./UrlField";
@@ -45,17 +41,18 @@ import {TableField} from "./TableField";
 import {TimeField} from "./TimeField";
 import {TimePickerField} from "./TimePickerField";
 import {WeekField} from "./WeekField";
-import {SimplemdeField} from "./SimplemdeField";
-import {WysiwygField} from "./WysiwygField";
 import {TextField} from "./TextField";
+import {TagifyField} from "./TagifyField";
 import {DoubleField} from "./DoubleField";
 import {MultiChecklistField} from "./MultiChecklistField";
 import {useSearchParams} from "react-router-dom";
 import {FileField} from "./FileField";
+import {QuillField} from "./QuillField.tsx";
+import {CustomPathField} from "./CustomPathField.tsx";
 
 type Props = {
     field:any,
-    errors:any,
+    errors?:any,
     onChange?:(e:any)=>void,
     onCheckboxChange?:(e:any)=>void,
 }
@@ -73,6 +70,8 @@ const CustomFields = ({field, errors, onChange, onCheckboxChange}:Props) => {
                 field.value = field.defaultValue;
             }
         }
+        window.KTComponents.init()
+        window.KTWidgets.init()
     }, [field]);
 
     if (!onChange){
@@ -121,27 +120,16 @@ const CustomFields = ({field, errors, onChange, onCheckboxChange}:Props) => {
     if (field) {
         if ((field.type == 'select2_from_array' ||
             field.type == 'enum'||
+            field.type == 'checklist'||
+            field.type == 'multi_checklist'||
             field.type == 'select_from_array'||
-            field.type == 'select2') && field.options){
+            field.type == 'select2' || field.type == 'checklist' || field.type == 'radio') && field.options){
             if (isNotEmpty(field.options)) {
                 field.options = Object.keys(field.options).map((key: any) => {
                     if (field.options[key].key) {
                         return field.options[key];
                     } else {
-                        return {key: key, value: field.options[key]};
-                    }
-                })
-            }else{
-                field.options = [];
-            }
-        }
-        else if ((field.type == 'checklist') && field.options){
-            if (isNotEmpty(field.options)){
-                field.options = Object.keys(field.options).map((key:any)=>{
-                    if (field.options[key].key){
-                        return field.options[key];
-                    }else{
-                        return {key:key, value: field.options[key]};
+                        return {key: key, value: field.options[key], label: field.options[key]};
                     }
                 })
             }else{
@@ -149,10 +137,22 @@ const CustomFields = ({field, errors, onChange, onCheckboxChange}:Props) => {
             }
         }
         else if(field.type == 'checklist_dependency'){
-            field.subfields = Object.keys(field.subfields).map((key:any) => (field.subfields[key]));
+            if (field.subfields){
+                field.subfields = Object.keys(field.subfields).map((key:any) => (field.subfields[key]));
+            }else{
+                field.subfields = [];
+            }
             field.subfields.forEach((subfield:any, index:any)=>{
                 if (isNotEmpty(subfield.options)) {
-                    subfield.options = Object.keys(subfield.options).map(key => (subfield.options[key]));
+                    subfield.options = Object.keys(subfield.options).map((key: any) => {
+                        if (subfield.options[key].key) {
+                            return subfield.options[key];
+                        } else {
+                            return {key: key, value: subfield.options[key], label: subfield.options[key]};
+                        }
+                    })
+                }else{
+                    subfield.options = [];
                 }
             })
         }
@@ -194,23 +194,15 @@ const CustomFields = ({field, errors, onChange, onCheckboxChange}:Props) => {
                                    value={value}
                                    touched={touched}
                                    error={error} />;
-            case "ckeditor":
-                return <CkeditorField field={field}
-                                   onChange={onChange}
-                                   value={value}
-                                   touched={touched}
-                                   error={error} />;
             case "color":
                 return <ColorField field={field}
                                    onChange={onChange}
                                    touched={touched}
                                    error={error} />;
             case "custom_html":
-                return <CustomHtmlField field={field}
-                                   onChange={onChange}
-                                   value={value}
-                                   touched={touched}
-                                   error={error} />;
+                return <CustomHtmlField field={field} />;
+            case "custom_path":
+                return <CustomPathField field={field} />;
             case "date":
                 return <DateField field={field}
                                    onChange={onChange}
@@ -225,8 +217,6 @@ const CustomFields = ({field, errors, onChange, onCheckboxChange}:Props) => {
                                    error={error} />;
             case "date_range":
                 return <DateRangeField field={field}
-                                   onChange={onChange}
-                                   value={value}
                                    touched={touched}
                                    error={error} />;
             case "datetime":
@@ -319,12 +309,6 @@ const CustomFields = ({field, errors, onChange, onCheckboxChange}:Props) => {
                                     value={value}
                                     touched={touched}
                                     error={error} />;
-            case "read_images":
-                return <ReadImagesField field={field}
-                                    onChange={onChange}
-                                    value={value}
-                                    touched={touched}
-                                    error={error} />;
             case "select2":
                 return <Select2Field field={field}
                                     onChange={onChange}
@@ -373,24 +357,6 @@ const CustomFields = ({field, errors, onChange, onCheckboxChange}:Props) => {
                                     value={value}
                                     touched={touched}
                                     error={error} />;
-            case "simditor":
-                return <SimditorField field={field}
-                                    onChange={onChange}
-                                    value={value}
-                                    touched={touched}
-                                    error={error} />;
-            case "simplemde":
-                return <SimplemdeField field={field}
-                                    onChange={onChange}
-                                    value={value}
-                                    touched={touched}
-                                    error={error} />;
-            case "summernote":
-                return <SummernoteField field={field}
-                                    onChange={onChange}
-                                    value={value}
-                                    touched={touched}
-                                    error={error} />;
             case "table":
                 return <TableField field={field}
                                     onChange={onChange}
@@ -408,6 +374,11 @@ const CustomFields = ({field, errors, onChange, onCheckboxChange}:Props) => {
                                    onChange={onChange}
                                    touched={touched}
                                    error={error} />;
+            case "tagify":
+                return <TagifyField field={field}
+                                   onChange={onChange}
+                                   touched={touched}
+                                   error={error} />;
             case "time":
                 return <TimeField field={field}
                                    onChange={onChange}
@@ -416,12 +387,6 @@ const CustomFields = ({field, errors, onChange, onCheckboxChange}:Props) => {
                                    error={error} />;
             case "time_picker":
                 return <TimePickerField field={field}
-                                   onChange={onChange}
-                                   value={value}
-                                   touched={touched}
-                                   error={error} />;
-            case "tinymce":
-                return <TinymceField field={field}
                                    onChange={onChange}
                                    value={value}
                                    touched={touched}
@@ -456,12 +421,12 @@ const CustomFields = ({field, errors, onChange, onCheckboxChange}:Props) => {
                                    value={value}
                                    touched={touched}
                                    error={error} />;
+            case "tinymce":
+            case "summernote":
+                return <SummernoteField field={field} error={error} />;
             case "wysiwyg":
-                return <WysiwygField field={field}
-                                   onChange={onChange}
-                                   value={value}
-                                   touched={touched}
-                                   error={error} />;
+            case "quill":
+                return <QuillField field={field} error={error} />;
         }
     }
     return <></>

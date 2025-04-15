@@ -77,7 +77,7 @@ export interface UserInfoModel {
 const defaultUserInfos: Array<UserInfoModel> = [
   {
     name: 'Emma Smith',
-    avatar: 'avatars/300-6.jpg',
+    avatar: '/user.svg',
     email: 'e.smith@kpmg.com.au',
     position: 'Art Director',
     online: false,
@@ -91,7 +91,7 @@ const defaultUserInfos: Array<UserInfoModel> = [
   },
   {
     name: 'Max Smith',
-    avatar: 'avatars/300-1.jpg',
+    avatar: '/user.svg',
     email: 'max@kt.com',
     position: 'Software Enginer',
     online: false,
@@ -105,7 +105,7 @@ const defaultUserInfos: Array<UserInfoModel> = [
   },
   {
     name: 'Brian Cox',
-    avatar: 'avatars/300-25.jpg',
+    avatar: '/user.svg',
     email: 'brian@exchange.com',
     position: 'UI/UX Designer',
     online: false,
@@ -119,7 +119,7 @@ const defaultUserInfos: Array<UserInfoModel> = [
   },
   {
     name: 'Francis Mitcham',
-    avatar: 'avatars/300-9.jpg',
+    avatar: '/user.svg',
     email: 'f.mitcham@kpmg.com.au',
     position: 'Software Arcitect',
     online: false,
@@ -141,7 +141,7 @@ const defaultUserInfos: Array<UserInfoModel> = [
   },
   {
     name: 'Dan Wilson',
-    avatar: 'avatars/300-23.jpg',
+    avatar: '/user.svg',
     email: 'dam@consilting.com',
     position: 'Web Desinger',
     online: false,
@@ -155,7 +155,7 @@ const defaultUserInfos: Array<UserInfoModel> = [
   },
   {
     name: 'Ana Crown',
-    avatar: 'avatars/300-12.jpg',
+    avatar: '/user.svg',
     email: 'ana.cf@limtel.com',
     position: 'Customer Relationship',
     online: false,
@@ -169,7 +169,7 @@ const defaultUserInfos: Array<UserInfoModel> = [
   },
   {
     name: 'John Miller',
-    avatar: 'avatars/300-13.jpg',
+    avatar: '/user.svg',
     email: 'miller@mapple.com',
     position: 'Project Manager',
     online: false,
@@ -183,7 +183,7 @@ const defaultUserInfos: Array<UserInfoModel> = [
   },
   {
     name: 'Ethan Wilder',
-    avatar: 'avatars/300-21.jpg',
+    avatar: '/user.svg',
     email: 'ethan@loop.com.au',
     position: 'Accountant',
     online: true,

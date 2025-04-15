@@ -6,15 +6,15 @@ import React, {useEffect, useState} from "react";
 import {Settings} from "./components/settings/Settings";
 import {ErrorsPage} from "../errors/ErrorsPage";
 import {UserViewProvider, useUserView} from "./UserViewProvider";
-import {WithdrawalAccount} from "./components/WithdrawalAccount";
-import {Wallets} from "./components/Wallets";
-import {Businesses} from "./components/Businesses";
-import {Transactions} from "./components/Transactions";
-import DynamicPage from "../dynamic-module/DynamicPage";
+import {BlogComments} from "./components/BlogComments";
+import {BlogPosts} from "./components/BlogPosts";
 import {routerReplace} from "../dynamic-module/dynamic-list/core/QueryResponseProvider";
 import {useParams} from "react-router";
 import {useAuth} from "../auth";
 import {PageLink, PageTitle} from "../../../_metronic/layout/core";
+import {Transactions} from "./components/Transactions.tsx";
+import {Wallets} from "./components/Wallets.tsx";
+import {WithdrawalAccount} from "./components/WithdrawalAccount.tsx";
 
 const profileBreadCrumbs: Array<PageLink> = [
   {
@@ -86,6 +86,18 @@ const MyProfilePage  = ({path, base, baseTitle}:Props) => {
                         </>
                     }
                 />
+                <Route path='/blog-posts/*' element={
+                    <>
+                        <PageTitle breadcrumbs={profileBreadCrumbs}>Blog Posts</PageTitle>
+                        <BlogPosts  currentUserId={currentUser.id}/>
+                    </>
+                } />
+                <Route path='/blog-comments/*' element={
+                    <>
+                        <PageTitle breadcrumbs={profileBreadCrumbs}>Blog Comments</PageTitle>
+                        <BlogComments  currentUserId={currentUser.id}/>
+                    </>
+                } />
 
                 <Route path='/withdrawal-account/*' element={
                     <>

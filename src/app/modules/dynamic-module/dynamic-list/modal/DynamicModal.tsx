@@ -7,6 +7,7 @@ import {useQuery} from "react-query";
 import {isNotEmpty} from "../../../../../_metronic/helpers";
 import {DynamicForm} from "../components/forms/DynamicForm";
 import {ErrorsHandler} from "../../../errors/ErrorsPage";
+import {FormLoader} from "../../../../../partials/loaders";
 
 type Props = {
     queryName:any
@@ -63,9 +64,10 @@ const DynamicModal = ({queryName}:Props) => {
                         <DynamicModalHeader title={data?.title} />
                         {/* begin::Modal body */}
                         <div className='modal-body scroll-y mx-5 mx-xl-15 my-7'>
-                            {(isNotEmpty(data) && !hasError) && <DynamicForm isUserLoading={isLoading}  data={data}/>}
+                            {(isNotEmpty(data) && !hasError) && <DynamicForm isUserLoading={isLoading} data={data} isModal={true}/>}
                             {hasError && <ErrorsHandler errorCode={hasError} showButton={false}/>}
-                            {isLoading && <ListLoading />}
+                            {isLoading && <FormLoader isModal={true} />}
+                            {/*{isLoading && <ListLoading />}*/}
                         </div>
                         {/* end::Modal body */}
                     </div>

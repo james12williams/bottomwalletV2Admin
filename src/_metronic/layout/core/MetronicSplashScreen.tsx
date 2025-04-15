@@ -29,6 +29,7 @@ const MetronicSplashScreenProvider: FC<WithChildren> = ({children}) => {
 
     // Hide SplashScreen
     let timeout: number
+
     if (!visible) {
       timeout = window.setTimeout(() => {
         document.body.classList.add('page-loading')
@@ -52,7 +53,9 @@ const LayoutSplashScreen: FC<{visible?: boolean}> = ({visible = true}) => {
   const setCount = useContext(MetronicSplashScreenContext)
 
   useEffect(() => {
+    document.body.classList.add('page-loading')
     if (!visible) {
+      document.body.classList.remove('page-loading')
       return
     }
 

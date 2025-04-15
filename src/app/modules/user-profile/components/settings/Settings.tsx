@@ -8,6 +8,7 @@ import {DeactivateAccount} from "./DeactivateAccount";
 import {NotificationSetting} from "./NotificationSetting";
 import {EmailPreference} from "./EmailPreference";
 import {useUserView} from "../../UserViewProvider";
+import {FormLoader} from "../../../../../partials/loaders";
 
 export function Settings() {
     const {requestUser, currentUserId} = useUserView();
@@ -29,30 +30,18 @@ export function Settings() {
       requestUser();
   }
   return (<>
-        <div className="card mb-5 mb-xl-10">
-          {/*begin::Card header*/}
-          <div className="card-header">
-            {/*begin::Card title*/}
-            <div className="card-title m-0">
-              <h3 className="fw-bold m-0">Profile Details</h3>
-            </div>
-            {/*end::Card title*/}
+          <div className='position-relative'>
+              {isLoading && <FormLoader />}
+
+              {!isLoading && isNotEmpty(data) && <DynamicForm isUserLoading={isLoading} isDone={isDone} data={data} saveOnly={true} actionTitle={'Save Changes'}/>}
+
+
+              {/*<EmailPreference />*/}
+
+              {/*<NotificationSetting />*/}
+
+              <DeactivateAccount />
           </div>
-          {/*begin::Card header*/}
-
-          {/*begin::Content*/}
-          <div className="card-body container mt-10 mb-10">
-            {!isLoading && isNotEmpty(data) && <DynamicForm isUserLoading={isLoading} isDone={isDone} data={data} saveOnly={true}/>}
-            {isLoading && <ListLoading />}
-          </div>
-          {/*end::Content*/}
-        </div>
-
-        <EmailPreference />
-
-        <NotificationSetting />
-
-        <DeactivateAccount />
       </>
   )
 }

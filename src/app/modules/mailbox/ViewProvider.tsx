@@ -1,6 +1,7 @@
 import {FC, useState, createContext, useContext, Dispatch, SetStateAction, useEffect} from 'react'
 import {AxiosService} from "../../servicies/axios-service";
 import {useParams} from "react-router";
+import {WithChildren} from "../../../_metronic/helpers";
 
 type ContextProps = {
     data: any
@@ -44,7 +45,7 @@ type Props = {
     path: string,
 }
 
-const ViewProvider: FC<Props> = ({children, path}) => {
+const ViewProvider: FC<Props & WithChildren> = ({children, path}) => {
     const params= useParams();
     const [data, setCurrent] = useState({}) as any;
     const [isLoading, setLoading] = useState(true);

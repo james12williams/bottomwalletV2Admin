@@ -105,8 +105,8 @@ class SwapperComponent {
     const parentSelector = this.getOption('parent')?.toString()
     const mode = this.getOption('mode')
     const parentElement = parentSelector ? document.querySelector(parentSelector) : null
-    if (parentElement && this.element.parentNode !== parentElement) {
-      const alreadyPended = parentElement.querySelector(this.element.id) !== null;
+    if (parentElement && this.element.parentNode !== parentElement && this.element.id) {
+      const alreadyPended = parentElement?.querySelector(this.element.id) !== null;
       if (!alreadyPended) {
         if (mode === 'prepend') {
           parentElement.prepend(this.element)

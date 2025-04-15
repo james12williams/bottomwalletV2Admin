@@ -12,14 +12,14 @@ const Select2MultipleFilter = ({filter, onChange, defaultValue}:Props) => {
         <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>{filter.label}:</label>
             <select
-                className='form-select form-select-solid fw-bolder'
+                className='form-select fw-bolder'
                 data-kt-select2='true'
                 data-placeholder='Select option'
                 data-allow-clear='true'
                 data-kt-user-table-filter='role'
                 data-hide-search='true'
                 name={filter.name}
-                required={filter.is_required} placeholder={filter.label}
+                required={filter.is_required}
                 defaultValue={defaultValue}
                 onChange={onChange}
             >

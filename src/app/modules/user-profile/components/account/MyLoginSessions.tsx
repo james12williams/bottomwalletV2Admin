@@ -4,6 +4,7 @@ import {ListLoading} from "../../../dynamic-module/dynamic-list/components/loadi
 import {getItems} from "../../../../../layouts/core/QueryResponseProvider";
 import {KTSVG} from "../../../../../_metronic/helpers";
 import {useUserView} from "../../UserViewProvider";
+import {TableRowLoader} from "../../../../../partials/loaders";
 
 type Props = {
   className?: string
@@ -126,6 +127,24 @@ const MyLoginSessions: React.FC<Props> = ({className='mb-lg-10'}) => {
                           <td>{item.date_ago}</td>
                       </tr>
                       })}
+                      {isLoading?<TableRowLoader colSpan={5} count={5}/>:''}
+                      {(!isLoading && list.length<1) && <tr>
+                          <td colSpan={5}>
+                              <div className="text-center">
+                                  <div className="pt-10 pb-10">
+                                      <i className="ki-duotone ki-information-2 fs-4x opacity-50">
+                                          <span className="path1"></span>
+                                          <span className="path2"></span>
+                                          <span className="path3"></span>
+                                      </i>
+                                  </div>
+                                  <div className="pb-15 fw-bold">
+                                      <h3 className="text-gray-600 fs-5 mb-2">No data available</h3>
+                                      <div className="text-muted fs-7">Populate the record and check back later...</div>
+                                  </div>
+                              </div>
+                          </td>
+                      </tr>}
 
                       </tbody>
                       {/*end::Tbody*/}

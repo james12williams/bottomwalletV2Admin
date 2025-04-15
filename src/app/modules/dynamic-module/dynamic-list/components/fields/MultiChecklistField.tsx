@@ -60,7 +60,7 @@ const MultiChecklistField = ({field, onChange, value, touched, error }:Props) =>
         return val;
     };
 
-    return <div {...field.wrapperAttributes} className='form-group mt-4'>
+    return <div {...field.wrapperAttributes} className='form-group mt-4' id={field.name+'_container'}>
         <div className="table-responsive">
             {/* begin::Table*/}
             <table className="table align-middle table-row-dashed fs-6 gy-5">
@@ -69,7 +69,13 @@ const MultiChecklistField = ({field, onChange, value, touched, error }:Props) =>
                 {/* begin::Table row*/}
                 <tr>
                     <td className="text-gray-800">
-                        {field.label}
+                        {field.tooltip && <span className="ms-1" data-bs-toggle="tooltip" title={field.tooltip}>
+                  <i className="ki-duotone ki-information-5 text-gray-500 fs-6">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                      <span className="path3"></span>
+                  </i>
+              </span>} {field.label}
                         <span className="ms-1"
                               data-bs-toggle="tooltip"
                               title="Allows a full access to the system">

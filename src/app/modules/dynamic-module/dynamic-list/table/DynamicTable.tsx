@@ -2,10 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react'
 import {useTable, ColumnInstance, Row} from 'react-table'
 import {CustomHeaderColumn} from './columns/CustomHeaderColumn'
 import {CustomRow} from './columns/CustomRow'
-import {
-  useQueryResponseData,
-  useQueryResponseLoading,
-} from '../core/QueryResponseProvider'
+import { useQueryResponseData, useQueryResponseLoading } from '../core/QueryResponseProvider'
 import {ListLoading} from '../components/loading/ListLoading'
 import {ListPagination} from '../components/pagination/ListPagination'
 import {KTCardBody} from '../../../../../_metronic/helpers'
@@ -28,15 +25,11 @@ const DynamicTable = ({columnList}:Props) => {
 
   return (
       <KTCardBody className='py-4'>
-        <div className='table-responsive'>
-          <table id='kt_table_users'
-                 className='table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer'
-                 {...getTableProps()}>
+        <div className='table-responsive' style={{minHeight:'70vh'}}>
+          <table id='kt_table_users' className='table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer' {...getTableProps()}>
             <thead>
             <tr className='text-start text-muted fw-bolder fs-7 text-uppercase gs-0'>
-              {headers.map((column: ColumnInstance<any>) => (
-                  <CustomHeaderColumn key={column.id} column={column}/>
-              ))}
+              {headers.map((column: ColumnInstance<any>) => (<CustomHeaderColumn key={column.id} column={column}/>))}
             </tr>
             </thead>
             <tbody className='text-gray-600 fw-bold' {...getTableBodyProps()}>

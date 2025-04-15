@@ -91,7 +91,7 @@ const AddressField = ({field, onChange, value, touched, error }:Props) => {
         <input type="text"
                {...field.attributes}
                className={clsx(
-                   'form-control form-control-solid mb-3 mb-lg-0',
+                   'form-control mb-3 mb-lg-0',
                    {'is-invalid': touched && error},
                    {'is-valid': touched && !error}
                )}

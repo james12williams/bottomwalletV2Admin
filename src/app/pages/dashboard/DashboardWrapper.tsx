@@ -1,36 +1,43 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {FC, useEffect, useState} from 'react'
+import { useLocation } from 'react-router-dom';
 import {useIntl} from 'react-intl'
-import {MorrisChart, ProductList, UserList, CardWidget} from './widgets'
+import {CardWidget} from './widgets'
 import {getItems} from "../../modules/dynamic-module/dynamic-list/core/QueryResponseProvider";
-import {ReservationList} from "./widgets/ReservationList";
-import {useApp} from "../../../layouts/core/QueryResponseProvider";
 import {PageTitle} from "../../../_metronic/layout/core";
-import {CardLoaderWidget} from "../../../partials/loaders/CardLoaderWidget";
+import {DashboardLoader} from "../../../partials/loaders/DashboardLoader.tsx";
+import {DynamicWidget} from "../../components/DynamicWidget.tsx";
 
-const DashboardPage: FC = () => {
+type Props = {
+    path: any
+}
+
+const DashboardPage: FC<Props> = ({path}) => {
     const [isLoading, setLoading] = useState(false);
     const [data, setData] = useState({}) as any;
-    const {app} = useApp();
 
     const getDashboardData = () =>{
         setLoading(true);
-        getItems('dashboard').then((resp:any)=>{
+        getItems(path).then((resp:any)=>{
             setData(resp);
             setLoading(false);
         }, (resp:any)=>{
             setLoading(false);
         })
     };
+
     useEffect(() => {
         getDashboardData();
-    }, []);
+    }, [path]);
 
     return <>
+
+        {isLoading && <DashboardLoader  count={8} /> }
+
         {/* begin::Row */}
         <div className="row">
-            {!isLoading && data?.cards?.length>0 && data.cards.map((card:any, index:any)=>{
-                return <CardWidget key={'card_'+index} className={'col-xl-3 mb-5'}
+            {!isLoading && data?.cards?.length>0 ? data.cards.map((card:any, index:any)=>{
+                return <CardWidget key={'card_'+index} className={ card.className??'col-xl-3 mb-5'}
                                    bgColor={ card.bgColor }
                                    title={ card.title }
                                    description={ card.description }
@@ -39,50 +46,47 @@ const DashboardPage: FC = () => {
                                    textColor={ card.textColor }
                                    iconColor={ card.iconColor }
                                    isLoading={ isLoading } />;
-            })}
-            {isLoading && <CardLoaderWidget count={8}/>}
-        </div>
-        {/* end::Row */}
-
-        {/* begin::Row */}
-        <div className="row gy-5 g-xl-10 mb-xl-10">
-            {/* begin::Col */}
-            <div className="col-xl-12">
-                <MorrisChart isLoading={isLoading} data={data.latestPaymentsChart}
-                             className='card-flush h-xl-100'
-                             chartColor='primary'
-                             chartHeight='450px'
-                />
-            </div>
-            {/* end::Col */}
+            }):""}
         </div>
         {/* end::Row */}
 
         {/*/!* begin::Row *!/*/}
-        <div className='row gy-5 gx-xl-8'>
-            <div className='col-xl-8'>
-                <MorrisChart isLoading={isLoading} data={data.latestUsersChart}
-                             className='card-xxl-stretch'
-                             chartColor='primary'
-                             chartHeight='450px'
-                />
-            </div>
-            <div className='col-xxl-4'>
-                <UserList data={data.latestUsers} isLoading={isLoading} className='card-xxl-stretch'/>
-            </div>
-        </div>
+        {!isLoading && data.options?.length>0 ? <div className='row gy-5 gx-xl-8'>
+            {data.options.map((card:any, index:any)=>{
+                return <div key={card.name+'_'+index} className={card.className??'col-xl-12'}>
+                    <DynamicWidget card={card} />
+                </div>
+            })}
+        </div>:""}
         {/*/!* end::Row *!/*/}
     </>
 };
 
-const DashboardWrapper: FC = () => {
-  const intl = useIntl();
-  return (
-    <>
-      <PageTitle breadcrumbs={[]}>{intl.formatMessage({id: 'MENU.DASHBOARD'})}</PageTitle>
-      <DashboardPage />
-    </>
-  )
+type SecondProps = {
+    path: string,
+    base?: string,
+    baseTitle?: string,
+    entityNamePlural?: string,
+    entityName?: string,
+    queryName?: string,
+    usersBreadcrumbs?: any,
+}
+
+const DashboardWrapper: FC<SecondProps> = ({path, base, baseTitle, entityName, entityNamePlural, queryName, usersBreadcrumbs}) => {
+    const intl = useIntl();
+    const [apiPath, setPath] = useState(path)
+    const location = useLocation();
+
+    useEffect(() => {
+        setPath((location.pathname)?.replace('/apps/', ''))
+    }, [location.pathname]);
+
+    return (
+        <>
+            <PageTitle breadcrumbs={[]}>{entityName??intl.formatMessage({id: 'MENU.DASHBOARD'})}</PageTitle>
+            <DashboardPage path={apiPath} />
+        </>
+    )
 };
 
 export {DashboardWrapper}

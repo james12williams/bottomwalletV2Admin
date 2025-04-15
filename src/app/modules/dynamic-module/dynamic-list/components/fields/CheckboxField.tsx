@@ -16,8 +16,15 @@ const CheckboxField = ({field, onChange, value, touched, error }:Props) => {
         setValue(!valueMain);
     };
 
-    return <div {...field.wrapperAttributes}>
-        {field.label && <label className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>{field.label}:</label>}
+    return <div {...field.wrapperAttributes} id={field.name+'_container'}>
+        {field.label && <label htmlFor={field.name} className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>
+            {field.tooltip && <span className="ms-1" data-bs-toggle="tooltip" title={field.tooltip}>
+                  <i className="ki-duotone ki-information-5 text-gray-500 fs-6">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                      <span className="path3"></span>
+                  </i>
+              </span>} {field.label}:</label>}
         <div className="form-check form-check-solid form-switch form-check-custom fv-row">
             <input className="form-check-input w-45px h-30px"
                    {...field.attributes}

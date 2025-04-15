@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import clsx from "clsx";
 import {Sketch} from "@uiw/react-color";
 import {MyTooltip} from "../buttons/MyTooltip";
@@ -11,7 +11,18 @@ type Props = {
 }
 
 const ColorField = ({field, onChange, touched, error }:Props) => {
-    const [hex, setHex] = useState(field.value ? field.value: "#ff0000");
+    const [hex, setHex] = useState(field.value ? field.value: "#ff0000") as any;
+    useEffect(() => {
+        var element = document.getElementById(field.name) as HTMLInputElement;
+        if (element){
+            element.value = hex;
+        }
+    }, [hex]);
+
+    const handelChange = (e:any) => {
+        setHex(e.target.value)
+        onChange(e)
+    }
     return <div {...field.wrapperAttributes}>
         {field.label && <label className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>{field.label}:</label>}
         <div className="input-group input-group-sm mb-3">
@@ -27,14 +38,12 @@ const ColorField = ({field, onChange, touched, error }:Props) => {
             <input type="text"
                {...field.attributes}
                className={clsx(
-                   'form-control form-control-solid mb-3 mb-lg-0',
+                   'form-control mb-3 mb-lg-0',
                    {'is-invalid': touched && error},
                    {'is-valid': touched && !error}
                )}
-               name={field.name}
-               value={hex}
-               onChange={onChange}
-               readOnly={true}
+               id={field.name}
+               name={field.name} onChange={handelChange}
                autoComplete='off'/>
         </MyTooltip>
         </div>

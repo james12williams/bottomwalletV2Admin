@@ -95,7 +95,7 @@ export const DefaultConfig: ILayout = {
       componentName: 'page-title',
       display: true,
       breadCrumb: true,
-      description: false,
+      description: true,
       direction: 'column',
     },
     content: {

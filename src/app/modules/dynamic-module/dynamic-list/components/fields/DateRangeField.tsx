@@ -7,14 +7,15 @@ import { format } from 'date-fns';
 
 type Props = {
     field:any,
-    touched:any,
-    error:any,
+    onChange?:any,
+    touched?:any,
+    error?:any,
     from?:any,
     to?:any,
     numberOfMonths?:number,
 }
 
-const DateRangeField = ({field, from, to, touched, error, numberOfMonths=2 }:Props) => {
+const DateRangeField = ({field,onChange, from, to, touched, error, numberOfMonths=2 }:Props) => {
     const [params] = useSearchParams();
 
     const defaultSelected: DateRange = {
@@ -76,18 +77,26 @@ const DateRangeField = ({field, from, to, touched, error, numberOfMonths=2 }:Pro
         }
     }, [range]);
 
-    return <div {...field.wrapperAttributes}>
-        {field.label && <label className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>{field.label}:</label>}
-        <input type="hidden"  name={field.name} id={field.name}/>
-        <input type="hidden"  name={field.name+'_from'} id={field.name+'_from'}/>
-        <input type="hidden"  name={field.name+'_to'} id={field.name+'_to'}/>
-
-        <DayPicker onSelect={setRange}
-            numberOfMonths={numberOfMonths}
-            mode="range"
-            selected={range}
-            {...field.attributes}
-        />
+    return <div {...field.wrapperAttributes} id={field.name+'_container'}>
+        {field.label && <label htmlFor={field.name} className={clsx('form-label fs-6 fw-bold', {'required': field.is_required})}>
+            {field.tooltip && <span className="ms-1" data-bs-toggle="tooltip" title={field.tooltip}>
+                  <i className="ki-duotone ki-information-5 text-gray-500 fs-6">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                      <span className="path3"></span>
+                  </i>
+              </span>} {field.label}:</label>}
+        <div data-kt-daterangepicker="true" data-name={field.name} id={field.name} data-kt-daterangepicker-range="today" className="btn btn-light d-flex align-items-center px-4">
+            <div className="text-gray-600 fw-bold">Loading date range...</div>
+            <i className="ki-duotone ki-calendar-8 text-gray-500 lh-0 fs-2 ms-2 me-0">
+                <span className="path1"></span>
+                <span className="path2"></span>
+                <span className="path3"></span>
+                <span className="path4"></span>
+                <span className="path5"></span>
+                <span className="path6"></span>
+            </i>
+        </div>
 
         {touched && error && (
             <div className='fv-plugins-message-container'>

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import Skeleton from "react-loading-skeleton";
-import 'react-loading-skeleton/dist/skeleton.css'
+import {WithChildren} from "../../_metronic/helpers";
+import {CustomSkeleton} from "./CustomSkeleton.tsx";
 
 type Props = {
   count?: number
@@ -9,7 +9,7 @@ type Props = {
   description?:boolean
 }
 
-const CardLoaderWidget: React.FC<Props> = ({
+const CardLoaderWidget: React.FC<Props & WithChildren> = ({
   count=1, className='col-xl-3 mb-5',
   description=true,
   children
@@ -27,11 +27,11 @@ const CardLoaderWidget: React.FC<Props> = ({
               {/* begin::Body */}
               <div className="card-body">
           <span className={"svg-icon svg-icon-3x ms-n1"}>
-            <Skeleton circle={true} width={40} height={40} />
+            <CustomSkeleton {... { circle:true, width:40, height:40}} />
           </span>
                 {/* end::Svg Icon */}
-                <div className={"fw-bolder fs-2 mb-2 mt-5"}><Skeleton /></div>
-                {description && <div className={"fw-bold "}><Skeleton /></div>}
+                <div className={"fw-bolder fs-2 mb-2 mt-5"}><CustomSkeleton /></div>
+                {description && <div className={"fw-bold "}><CustomSkeleton /></div>}
                 {children}
               </div>
               {/* end::Body */}
